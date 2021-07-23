@@ -117,7 +117,12 @@ const Login = () => {
               />
             </section>
             <aside style={{ height: "40px" }}></aside>
-            <ButtonContainer width={"100%"}>Sign In</ButtonContainer>
+            <ButtonContainer
+              onClick={() => history.push("/dashboard")}
+              width={"100%"}
+            >
+              Sign In
+            </ButtonContainer>
           </FormContainer>
           <Terms>
             Forgot Password?{" "}

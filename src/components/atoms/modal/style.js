@@ -11,11 +11,11 @@ export const Tint = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  width: calc(640px - 80px);
+  width: calc(600px - 80px);
   height: fit-content;
   border-radius: 8px;
   background: #fff;
-  padding: 40px 40px;
+  padding: 30px 40px;
   z-index: 3;
   position: fixed;
   top: 50%;

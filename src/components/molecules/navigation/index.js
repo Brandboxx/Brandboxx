@@ -8,15 +8,23 @@ const Navigation = () => {
   const [navigation, setNavigation] = useState([
     {
       name: "Dashboard",
-      route: "",
+      route: "/dashboard",
       img: "/assets/svg/navigation/dashboard.svg",
+      alt: "/assets/svg/navigation/althome.svg",
     },
     {
       name: "Pocket Plans",
-      route: "",
+      route: "/pocket_plans",
       img: "/assets/svg/navigation/user.svg",
+      alt: "/assets/svg/navigation/althome.svg",
     },
-    { name: "Account", route: "", img: "/assets/svg/navigation/plans.svg" },
+
+    {
+      name: "Account",
+      route: "/account",
+      img: "/assets/svg/navigation/plans.svg",
+      alt: "/assets/svg/navigation/althome.svg",
+    },
   ]);
 
   return (

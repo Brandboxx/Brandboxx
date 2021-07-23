@@ -34,7 +34,12 @@ const SignUp = () => {
             />
           </div>
           <aside style={{ height: "40px" }}></aside>
-          <ButtonContainer width={"100%"}>Sign Up</ButtonContainer>
+          <ButtonContainer
+            onClick={() => history.push("/dashboard")}
+            width={"100%"}
+          >
+            Sign Up
+          </ButtonContainer>
         </FormContainer>
         <Terms>
           By signing up, you agree to our <span>Terms and Conditions</span>

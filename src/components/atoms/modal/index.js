@@ -1,9 +1,9 @@
 import { Container, Tint, ModalContainer } from "./style";
 
-const Modal = ({ children }) => {
+const Modal = ({ children, setModal }) => {
   return (
     <Container>
-      <Tint />
+      <Tint onClick={() => setModal(false)} />
       <ModalContainer>{children || "modal elements"}</ModalContainer>
     </Container>
   );

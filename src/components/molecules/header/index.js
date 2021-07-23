@@ -1,7 +1,7 @@
 import { ButtonContainer } from "../../../containers";
 import { Container, Profile, ProfileContainer, Hand } from "./style";
 
-const Header = () => {
+const Header = ({ setModal }) => {
   return (
     <Container>
       <ProfileContainer>
@@ -23,7 +23,9 @@ const Header = () => {
         style={{ marginRight: "30px" }}
         alt={""}
       />
-      <ButtonContainer width={"196px"}>Fast Save</ButtonContainer>
+      <ButtonContainer onClick={() => setModal(true)} width={"196px"}>
+        Fast Save
+      </ButtonContainer>
     </Container>
   );
 };

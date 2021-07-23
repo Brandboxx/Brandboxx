@@ -1,4 +1,4 @@
-import { Navigation, Header } from "../../../components";
+import { Navigation } from "../../../components";
 
 import { Container, Nav, Info } from "./style";
 
@@ -9,10 +9,7 @@ const MainLayout = ({ children }) => {
         <Navigation />
       </Nav>
 
-      <Info>
-        <Header />
-        {children}
-      </Info>
+      <Info>{children}</Info>
     </Container>
   );
 };

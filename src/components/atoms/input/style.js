@@ -14,7 +14,7 @@ export const TextField = styled.input`
   width: calc(100% - 40px);
   border: 1px solid #32343875;
   height: 50px;
-  border-radius: 5px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   margin-top: 10px;

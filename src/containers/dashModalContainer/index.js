@@ -1,39 +1,70 @@
 import React, { useState } from "react";
 
 import { Modal } from "../../components";
-// import { InputContainer } from "../../containers";
-
 import { FastSave, AddCard, SelectCard } from "./components";
+import { SpanContainer, Span, ActiveSpan } from "./style";
 
-const modalRenders = [
-  {
-    id: 1,
-    component: <FastSave />,
-  },
-  {
-    id: 2,
-    component: <SelectCard />,
-  },
-  {
-    id: 3,
-    component: <AddCard />,
-  },
-];
-
-const renderSpan = () => {
-  modalRenders.map((render) => <span>{render}</span>);
-};
-
-const DashModalContainer = ({ setModal }) => {
+const DashModalContainer = ({ setModal, setSuccessModal }) => {
   const [currentId, setCurrentId] = useState(1);
 
+  const [fastSave, setFastSave] = useState(false);
+
+  const handleFastSave = () => {
+    setFastSave(true);
+    setCurrentId(4);
+  };
+
+  const modalRenders = [
+    {
+      id: 1,
+      component: <FastSave setCurrentId={setCurrentId} fastSave={fastSave} />,
+    },
+    {
+      id: 2,
+      component: <SelectCard setCurrentId={setCurrentId} />,
+    },
+    {
+      id: 3,
+      component: <AddCard handleFastSave={handleFastSave} />,
+    },
+    {
+      id: 4,
+      component: (
+        <FastSave
+          setCurrentId={setCurrentId}
+          setSuccessModal={setSuccessModal}
+          setModal={setModal}
+        />
+      ),
+    },
+  ];
+
+  const handleBack = () => {
+    if (currentId === 1) {
+      setCurrentId(1);
+      setFastSave(false);
+    } else {
+      setCurrentId(currentId - 1);
+    }
+  };
+
   return (
-    <Modal>
+    <Modal setModal={setModal}>
       <div style={{ display: "flex" }}>
+        {currentId !== 1 ? (
+          <img
+            onClick={handleBack}
+            style={{ cursor: "pointer", marginTop: "10px" }}
+            src={"/assets/svg/modal/back.svg"}
+            alt={""}
+          />
+        ) : (
+          ""
+        )}
         <div style={{ flex: 1 }}></div>
         <img
           onClick={() => setModal(false)}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", marginTop: "10px" }}
           src={"/assets/svg/close.svg"}
           alt={""}
         />
@@ -47,41 +78,17 @@ const DashModalContainer = ({ setModal }) => {
         .map((renderer, i) => (
           <div key={i}>{renderer.component}</div>
         ))}
-      <div>{renderSpan()}</div>
+      <SpanContainer>
+        {modalRenders.map((render) =>
+          currentId === render.id ? (
+            <ActiveSpan key={render.id} />
+          ) : (
+            <Span key={render.id} />
+          )
+        )}
+      </SpanContainer>
     </Modal>
   );
 };
 
 export { DashModalContainer };
-
-{
-  /* <div style={{ display: "flex" }}>
-        <div style={{ flex: 1 }}></div>
-        <img
-          onClick={() => setModal(false)}
-          style={{ cursor: "pointer" }}
-          src={"/assets/svg/close.svg"}
-          alt={""}
-        />
-      </div>
-      <h3 style={{ fontSize: "36px", color: "#149A9B", paddingBottom: "5px" }}>
-        Fast Save
-      </h3>
-      <p style={{ color: "rgba(50, 52, 56, 0.6)" }}>
-        Enter an amount and pocket plan to save to
-      </p>
-      <div style={{ width: "70%", paddingTop: "20px" }}>
-        {" "}
-        <InputContainer
-          label={"What amount do you want to save"}
-          width={"100%"}
-        />
-      </div>{" "}
-      <div style={{ width: "70%", paddingTop: "20px" }}>
-        <InputContainer
-          label={"Which pocket plan do you want to save to?"}
-          width={"100%"}
-        />
-      </div>
-      <p style={{marginTop: "20px"}}>Select the saving method that you prefer</p> */
-}
