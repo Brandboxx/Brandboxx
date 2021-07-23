@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const SideNavigation = styled.nav`
   width: 251px;
@@ -20,9 +20,11 @@ export const LogoContainer = styled.div`
 export const LinkContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 0px 30px;
   margin-left: 20px;
   cursor: pointer;
+  margin-top: 20px;
+  height: 50px;
 
   &:nth-child(2) {
     margin-top: 50px;
@@ -37,5 +39,36 @@ export const LinkContainer = styled.div`
     margin-left: 15px;
     font-size: 16px;
     color: #ffffff;
+  }
+`;
+
+export const ActiveLink = styled.div`
+  border-left: 3px solid #fff;
+  display: flex;
+  padding: 0px 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  height: 50px;
+
+  &:nth-child(2) {
+    margin-top: 50px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #fff;
+    border-radius: 5px;
+    height: 100%;
+    padding: 0px 0px;
+    width: 150px;
+  }
+
+  p {
+    margin-left: 15px;
+    font-size: 16px;
+    color: #149a9b;
   }
 `;
