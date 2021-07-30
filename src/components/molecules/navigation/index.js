@@ -39,9 +39,9 @@ const Navigation = () => {
   ]);
 
   const handleCurrentId = (id, route) => {
+    history.push(route);
     setCurrentId(id);
-    // history.push(route);
-    console.log(currentId)
+    console.log(currentId);
   };
 
   return (

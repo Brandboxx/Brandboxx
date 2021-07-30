@@ -18,6 +18,7 @@ const AuthLayout = ({ text, children }) => {
           </p>
         </div>
       </main>
+
       <aside>{children}</aside>
     </Container>
   );

@@ -102,7 +102,7 @@ const Login = () => {
         <></>
       )}
       <AuthLayout text={"Login"}>
-        <div>
+        <div style={{ maxWidth: "768px", margin: "0px auto" }}>
           <FormContainer>
             <section>
               <InputContainer

@@ -6,3 +6,6 @@ export * from "./tab";
 export * from "./chart";
 export * from "./modal";
 export * from "./successModal";
+export * from "./goBack";
+export * from "./priceDetailHeader";
+export * from "./pocketCards";

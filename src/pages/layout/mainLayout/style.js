@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const Container = styled.div`
   display: flex;
@@ -14,4 +14,6 @@ export const Nav = styled.div`
 
 export const Info = styled.div`
   flex: 1 1 100%;
+  max-width: 1100px;
+  margin: 0px auto;
 `;
