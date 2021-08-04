@@ -6,3 +6,5 @@ export * from "./layout";
 export * from "./dashboard";
 export * from "./account";
 export * from "./pocketPlans";
+export * from "./flexPocket";
+export * from "./addMoney";

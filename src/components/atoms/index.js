@@ -9,3 +9,5 @@ export * from "./successModal";
 export * from "./goBack";
 export * from "./priceDetailHeader";
 export * from "./pocketCards";
+export * from "./bigCard";
+export * from "./smallCard";

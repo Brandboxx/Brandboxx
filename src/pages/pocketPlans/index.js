@@ -1,8 +1,14 @@
+import { useHistory } from "react-router-dom";
+
 import { PriceDetailHeader, PocketCards } from "../../components";
 import { MainLayout } from "../../pages";
 import { Wrapper, Header, Padding, CardContainer } from "./style";
 
+import * as ROUTES from "../../constants/routes";
+
 const PocketPlans = () => {
+  const history = useHistory();
+
   return (
     <MainLayout>
       <Wrapper>
@@ -18,10 +24,11 @@ const PocketPlans = () => {
         </Padding>
         <CardContainer>
           <PocketCards
+            onClick={() => history.push(ROUTES.FLEXPOCKET)}
             img={"/assets/svg/plan3.svg"}
             title={"Flex Pocket "}
             text={
-              "Flexible savings that alllows you to deposit and withdraw whenever you wish"
+              "Flexible savings that allows you to deposit and withdraw whenever you wish"
             }
             stat={"25%"}
             amount={"100,000"}
@@ -39,7 +46,7 @@ const PocketPlans = () => {
             bg={"#FFF1E6"}
             cl={"#FB7106"}
           />
-           <PocketCards
+          <PocketCards
             img={"/assets/svg/plan2.svg"}
             title={"Target Pocket"}
             text={

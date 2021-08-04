@@ -2,7 +2,13 @@ import React, { useState } from "react";
 
 import { InputContainer, ButtonContainer } from "../../../containers";
 
-const FastSave = ({ fastSave, setCurrentId, setSuccessModal, setModal }) => {
+const FastSave = ({
+  fastSave,
+  setCurrentId,
+  setSuccessModal,
+  setModal,
+  currentId,
+}) => {
   const [select, setSelect] = useState(null);
 
   const successModal = () => {
@@ -103,7 +109,11 @@ const FastSave = ({ fastSave, setCurrentId, setSuccessModal, setModal }) => {
       )}
       <div style={{ marginTop: fastSave ? "80px" : "40px" }}>
         <ButtonContainer
-          onClick={fastSave === false ? () => setCurrentId(2) : successModal}
+          onClick={
+            fastSave === false
+              ? () => setCurrentId(currentId + 1)
+              : successModal
+          }
           width={"100%"}
         >
           Continue

@@ -10,6 +10,8 @@ import {
   Dashboard,
   PocketPlans,
   Account,
+  FlexPocket,
+  AddMoney
 } from "./pages";
 
 const AppRouter = () => {
@@ -22,6 +24,8 @@ const AppRouter = () => {
       <Route exact component={Dashboard} path={ROUTES.DASHBOARD} />
       <Route exact component={Account} path={ROUTES.ACCOUNT} />
       <Route exact component={PocketPlans} path={ROUTES.POCKETPLANS} />
+      <Route exact component={FlexPocket} path={ROUTES.FLEXPOCKET} />
+      <Route exact component={AddMoney} path={ROUTES.ADDMONEY}/>
     </Router>
   );
 };

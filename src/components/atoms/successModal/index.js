@@ -53,7 +53,12 @@ const SuccessModal = ({ setSuccessModal }) => {
             Successful
           </h3>
           <p
-            style={{ color: "#323438", textAlign: "center", marginTop: "10px" }}
+            style={{
+              color: "#323438",
+              textAlign: "center",
+              marginTop: "10px",
+              lineHeight: "25px",
+            }}
           >
             Your flex pocket have been
             <br /> successfully credited with N50,000

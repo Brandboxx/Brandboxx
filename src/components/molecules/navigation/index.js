@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { Logo } from "../../../components";
 
@@ -14,9 +14,11 @@ import {
 const Navigation = () => {
   const history = useHistory();
 
-  const [currentId, setCurrentId] = useState(1);
+  const location = useLocation();
 
-  const [navigation, setNavigation] = useState([
+  const [currentId, setCurrentId] = useState("");
+
+  const navigation = [
     {
       name: "Dashboard",
       route: "/dashboard",
@@ -36,12 +38,20 @@ const Navigation = () => {
       img: "/assets/svg/navigation/plans.svg",
       alt: "/assets/svg/navigation/altuser.svg",
     },
-  ]);
+  ];
 
-  const handleCurrentId = (id, route) => {
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setCurrentId("/dashboard");
+    } else if (location.pathname === "/pocket_plans") {
+      setCurrentId("/pocket_plans");
+    } else if (location.pathname === "/account") {
+      setCurrentId("/account");
+    }
+  }, [location]);
+
+  const handleCurrentId = (route) => {
     history.push(route);
-    setCurrentId(id);
-    console.log(currentId);
   };
 
   return (
@@ -51,16 +61,16 @@ const Navigation = () => {
       </LogoContainer>
 
       {navigation.map((navigation, i) =>
-        currentId === i + 1 ? (
+        currentId === navigation.route ? (
           <ActiveLink>
             <div>
-              <img src={navigation.alt} />
+              <img src={navigation.alt} alt={""}/>
               <p>{navigation.name}</p>
             </div>
           </ActiveLink>
         ) : (
           <LinkContainer
-            onClick={() => handleCurrentId(i + 1, navigation.route)}
+            onClick={() => handleCurrentId(navigation.route)}
             key={i}
           >
             <img src={navigation.img} alt={""} />

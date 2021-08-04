@@ -5,3 +5,5 @@ export const LOGIN = "/login";
 export const DASHBOARD = "/dashboard";
 export const ACCOUNT = "/account";
 export const POCKETPLANS = "/pocket_plans";
+export const FLEXPOCKET = "/pocket_plans/flex_pocket";
+export const ADDMONEY = "/pocket_plans/add_money";

@@ -4,7 +4,7 @@ import { ButtonContainer } from "../../../containers";
 
 import { SelectType, AddCardDetails } from "../style";
 
-const SelectCard = ({setCurrentId}) => {
+const SelectCard = ({ setCurrentId, currentId }) => {
   const [select, setSelect] = useState(false);
 
   return (
@@ -53,7 +53,12 @@ const SelectCard = ({setCurrentId}) => {
       </AddCardDetails>
 
       <div style={{ marginTop: "160px" }}>
-        <ButtonContainer onClick={()=>setCurrentId(3)} width={"100%"}>Continue</ButtonContainer>
+        <ButtonContainer
+          onClick={() => setCurrentId(currentId + 1)}
+          width={"100%"}
+        >
+          Continue
+        </ButtonContainer>
       </div>
     </div>
   );

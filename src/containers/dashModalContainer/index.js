@@ -17,11 +17,19 @@ const DashModalContainer = ({ setModal, setSuccessModal }) => {
   const modalRenders = [
     {
       id: 1,
-      component: <FastSave setCurrentId={setCurrentId} fastSave={fastSave} />,
+      component: (
+        <FastSave
+          setCurrentId={setCurrentId}
+          currentId={currentId}
+          fastSave={fastSave}
+        />
+      ),
     },
     {
       id: 2,
-      component: <SelectCard setCurrentId={setCurrentId} />,
+      component: (
+        <SelectCard setCurrentId={setCurrentId} currentId={currentId} />
+      ),
     },
     {
       id: 3,
