@@ -19,7 +19,7 @@ const FlexPocket = () => {
 
   return (
     <MainLayout>
-      <div style={{ marginTop: "35px", marginLeft:"30px" }}>
+      <div style={{ marginTop: "35px", marginLeft: "30px" }}>
         <GoBack title={"Go Back"} route={POCKETPLANS} />
       </div>
       <Container>
@@ -32,7 +32,19 @@ const FlexPocket = () => {
         </Header>
         <CardsContainer>
           <div style={{ width: "55%" }}>
-            <BigCard handleClick={() => history.push(ADDMONEY)} />
+            <BigCard
+              bg={"rgba(231, 245, 245, 1)"}
+              cl={"rgba(20, 154, 155, 1)"}
+              title={"Flex Pocket Balance"}
+              text={
+                "Flexible savings that alllows you to deposit and withdraw whenever you wish"
+              }
+              img={"/assets/svg/bigLogo.svg"}
+              amount={"100,000"}
+              icon={"/assets/svg/withdraw.svg"}
+              btnText={"Withdraw"}
+              handleClick={() => history.push(ADDMONEY)}
+            />
           </div>
           <div style={{ width: "35%", marginTop: "30px" }}>
             <h1>Pocket Plans</h1>

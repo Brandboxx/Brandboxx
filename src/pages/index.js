@@ -8,3 +8,6 @@ export * from "./account";
 export * from "./pocketPlans";
 export * from "./flexPocket";
 export * from "./addMoney";
+export * from "./lockPocket";
+
+export * from "./lockPocket/pages";

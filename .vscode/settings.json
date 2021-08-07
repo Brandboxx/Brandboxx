@@ -3,7 +3,13 @@
         "addmoney",
         "centerpocket",
         "flexpocket",
+        "lockfunds",
+        "lockpage",
+        "lockpocket",
+        "lockreview",
+        "pocketmoney",
         "pocketplans",
-        "preconnect"
+        "preconnect",
+        "yipee"
     ]
 }

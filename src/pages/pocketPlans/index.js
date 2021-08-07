@@ -36,6 +36,7 @@ const PocketPlans = () => {
             cl={"#149A9B"}
           />
           <PocketCards
+            onClick={() => history.push(ROUTES.LOCKPOCKET)}
             img={"/assets/svg/plan1.svg"}
             title={"Lock Pocket "}
             text={

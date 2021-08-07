@@ -8,30 +8,42 @@ import {
   Content,
 } from "./style";
 
-const BigCard = ({ handleClick }) => {
+const BigCard = ({
+  handleClick,
+  bg,
+  cl,
+  title,
+  text,
+  img,
+  amount,
+  icon,
+  btnText,
+  onClick
+}) => {
   return (
-    <Container>
+    <Container bg={bg}>
       <CardHeader>
         <div>
-          <TopHead>Flex Pocket Balance</TopHead>
-          <Amount>N100,000</Amount>
+          <TopHead cl={cl}>{title}</TopHead>
+          <Amount cl={cl}>N{amount}</Amount>
         </div>
-        <img src={"/assets/svg/bigLogo.svg"} alt={""} />
+        <img src={img} alt={""} />
       </CardHeader>
       <div style={{ display: "flex" }}>
-        <Button onClick={handleClick}>
-          <img src={"/assets/svg/add.svg"} alt={""} />
-          <p>Add Money</p>
-        </Button>
-        <AltButton>
-          <img src={"/assets/svg/withdraw.svg"} alt={""} />
-          <p>Withdraw</p>
+        {title === "Flex Pocket Balance" ? (
+          <Button onClick={handleClick}>
+            <img src={"/assets/svg/add.svg"} alt={""} />
+            <p>Add Money</p>
+          </Button>
+        ) : (
+          ""
+        )}
+        <AltButton  onClick={onClick} cl={cl}>
+          <img src={icon} alt={""} />
+          <p>{btnText}</p>
         </AltButton>
       </div>
-      <Content>
-        Flexible savings that alllows you to deposit and withdraw
-        <br /> whenever you wish
-      </Content>
+      <Content>{text}</Content>
     </Container>
   );
 };

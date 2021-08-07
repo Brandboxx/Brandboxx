@@ -62,7 +62,7 @@ const Navigation = () => {
 
       {navigation.map((navigation, i) =>
         currentId === navigation.route ? (
-          <ActiveLink>
+          <ActiveLink key={i}>
             <div>
               <img src={navigation.alt} alt={""}/>
               <p>{navigation.name}</p>

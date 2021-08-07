@@ -11,3 +11,5 @@ export * from "./priceDetailHeader";
 export * from "./pocketCards";
 export * from "./bigCard";
 export * from "./smallCard";
+export * from "./smallModal";
+export * from "./bankCard";

@@ -11,7 +11,12 @@ import {
   PocketPlans,
   Account,
   FlexPocket,
-  AddMoney
+  AddMoney,
+  LockPocket,
+  LockPage,
+  LockPreview,
+  WithDraw,
+  LockFunds,
 } from "./pages";
 
 const AppRouter = () => {
@@ -25,7 +30,12 @@ const AppRouter = () => {
       <Route exact component={Account} path={ROUTES.ACCOUNT} />
       <Route exact component={PocketPlans} path={ROUTES.POCKETPLANS} />
       <Route exact component={FlexPocket} path={ROUTES.FLEXPOCKET} />
-      <Route exact component={AddMoney} path={ROUTES.ADDMONEY}/>
+      <Route exact component={AddMoney} path={ROUTES.ADDMONEY} />
+      <Route exact component={LockPocket} path={ROUTES.LOCKPOCKET} />
+      <Route exact component={LockPage} path={ROUTES.LOCKPAGE} />
+      <Route exact component={LockPreview} path={ROUTES.LOCKREVIEW} />
+      <Route exact component={WithDraw} path={ROUTES.WITHDRAW} />
+      <Route exact component={LockFunds} path={ROUTES.LOCKFUNDS} />
     </Router>
   );
 };
