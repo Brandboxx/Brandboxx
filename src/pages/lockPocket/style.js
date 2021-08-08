@@ -34,6 +34,7 @@ export const ActiveTab = styled.button`
   background: rgba(251, 113, 6, 1);
   width: 94px;
   border: none;
+  border-radius: 10px;
 
   p {
     color: #fff;

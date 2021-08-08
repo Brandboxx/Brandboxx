@@ -17,6 +17,10 @@ import {
   LockPreview,
   WithDraw,
   LockFunds,
+  TargetPocket,
+  TargetSave,
+  TargetReview,
+  TargetWithDraw,
 } from "./pages";
 
 const AppRouter = () => {
@@ -36,6 +40,10 @@ const AppRouter = () => {
       <Route exact component={LockPreview} path={ROUTES.LOCKREVIEW} />
       <Route exact component={WithDraw} path={ROUTES.WITHDRAW} />
       <Route exact component={LockFunds} path={ROUTES.LOCKFUNDS} />
+      <Route exact component={TargetPocket} path={ROUTES.TARGETPOCKET} />
+      <Route exact component={TargetSave} path={ROUTES.TARGETSAVE} />
+      <Route exact component={TargetReview} path={ROUTES.TARGETREVIEW} />
+      <Route exact component={TargetWithDraw} path={ROUTES.TARGETWITHDRAW} />
     </Router>
   );
 };

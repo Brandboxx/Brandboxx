@@ -10,6 +10,10 @@
         "pocketmoney",
         "pocketplans",
         "preconnect",
+        "targetpocket",
+        "targetreview",
+        "targetsave",
+        "targetwithdraw",
         "yipee"
     ]
 }

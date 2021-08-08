@@ -4,14 +4,13 @@ import styled from "styled-components/macro";
 
 import { GoBack } from "../../../components";
 
-import { WithdrawModal } from "../components";
+import { WithdrawModal } from "../../lockPocket/components";
 
 import { MainLayout } from "../../layout";
 
-import { LOCKREVIEW, LOCKFUNDS } from "../../../constants/routes";
+import { TARGETREVIEW, LOCKFUNDS } from "../../../constants/routes";
 
-const WithDraw = () => {
-
+const TargetWithDraw = () => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -19,17 +18,17 @@ const WithDraw = () => {
       {modal ? <WithdrawModal setModal={setModal} route={LOCKFUNDS} /> : null}
       <MainLayout>
         <Container>
-          <GoBack title={"Go back"} route={LOCKREVIEW} />
+          <GoBack title={"Go back"} route={TARGETREVIEW} />
 
           <Header>
-            Your funds are
-            <br /> safely locked !
+            Meet your saving <br />
+            goals !
           </Header>
 
           <Card>
             <CardHeader>
-              <p>Laptop Lock</p>
-              <img src={"/assets/svg/plan1.svg"} alt={""} />
+              <p>Laptop Target</p>
+              <img src={"/assets/svg/plan2.svg"} alt={""} />
             </CardHeader>
 
             <Info>
@@ -38,8 +37,8 @@ const WithDraw = () => {
                 <InfoBigText>N100,000</InfoBigText>
               </div>
               <div>
-                <InfoHeader>Duration</InfoHeader>
-                <InfoText>3 months</InfoText>
+                <InfoHeader>Target Amount</InfoHeader>
+                <InfoText>200,000</InfoText>
               </div>
             </Info>
 
@@ -47,21 +46,24 @@ const WithDraw = () => {
 
             <Info>
               <div>
-                <InfoHeader>Lock Date</InfoHeader>
-                <InfoText>6th April 2021</InfoText>
+                <InfoHeader>Status</InfoHeader>
+                <InfoText>Ongoing</InfoText>
               </div>
               <div>
-                <InfoHeader>Maturity Date</InfoHeader>
-                <InfoText>6th July 2021</InfoText>
+                <InfoHeader>Method of payment</InfoHeader>
+                <InfoText>Weekly</InfoText>
               </div>
             </Info>
 
             <Info>
               <div>
-                <InfoHeader>Status </InfoHeader>
-                <InfoText>Ongoing</InfoText>
+                <InfoHeader>Start Date </InfoHeader>
+                <InfoText>6th Feb, 2021</InfoText>
               </div>
-              <div></div>
+              <div>
+                <InfoHeader>End Date </InfoHeader>
+                <InfoText>6th April, 2021</InfoText>
+              </div>
             </Info>
           </Card>
         </Container>
@@ -81,7 +83,7 @@ const Header = styled.h1`
 `;
 
 const Card = styled.div`
-  background-color: rgba(255, 241, 230, 1);
+  background-color: rgba(239, 236, 240, 1);
   border: 5px;
   padding: 50px 60px;
   padding-right: 140px;
@@ -113,7 +115,7 @@ const Info = styled.div`
 `;
 
 const InfoHeader = styled.p`
-  color: rgba(251, 113, 6, 1);
+  color: rgba(107, 31, 131, 1);
   font-size: 14px;
 `;
 
@@ -124,7 +126,7 @@ const AltInfoHeader = styled.p`
 
 const InfoBigText = styled.h3`
   font-size: 20px;
-  color: rgba(251, 113, 6, 1);
+  color: rgba(107, 31, 131, 1);
   margin-top: 5px;
 `;
 
@@ -135,12 +137,12 @@ const InfoText = styled.p`
 const Button = styled.button`
   padding: 5px 15px;
   border-radius: 5px;
-  color: rgba(251, 113, 6, 1);
-  border: 1px solid rgba(251, 113, 6, 1);
+  color: rgba(107, 31, 131, 1);
+  border: 1px solid rgba(107, 31, 131, 1);
   font-size: 12px;
   margin-top: 30px;
   background: transparent;
   cursor: pointer;
 `;
 
-export { WithDraw };
+export { TargetWithDraw };

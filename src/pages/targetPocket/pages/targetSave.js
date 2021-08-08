@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import {useHistory} from "react-router-dom";
+
 import {
   Container,
   TextInfo,
@@ -7,20 +9,44 @@ import {
   ToggleBadges,
   Badge,
   Interest,
-} from "./style";
+} from "../../lockPocket/pages/style";
 
-import { LockModal } from "../components";
+import { LockModal } from "../../lockPocket/components";
 
 import { GoBack } from "../../../components";
 
 import { InputContainer, ButtonContainer } from "../../../containers";
 import { MainLayout } from "../../layout";
 
-import { LOCKPOCKET, LOCKREVIEW } from "../../../constants/routes";
-import { useHistory } from "react-router-dom";
+import {LOCKPOCKET, TARGETREVIEW} from "../../../constants/routes"
 
-const LockPage = () => {
+const TargetSave = () => {
+  const history = useHistory();
+
   const badges = [
+    {
+      id: 1,
+      number: 3,
+      unit: "months",
+    },
+    {
+      id: 2,
+      number: 6,
+      unit: "months",
+    },
+    {
+      id: 3,
+      number: 9,
+      unit: "months",
+    },
+    {
+      id: 4,
+      number: 1,
+      unit: "year",
+    },
+  ];
+
+  const otherBadges = [
     {
       id: 1,
       number: 3,
@@ -46,8 +72,6 @@ const LockPage = () => {
   const [modal, setModal] = useState(false);
   const [currentId, setCurrentId] = useState(1);
 
-  const history = useHistory();
-
   const getCurrentId = (id) => {
     setCurrentId(id);
   };
@@ -62,8 +86,8 @@ const LockPage = () => {
         <Container>
           <TextInfo>
             <h1 style={{ paddingBottom: "20px" }}>
-              Lock Your <br />
-              Money
+              Set Target To
+              <br /> Save for
             </h1>
             <p style={{ lineHeight: "25px", color: "rgba(50, 52, 56, 0.6)" }}>
               keep money aside out of arms reach for as long as you desire, and
@@ -77,8 +101,8 @@ const LockPage = () => {
             />
             <div style={{ marginTop: "50px" }}>
               <InputContainer
-                placeHolder={"Enter Title of Lock"}
-                label={"How much do you want to lock?"}
+                placeHolder={"Enter amount to target"}
+                label={"How much do you want to target?"}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
@@ -106,9 +130,7 @@ const LockPage = () => {
               <InputContainer placeHolder={"Enter your choice"} />
             </div>
             <Interest>
-              <p>Interest Rate: 25%</p>
-              <p> Maturity Date: Jul 20, 2021 </p>
-              <p>Estimated Amount: N10,031</p>
+              <p>N5,000 x 30days = N150,000</p>
             </Interest>
             <div
               style={{
@@ -129,14 +151,65 @@ const LockPage = () => {
                 alt={""}
               />
               <InputContainer
-                value={"Flex pocket (N200,000)"}
-                label={"Choose payment method"}
+                value={"21/05/2021"}
+                label={"What date would you start saving?"}
                 onClick={() => setModal(true)}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
-              <ButtonContainer width="100%" onClick={() => history.push(LOCKREVIEW)}>
-                See review
+              <p>Set date to meet target</p>
+              <ToggleBadges>
+                {otherBadges.map((badge) => (
+                  <Badge
+                    onClick={() => getCurrentId(badge.id)}
+                    bg={
+                      currentId === badge.id
+                        ? "rgba(90, 176, 255, 0.1)"
+                        : "rgba(50, 52, 56, 0.05)"
+                    }
+                    cl={
+                      currentId === badge.id
+                        ? "rgba(20, 154, 155, 1)"
+                        : "rgba(50, 52, 56, 0.8)"
+                    }
+                    key={badge.id}
+                  >
+                    {badge.number + " " + badge.unit}
+                  </Badge>
+                ))}
+              </ToggleBadges>
+              <InputContainer placeHolder={"Add your choice date"} />
+            </div>
+            <div
+              style={{
+                marginTop: "50px",
+                position: "relative",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                onClick={() => setModal(true)}
+                style={{
+                  position: "absolute",
+                  right: "20px",
+                  top: "50px",
+                  cursor: "pointer",
+                }}
+                src={"/assets/svg/chevronDown.svg"}
+                alt={""}
+              />
+              <InputContainer
+                value={"Flex pocket (N200,000)"}
+                label={"What date would you start saving?"}
+                onClick={() => setModal(true)}
+              />
+            </div>
+            <div style={{ marginTop: "50px" }}>
+              <ButtonContainer
+                onClick={() => history.push(TARGETREVIEW)}
+                width="100%"
+              >
+                See Preview
               </ButtonContainer>
             </div>
           </InputBox>
@@ -146,4 +219,4 @@ const LockPage = () => {
   );
 };
 
-export { LockPage };
+export { TargetSave };

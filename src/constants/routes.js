@@ -12,3 +12,7 @@ export const LOCKPAGE = "/pocket_plans/lock_page";
 export const LOCKREVIEW = "/pocket_plans/lock_review";
 export const WITHDRAW = "/pocket_plans/withdraw";
 export const LOCKFUNDS = "/pocket_plans/withdraw_locked_funds";
+export const TARGETPOCKET = "/pocket_plans/target_pocket";
+export const TARGETSAVE = "/pocket_plans/target_save";
+export const TARGETREVIEW = "/pocket_plans/target_review";
+export const TARGETWITHDRAW = "/pocket_plans/target_withdraw";

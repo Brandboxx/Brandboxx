@@ -48,6 +48,7 @@ const PocketPlans = () => {
             cl={"#FB7106"}
           />
           <PocketCards
+            onClick={() => history.push(ROUTES.TARGETPOCKET)}
             img={"/assets/svg/plan2.svg"}
             title={"Target Pocket"}
             text={
