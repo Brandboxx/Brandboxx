@@ -65,14 +65,14 @@ const Dashboard = () => {
             <h3>Recent Transactions</h3>
             <div>
               <main>
-                <img src={"/assets/svg/dashCards/up.svg"} />
+                <img src={"/assets/svg/dashCards/up.svg"} alt={""} />
                 <p>Pocket Flex credited</p>
               </main>
               <p>N20,000</p>
             </div>
             <div>
               <main>
-                <img src={"/assets/svg/dashCards/down.svg"} />
+                <img src={"/assets/svg/dashCards/down.svg"} alt={""} />
                 <p>Pocket Flex debited</p>
               </main>
               <p>N20,000</p>

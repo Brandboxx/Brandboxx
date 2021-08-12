@@ -11,7 +11,7 @@ const LandingNavigation = () => {
   return (
     <Container>
       <Logo />
-      <p>Home</p>
+      <p onClick={() => history.push("/dashboard")}>Home</p>
       <p>Plan</p>
       <p>FAQ</p>
       <Spacer />
@@ -23,7 +23,10 @@ const LandingNavigation = () => {
         Login
       </ButtonContainer>
       <div style={{ width: "30px" }} />
-      <ButtonContainer onClick={() => history.push("/register")} width={"100px"}>
+      <ButtonContainer
+        onClick={() => history.push("/register")}
+        width={"100px"}
+      >
         Sign up
       </ButtonContainer>
     </Container>

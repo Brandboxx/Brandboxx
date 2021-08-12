@@ -76,7 +76,7 @@ const FlexPocket = () => {
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
               {" "}
-              <img src={"/assets/svg/credit.svg"} />
+              <img src={"/assets/svg/credit.svg"}  alt={""}/>
               <p style={{ marginLeft: "10px" }}>Flex pocket credited</p>
             </span>
             <p>Thurs 23/10/2020 12:12</p>
@@ -84,7 +84,7 @@ const FlexPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/debit.svg"} />
+              <img src={"/assets/svg/debit.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Flex pocket debited</p>
             </span>
             <p>Thurs 23/10/2020 12:12</p>
@@ -92,7 +92,7 @@ const FlexPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/credit.svg"} />
+              <img src={"/assets/svg/credit.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Flex pocket credited</p>
             </span>
             <p>Thurs 23/10/2020 12:12</p>
@@ -100,7 +100,7 @@ const FlexPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/debit.svg"} />
+              <img src={"/assets/svg/debit.svg"} alt={""}/>
               <p style={{ marginLeft: "10px" }}>Flex pocket debited</p>
             </span>
             <p>Thurs 23/10/2020 12:12</p>

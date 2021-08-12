@@ -64,7 +64,7 @@ const Navigation = () => {
         currentId === navigation.route ? (
           <ActiveLink key={i}>
             <div>
-              <img src={navigation.alt} alt={""}/>
+              <img src={navigation.alt} alt={""} />
               <p>{navigation.name}</p>
             </div>
           </ActiveLink>
@@ -81,7 +81,7 @@ const Navigation = () => {
 
       <LinkContainer>
         <img src={"/assets/svg/navigation/logout.svg"} alt={""} />
-        <p>Logout</p>
+        <p onClick={() => history.push("/")}>Logout</p>
       </LinkContainer>
     </SideNavigation>
   );

@@ -15,8 +15,7 @@ import { POCKETPLANS, TARGETSAVE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
 
 const TargetPocket = () => {
-
-  const history = useHistory()
+  const history = useHistory();
 
   return (
     <MainLayout>
@@ -43,7 +42,7 @@ const TargetPocket = () => {
               icon={"/assets/svg/targetPocket.svg"}
               btnText={"Set New Target"}
               amount={"450,000"}
-                onClick={() => history.push(TARGETSAVE)}
+              onClick={() => history.push(TARGETSAVE)}
             />
           </div>
           <div style={{ width: "35%", marginTop: "30px" }}>
@@ -83,7 +82,7 @@ const TargetPocket = () => {
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
               {" "}
-              <img src={"/assets/svg/circleTarget.svg"} />
+              <img src={"/assets/svg/circleTarget.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Target: N200,000</p>
@@ -96,7 +95,7 @@ const TargetPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleTarget.svg"} />
+              <img src={"/assets/svg/circleTarget.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>House Target</p>
             </span>
             <p>Target: N200,000</p>
@@ -110,7 +109,7 @@ const TargetPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleTarget.svg"} />
+              <img src={"/assets/svg/circleTarget.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Casr Target</p>
             </span>
             <p>Target: N200,000</p>

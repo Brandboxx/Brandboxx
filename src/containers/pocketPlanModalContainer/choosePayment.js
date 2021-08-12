@@ -64,6 +64,7 @@ const ChoosePayment = ({ setModal, setAmount, payMethod, setSuccessModal }) => {
               if (currentId === renderer.id) {
                 return renderer;
               }
+              return false;
             })
             .map((renderer, i) => <div key={i}>{renderer.component}</div>)
         : payModalRenderer
@@ -71,6 +72,7 @@ const ChoosePayment = ({ setModal, setAmount, payMethod, setSuccessModal }) => {
               if (currentId === renderer.id) {
                 return renderer;
               }
+              return false;
             })
             .map((renderer, i) => <div key={i}>{renderer.component}</div>)}
     </Modal>

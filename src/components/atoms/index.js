@@ -13,3 +13,5 @@ export * from "./bigCard";
 export * from "./smallCard";
 export * from "./smallModal";
 export * from "./bankCard";
+export * from "./accountTabs";
+export * from "./toast";

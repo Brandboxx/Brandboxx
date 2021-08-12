@@ -98,7 +98,7 @@ const FastSave = ({
         <div
           style={{ display: "flex", alignItems: "center", padding: "20px 0px" }}
         >
-          <img src={"/assets/svg/modal/master.svg"} />
+          <img src={"/assets/svg/modal/master.svg"} alt={""} />
           <p style={{ marginLeft: "15px" }}>**** **** **** 3947</p>
           <p
             style={{ marginLeft: "30px", color: "#149A9B", cursor: "pointer" }}

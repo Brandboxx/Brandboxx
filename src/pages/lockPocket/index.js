@@ -83,7 +83,7 @@ const LockPocket = () => {
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
               {" "}
-              <img src={"/assets/svg/circleLock.svg"} />
+              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Lock: N200,000</p>
@@ -96,21 +96,7 @@ const LockPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} />
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Lock: N200,000</p>
-            <p>
-              {" "}
-              <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} />
+              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Lock: N200,000</p>
@@ -124,7 +110,21 @@ const LockPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} />
+              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
+              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
+            </span>
+            <p>Lock: N200,000</p>
+            <p>
+              {" "}
+              <span style={{ fontSize: "12px", color: "#FB7106" }}>
+                Interest
+              </span>{" "}
+              N500
+            </p>
+          </Credit>
+          <Credit>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Lock: N200,000</p>
