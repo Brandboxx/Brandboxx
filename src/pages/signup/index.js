@@ -2,7 +2,6 @@ import { useHistory } from "react-router-dom";
 
 import { InputContainer, ButtonContainer } from "../../containers";
 import { AuthLayout } from "../layout";
-
 import { FormContainer, Terms, AuthLink } from "./style";
 
 const SignUp = () => {
@@ -19,7 +18,7 @@ const SignUp = () => {
             <InputContainer label={"Last Name"} placeHolder={"Last Name"} />
           </div>
           <div>
-            <InputContainer label={"Email"} placeHolder={"First Name"} />
+            <InputContainer label={"Email"} placeHolder={"Email"} />
           </div>
           <div>
             <InputContainer
@@ -29,15 +28,13 @@ const SignUp = () => {
           </div>
           <div>
             <InputContainer
+              type="password"
               label={"password"}
               placeHolder={"Enter your secret number"}
             />
           </div>
           <aside style={{ height: "40px" }}></aside>
-          <ButtonContainer
-            onClick={() => history.push("/dashboard")}
-            width={"100%"}
-          >
+          <ButtonContainer type={"submit"} width={"100%"}>
             Sign Up
           </ButtonContainer>
         </FormContainer>

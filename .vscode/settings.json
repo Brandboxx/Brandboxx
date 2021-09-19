@@ -1,8 +1,12 @@
 {
     "cSpell.ignoreWords": [
+        "VERIFYACCOUNT",
         "addmoney",
         "centerpocket",
+        "firstname",
         "flexpocket",
+        "formik",
+        "lastname",
         "lockfunds",
         "lockpage",
         "lockpocket",

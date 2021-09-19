@@ -21,6 +21,7 @@ import {
   TargetSave,
   TargetReview,
   TargetWithDraw,
+  VerifyAccount,
 } from "./pages";
 
 const AppRouter = () => {
@@ -30,6 +31,7 @@ const AppRouter = () => {
       <Route exact component={Components} path={ROUTES.COMPONENT} />
       <Route exact component={SignUp} path={ROUTES.REGISTER} />
       <Route exact component={Login} path={ROUTES.LOGIN} />
+      <Route exact component={VerifyAccount} path={ROUTES.VERIFYACCOUNT} />
       <Route exact component={Dashboard} path={ROUTES.DASHBOARD} />
       <Route exact component={Account} path={ROUTES.ACCOUNT} />
       <Route exact component={PocketPlans} path={ROUTES.POCKETPLANS} />
