@@ -1,19 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Container, Label } from "./style";
 
-const CodeInput = ({ number }) => {
-  const [otp, setOpt] = useState(new Array(number).fill(""));
-
-  const handleChange = (e, index) => {
-    if (isNaN(e.value)) return false;
-
-    setOpt([...otp.map((d, idx) => (idx === index ? e.value : d))]);
-
-    if (e.nextSibling) {
-      e.nextSibling.focus();
-    }
-  };
+const CodeInput = ({ otp, handleChange }) => {
 
   return (
     <div style={{ width: "100%" }}>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { useHistory } from "react-router-dom";
 
 import {
@@ -8,7 +7,6 @@ import {
   AuthModalContainer,
 } from "../../containers";
 import { AuthLayout } from "../layout";
-
 import { FormContainer, Terms, AuthLink } from "../signup/style";
 
 const Login = () => {
@@ -16,7 +14,7 @@ const Login = () => {
 
   const [modal, setModal] = useState(false);
 
-  const [switchModal, setSwitchModal] = useState("email"); // options: email, phoneNumber, verification
+  const [switchModal, setSwitchModal] = useState("email");
 
   const toggleModal = () => {
     setModal(!modal);
@@ -88,12 +86,8 @@ const Login = () => {
             text={
               "Create your new password for Centerpocket and type new password twice."
             }
-            // label={"Phone Number"}
-            // placeHolder={"Enter your phone number"}
             switchTo={switchModal}
-            // clickToSwitch={handleEmailSwitch}
             toggleModal={toggleModal}
-            // handleClick={handleResetPassword}
           />
         ) : (
           <></>
@@ -112,15 +106,13 @@ const Login = () => {
             </section>
             <section>
               <InputContainer
+                type="password"
                 label={"Password"}
                 placeHolder={"Enter your secret number"}
               />
             </section>
             <aside style={{ height: "40px" }}></aside>
-            <ButtonContainer
-              onClick={() => history.push("/dashboard")}
-              width={"100%"}
-            >
+            <ButtonContainer type={"submit"} width={"100%"}>
               Sign In
             </ButtonContainer>
           </FormContainer>
