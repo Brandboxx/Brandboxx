@@ -10,6 +10,7 @@ export * from "./flexPocket";
 export * from "./addMoney";
 export * from "./lockPocket";
 export * from "./targetPocket";
+export * from "./verifyAccount";
 
 export * from "./lockPocket/pages";
 export * from "./targetPocket/pages";

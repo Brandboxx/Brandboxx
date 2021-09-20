@@ -1,3 +1,4 @@
+import { useLocation } from "react-router";
 import { ButtonContainer, InputContainer } from ".";
 import { AuthModal, Logo, CodeInput } from "../components";
 
@@ -10,7 +11,12 @@ const AuthModalContainer = ({
   clickToSwitch,
   switchTo,
   handleClick,
+  handleOtpChange,
+  otp,
+  number,
 }) => {
+  const location = useLocation();
+
   return (
     <AuthModal>
       <AuthModal.HeaderContainer>
@@ -28,14 +34,19 @@ const AuthModalContainer = ({
             {switchTo === "email" || switchTo === "phoneNumber" ? (
               <InputContainer label={label} placeHolder={placeHolder} />
             ) : switchTo === "verification" ? (
-              <CodeInput number={4} />
+              <CodeInput
+                number={number}
+                otp={otp}
+                handleChange={handleOtpChange}
+              />
             ) : switchTo === "reset" ? (
               <>
                 <InputContainer
                   label={"New Password"}
                   placeHolder={"Enter your new password"}
                 />
-                <br /><br/>
+                <br />
+                <br />
                 <InputContainer
                   label={"Confirm New Password"}
                   placeHolder={"Confirm your new password"}
@@ -52,6 +63,9 @@ const AuthModalContainer = ({
               ? "Reset password"
               : switchTo === "verified"
               ? "Send"
+              : switchTo === "verification" &&
+                location.pathname === "/verify_account"
+              ? "Verify Account"
               : "Reset password"}
           </ButtonContainer>
 

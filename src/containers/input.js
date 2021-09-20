@@ -6,6 +6,7 @@ const InputContainer = ({
   placeHolder,
   onChange,
   value,
+  errorText,
   ...rest
 }) => {
   return (
@@ -15,8 +16,10 @@ const InputContainer = ({
         width={width}
         placeholder={placeHolder}
         onChange={onChange}
-        value={value}
+        errorText={errorText}
+        {...rest}
       />
+      <span style={{ color: "#ff0033", fontSize: "12px" }}>{errorText}</span>
     </Input>
   );
 };

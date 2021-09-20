@@ -4,7 +4,6 @@ import { usePostRequest } from "../../api/useRequestProcessor";
 
 import { InputContainer, ButtonContainer } from "../../containers";
 import { AuthLayout } from "../layout";
-
 import { FormContainer, Terms, AuthLink } from "./style";
 import { signUpValidator } from "./validator";
 
@@ -73,6 +72,7 @@ const SignUp = () => {
           </div>
           <div>
             <InputContainer
+              type="password"
               label={"password"}
               onChange={handleChange("password")}
               value={values.password}
