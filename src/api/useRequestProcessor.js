@@ -1,5 +1,5 @@
 import axios from 'axios';
-import NotificationManager from 'react-notifications/lib/NotificationManager';
+// import NotificationManager from 'react-notifications/lib/NotificationManager';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { TOKEN } from '../reduxSetup/constant';
 import { getStorage } from '../utils/storage';
@@ -43,7 +43,7 @@ export const useGetResquest = (url, queryName, enabled = true) => {
         {
             onError: (error) => {
                 console.log(error);
-                NotificationManager.error(error?.errors[0]?.message)
+                // NotificationManager.error(error?.errors[0]?.message)
             },
             enabled
         }
@@ -65,7 +65,7 @@ export const usePostRequest = (url, queryNameToInvalidate) => {
             onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
             onError: (error) => {
                 console.log(error);
-                NotificationManager.error(error?.errors[0]?.message)
+                // NotificationManager.error(error?.errors[0]?.message)
             }
         }
     )
@@ -85,7 +85,7 @@ export const useDeleteRequest = (url, queryNameToInvalidate) => {
             onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
             onError: (error) => {
                 console.log(error);
-                NotificationManager.error(error?.errors[0]?.message)
+                // NotificationManager.error(error?.errors[0]?.message)
             }
         }
     )
@@ -106,7 +106,7 @@ export const usePatchRequest = (url, queryNameToInvalidate, queryCollectionNameT
             onError: (error, _, rollback) => {
                 rollback();
                 console.log(error);
-                NotificationManager.error(error?.errors[0]?.message)
+                // NotificationManager.error(error?.errors[0]?.message)
             },
             onSuccess: async () => {
                 queryClient.refetchQueries(queryNameToInvalidate)
