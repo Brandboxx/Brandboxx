@@ -20,6 +20,10 @@ const VerifyAccount = () => {
     }
   };
 
+  const handleVerify = (payload)=>{
+
+  }
+
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     setEmail(userDetails.email);

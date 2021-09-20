@@ -1,23 +1,29 @@
 import { useFormik } from "formik";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { usePostRequest } from "../../api/useRequestProcessor";
+import { AuthModal } from "../../components";
 
 import { InputContainer, ButtonContainer } from "../../containers";
+import { USER_DETAILS } from "../../reduxSetup/constant";
 import { AuthLayout } from "../layout";
 import { FormContainer, Terms, AuthLink } from "./style";
 import { signUpValidator } from "./validator";
 
 const SignUp = () => {
   const history = useHistory();
-  const { mutate: register } = usePostRequest("/users/register", "register");
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const { mutate: register,data } = usePostRequest("/users/register", "register");
 
   const handleOnSubmit = (values, action) => {
-    console.log({ values });
     register(values, {
       onSuccess: (data) => {
-        console.log({data});
+        console.log({ data });
         action.resetForm();
-        history.push("/dashboard")
+        setShowModal(true);
+        // history.push("/dashboard")
       },
     });
   };
@@ -37,6 +43,7 @@ const SignUp = () => {
   return (
     <AuthLayout text={"Sign Up"}>
       <div>
+        {showModal ? <AuthModal /> : null}
         <FormContainer>
           <div>
             <InputContainer
