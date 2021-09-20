@@ -8,6 +8,7 @@ const Store = ()=>{
     const StoreData = (store) => (next) => (action)=>{
         let result = next(action);
         const saveData = store.getState();
+        delete saveData.app;
         setStorage(CENTER_POCKET,saveData);
         return result
     }
