@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { VerificationComponent } from "../../components";
 
 import {
   InputContainer,
@@ -79,6 +80,8 @@ const Login = () => {
             clickToSwitch={handleEmailSwitch}
             toggleModal={toggleModal}
             handleClick={handleResetPassword}
+            otp={[]}
+            number={5}
           />
         ) : switchModal === "reset" ? (
           <AuthModalContainer
