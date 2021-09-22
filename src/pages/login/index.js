@@ -1,5 +1,8 @@
+import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { usePostRequest } from "../../api/useRequestProcessor";
 import { VerificationComponent } from "../../components";
 
 import {
@@ -7,15 +10,35 @@ import {
   ButtonContainer,
   AuthModalContainer,
 } from "../../containers";
+import { IS_AUTHENTICATED, USER_DETAILS } from "../../reduxSetup/constant";
 import { AuthLayout } from "../layout";
 import { FormContainer, Terms, AuthLink } from "../signup/style";
+import { loginValidator } from "./loginValidator";
 
 const Login = () => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
+  const { mutate: login } = usePostRequest("/users/login", "login");
   const [modal, setModal] = useState(false);
 
   const [switchModal, setSwitchModal] = useState("email");
+
+  const handleOnSubmit = (values, actions) => {
+    login(values, {
+      onSuccess: (response) => {
+        actions.resetForm();
+        dispatch({ type: USER_DETAILS, payload: response.user_data });
+        dispatch({ type: IS_AUTHENTICATED, payload: true });
+        history.replace("/dashboard");
+      },
+    });
+  };
+
+  const { values, errors, handleChange, handleSubmit } = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: loginValidator,
+    onSubmit: handleOnSubmit,
+  });
 
   const toggleModal = () => {
     setModal(!modal);
@@ -104,18 +127,29 @@ const Login = () => {
             <section>
               <InputContainer
                 label={"Email Address"}
+                errorText={errors.email}
+                value={values.email}
+                type={"email"}
+                onChange={handleChange("email")}
                 placeHolder={"Enter your email address"}
               />
             </section>
             <section>
               <InputContainer
                 type="password"
+                errorText={errors.password}
+                value={values.password}
+                onChange={handleChange("password")}
                 label={"Password"}
                 placeHolder={"Enter your secret number"}
               />
             </section>
             <aside style={{ height: "40px" }}></aside>
-            <ButtonContainer type={"submit"} width={"100%"}>
+            <ButtonContainer
+              onClick={handleSubmit}
+              type={"submit"}
+              width={"100%"}
+            >
               Sign In
             </ButtonContainer>
           </FormContainer>
