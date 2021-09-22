@@ -39,7 +39,7 @@ export const VerificationComponent = ({ header, text, closeModal, data }) => {
       onSuccess: (response) => {
         dispatch({ type: USER_DETAILS, payload: response.user_data });
         dispatch({ type: IS_AUTHENTICATED, payload: true });
-        history.push('/dashboard');
+        history.replace('/dashboard');
       },
     });
   };
