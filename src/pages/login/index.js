@@ -1,15 +1,12 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { usePostRequest } from "../../api/useRequestProcessor";
 
-import {ResetPassword, CreatePassword, Verification} from "./containers"
+import { ResetPassword, CreatePassword, Verification } from "./containers";
 
-import {
-  InputContainer,
-  ButtonContainer,
-} from "../../containers";
+import { InputContainer, ButtonContainer } from "../../containers";
 import { IS_AUTHENTICATED, USER_DETAILS } from "../../reduxSetup/constant";
 import { AuthLayout } from "../layout";
 import { FormContainer, Terms, AuthLink } from "../signup/style";
@@ -18,6 +15,7 @@ import { loginValidator } from "./loginValidator";
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [show, setShow] = useState({ reset: false, verification: false });
   const { mutate: login } = usePostRequest("/users/login", "login");
 
   const handleOnSubmit = (values, actions) => {
@@ -36,11 +34,10 @@ const Login = () => {
     validationSchema: loginValidator,
     onSubmit: handleOnSubmit,
   });
-
-
   return (
     <>
-    <Verification/>
+      {show.reset && <ResetPassword setShow={setShow} />}
+      {show.verification && <Verification setShow={setShow} />}
       <AuthLayout text={"Login"}>
         <div style={{ maxWidth: "768px", margin: "0px auto" }}>
           <FormContainer>
@@ -75,7 +72,10 @@ const Login = () => {
           </FormContainer>
           <Terms>
             Forgot Password?{" "}
-            <span style={{ color: "#149A9B" }}>
+            <span
+              onClick={() => setShow((prev) => ({ ...prev, reset: true }))}
+              style={{ color: "#149A9B" }}
+            >
               Reset
             </span>
           </Terms>
