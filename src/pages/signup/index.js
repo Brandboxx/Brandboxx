@@ -1,29 +1,30 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { usePostRequest } from "../../api/useRequestProcessor";
-import { AuthModal } from "../../components";
+import { VerificationComponent } from "../../components";
 
 import { InputContainer, ButtonContainer } from "../../containers";
-import { USER_DETAILS } from "../../reduxSetup/constant";
 import { AuthLayout } from "../layout";
 import { FormContainer, Terms, AuthLink } from "./style";
 import { signUpValidator } from "./validator";
+import { toast } from 'react-toastify';
+
 
 const SignUp = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const { mutate: register,data } = usePostRequest("/users/register", "register");
-
+  const { mutate: register, data } = usePostRequest(
+    "/users/register",
+    "register"
+  );
+  
   const handleOnSubmit = (values, action) => {
     register(values, {
       onSuccess: (data) => {
-        console.log({ data });
         action.resetForm();
+        toast(data.message)
         setShowModal(true);
-        // history.push("/dashboard")
       },
     });
   };
@@ -43,13 +44,20 @@ const SignUp = () => {
   return (
     <AuthLayout text={"Sign Up"}>
       <div>
-        {showModal ? <AuthModal /> : null}
+        {showModal ? (
+          <VerificationComponent
+            header={"Verify emai"}
+            data={data}
+            text={"Enter otp sent to you email"}
+          />
+        ) : null}
         <FormContainer>
           <div>
             <InputContainer
               value={values.firstname}
               label={"First Name"}
               placeHolder={"First Name"}
+              type={'text'}
               onChange={handleChange("firstname")}
             />
           </div>
@@ -57,6 +65,7 @@ const SignUp = () => {
             <InputContainer
               value={values.lastname}
               label={"Last Name"}
+              type={'text'}
               placeHolder={"Last Name"}
               onChange={handleChange("lastname")}
             />
@@ -65,6 +74,7 @@ const SignUp = () => {
             <InputContainer
               value={values.email}
               label={"Email"}
+              type={'email'}
               placeHolder={"First Name"}
               onChange={handleChange("email")}
             />
@@ -73,6 +83,7 @@ const SignUp = () => {
             <InputContainer
               label={"phone number"}
               placeHolder={"phone number"}
+              type={'text'}
               value={values.phone_number}
               onChange={handleChange("phone_number")}
             />
