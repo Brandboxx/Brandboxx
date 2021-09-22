@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import { ButtonContainer } from "../../../containers";
 import { Container, Profile, ProfileContainer, Hand } from "./style";
 
 const Header = ({ setModal }) => {
+  const {userDetails} = useSelector(state=>state.auth);
   return (
     <Container>
       <ProfileContainer>
@@ -12,7 +14,7 @@ const Header = ({ setModal }) => {
         </Profile>
         <main>
           {" "}
-          <h3>Good morning Jane</h3>
+          <h3>{`Good morning ${userDetails.firstname}`}</h3>
           <p>Here is an overview of your saving</p>
         </main>
       </ProfileContainer>
