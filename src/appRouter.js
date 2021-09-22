@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Loader } from "./components";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import * as ROUTES from "./constants/routes";
 
@@ -29,6 +31,7 @@ const AppRouter = () => {
   return (
     <Router>
       <Loader/>
+      <ToastContainer />
       <Route exact component={Landing} path={ROUTES.LANDING} />
       <Route exact component={Components} path={ROUTES.COMPONENT} />
       <Route exact component={SignUp} path={ROUTES.REGISTER} />
