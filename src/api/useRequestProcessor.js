@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { IS_LOADING, TOKEN } from "../reduxSetup/constant";
 import { getStorage } from "../utils/storage";
 import { BASE_URL } from "./config";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -52,7 +53,7 @@ export const useGetResquest = (url, queryName, enabled = true) => {
     {
       onError: (error) => {
         console.log(error);
-        // NotificationManager.error(error?.errors[0]?.message)
+        toast.error(error.message);
       },
       enabled,
       onSettled: () => {
@@ -82,7 +83,7 @@ export const usePostRequest = (url, queryNameToInvalidate) => {
       onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
       onError: (error) => {
         console.log(error);
-        // NotificationManager.error(error?.errors[0]?.message)
+        toast.error(error.message);
       },
       onSettled: () => {
         dispatch({ type: IS_LOADING, payload: false });
@@ -111,7 +112,7 @@ export const useDeleteRequest = (url, queryNameToInvalidate) => {
       onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
       onError: (error) => {
         console.log(error);
-        // NotificationManager.error(error?.errors[0]?.message)
+        toast.error(error.message);
       },
       onSettled: () => {
         dispatch({ type: IS_LOADING, payload: false });
@@ -142,7 +143,7 @@ export const usePatchRequest = (
       onError: (error, _, rollback) => {
         rollback();
         console.log(error);
-        // NotificationManager.error(error?.errors[0]?.message)
+        toast.error(error.message);
       },
       onSuccess: async () => {
         queryClient.refetchQueries(queryNameToInvalidate);
