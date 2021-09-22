@@ -1,14 +1,14 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { usePostRequest } from "../../api/useRequestProcessor";
-import { VerificationComponent } from "../../components";
+
+import {ResetPassword, CreatePassword, Verification} from "./containers"
 
 import {
   InputContainer,
   ButtonContainer,
-  AuthModalContainer,
 } from "../../containers";
 import { IS_AUTHENTICATED, USER_DETAILS } from "../../reduxSetup/constant";
 import { AuthLayout } from "../layout";
@@ -19,9 +19,6 @@ const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { mutate: login } = usePostRequest("/users/login", "login");
-  const [modal, setModal] = useState(false);
-
-  const [switchModal, setSwitchModal] = useState("email");
 
   const handleOnSubmit = (values, actions) => {
     login(values, {
@@ -40,87 +37,10 @@ const Login = () => {
     onSubmit: handleOnSubmit,
   });
 
-  const toggleModal = () => {
-    setModal(!modal);
-    setSwitchModal("email");
-  };
-
-  //switching modal states
-  const handleEmailSwitch = () => {
-    setSwitchModal("email");
-  };
-
-  const handlePhoneNumberSwitch = () => {
-    setSwitchModal("phoneNumber");
-  };
-
-  const handleVerificationSwitch = () => {
-    setSwitchModal("verification");
-  };
-
-  const handleResetPassword = () => {
-    setSwitchModal("reset");
-  };
 
   return (
     <>
-      {modal ? (
-        switchModal === "email" ? (
-          <AuthModalContainer
-            header={"Oh Wow! Forgot Password"}
-            text={
-              "Enter your email and we will send you 4 digits code for verification"
-            }
-            label={"Email"}
-            placeHolder={"Enter your email address"}
-            switchTo={switchModal}
-            clickToSwitch={handlePhoneNumberSwitch}
-            toggleModal={toggleModal}
-            handleClick={handleVerificationSwitch}
-          />
-        ) : switchModal === "phoneNumber" ? (
-          <AuthModalContainer
-            header={"Oh Wow! Forgot Password"}
-            text={
-              "Enter your phone number and we will send you 4 digits code for verification"
-            }
-            label={"Phone Number"}
-            placeHolder={"Enter your phone number"}
-            switchTo={switchModal}
-            clickToSwitch={handleEmailSwitch}
-            toggleModal={toggleModal}
-            handleClick={handleVerificationSwitch}
-          />
-        ) : switchModal === "verification" ? (
-          <AuthModalContainer
-            header={"Enter Verification Code"}
-            text={
-              "Enter your verification code that was sent through your e-mail or phone number."
-            }
-            label={"Phone Number"}
-            placeHolder={"Enter your phone number"}
-            switchTo={switchModal}
-            clickToSwitch={handleEmailSwitch}
-            toggleModal={toggleModal}
-            handleClick={handleResetPassword}
-            otp={[]}
-            number={5}
-          />
-        ) : switchModal === "reset" ? (
-          <AuthModalContainer
-            header={"Reset Password"}
-            text={
-              "Create your new password for Centerpocket and type new password twice."
-            }
-            switchTo={switchModal}
-            toggleModal={toggleModal}
-          />
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
-      )}
+    <Verification/>
       <AuthLayout text={"Login"}>
         <div style={{ maxWidth: "768px", margin: "0px auto" }}>
           <FormContainer>
@@ -155,7 +75,7 @@ const Login = () => {
           </FormContainer>
           <Terms>
             Forgot Password?{" "}
-            <span style={{ color: "#149A9B" }} onClick={toggleModal}>
+            <span style={{ color: "#149A9B" }}>
               Reset
             </span>
           </Terms>
