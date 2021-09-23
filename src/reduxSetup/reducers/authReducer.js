@@ -1,6 +1,6 @@
-import { IS_AUTHENTICATED, USER_DETAILS, TOKEN } from "../constant";
+import { IS_AUTHENTICATED, USER_DETAILS, TOKEN, LOGOUT } from "../constant";
 
-const initialState = { isAuthenticated: false, userDetails: null, token:'' };
+const initialState = { isAuthenticated: false, userDetails: null, token: "" };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,6 +10,8 @@ export const authReducer = (state = initialState, action) => {
       return { ...state, userDetails: action.payload };
     case TOKEN:
       return { ...state, token: action.payload };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

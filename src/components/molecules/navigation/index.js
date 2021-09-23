@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { useHistory, useLocation } from "react-router-dom";
 
 import { Logo } from "../../../components";
+import { LOGOUT } from "../../../reduxSetup/constant";
 
 import {
   SideNavigation,
@@ -13,6 +15,7 @@ import {
 
 const Navigation = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const location = useLocation();
 
@@ -81,7 +84,7 @@ const Navigation = () => {
 
       <LinkContainer>
         <img src={"/assets/svg/navigation/logout.svg"} alt={""} />
-        <p onClick={() => history.push("/")}>Logout</p>
+        <p onClick={() => dispatch({ type: LOGOUT })}>Logout</p>
       </LinkContainer>
     </SideNavigation>
   );
