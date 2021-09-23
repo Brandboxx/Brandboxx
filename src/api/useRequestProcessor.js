@@ -2,7 +2,7 @@ import axios from "axios";
 // import NotificationManager from 'react-notifications/lib/NotificationManager';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
-import { IS_LOADING, TOKEN } from "../reduxSetup/constant";
+import { CENTER_POCKET, IS_LOADING, TOKEN } from "../reduxSetup/constant";
 import { getStorage } from "../utils/storage";
 import { BASE_URL } from "./config";
 import { toast } from "react-toastify";
@@ -11,9 +11,9 @@ axios.defaults.baseURL = BASE_URL;
 
 axios.interceptors.request.use(
   (config) => {
-    const result = getStorage(TOKEN);
+    const result = getStorage(CENTER_POCKET);
     config.headers = {
-      "x-auth-token": result.token,
+      "x-access-token": result.auth.token,
       Accept: "application/json",
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -29,7 +29,7 @@ const handleErrorTypeCheck = (error) => {
   if (error?.response) {
     throw { status: error.response.status, ...error.response.data };
   } else {
-    throw { errors: [{ message: error.message }] };
+    throw { message: error.message };
   }
 };
 
@@ -41,10 +41,14 @@ const handleErrorTypeCheck = (error) => {
  */
 export const useGetResquest = (url, queryName, enabled = true) => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData(queryName);
   return useQuery(
     queryName,
     async () => {
-      dispatch({ type: IS_LOADING, payload: true });
+      if (!data) {
+        dispatch({ type: IS_LOADING, payload: true });
+      }
       return axios
         .get(url)
         .then((res) => res.data)
@@ -55,10 +59,10 @@ export const useGetResquest = (url, queryName, enabled = true) => {
         console.log(error);
         toast.error(error.message);
       },
-      enabled,
       onSettled: () => {
         dispatch({ type: IS_LOADING, payload: false });
       },
+      enabled,
     }
   );
 };
