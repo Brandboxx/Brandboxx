@@ -1,6 +1,6 @@
 import { IS_LOADING } from "../constant";
 
-const initialState = { isLoading: false }
+export const initialState = { isLoading: false }
 
 export const appReducer = (state = initialState, action) => {
     switch (action.type) {
