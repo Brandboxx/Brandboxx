@@ -1,13 +1,17 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { usePostRequest } from "../../api/useRequestProcessor";
 
 import { ResetPassword, CreatePassword, Verification } from "./containers";
 
 import { InputContainer, ButtonContainer } from "../../containers";
-import { IS_AUTHENTICATED, TOKEN, USER_DETAILS } from "../../reduxSetup/constant";
+import {
+  IS_AUTHENTICATED,
+  TOKEN,
+  USER_DETAILS,
+} from "../../reduxSetup/constant";
 import { AuthLayout } from "../layout";
 import { FormContainer, Terms, AuthLink } from "../signup/style";
 import { loginValidator } from "./loginValidator";
@@ -24,7 +28,7 @@ const Login = () => {
         actions.resetForm();
         dispatch({ type: USER_DETAILS, payload: response.user_data });
         dispatch({ type: IS_AUTHENTICATED, payload: true });
-        dispatch({ type: TOKEN, payload: response.token});
+        dispatch({ type: TOKEN, payload: response.token });
         history.replace("/dashboard");
       },
     });
@@ -35,6 +39,11 @@ const Login = () => {
     validationSchema: loginValidator,
     onSubmit: handleOnSubmit,
   });
+
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  useEffect(() => {
+    if (isAuth) history.push("/dashboard");
+  }, [isAuth]);
   return (
     <>
       {show.reset && <ResetPassword setShow={setShow} />}

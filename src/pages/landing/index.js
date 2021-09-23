@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { LandingNavigation, Logo } from "../../components";
 
 import { ButtonContainer } from "../../containers";
@@ -18,7 +20,11 @@ import {
   ReviewCards,
 } from "./style";
 
-const Landing = () => {
+const Landing = (props) => {
+  const isAuth = useSelector(state=>state.auth.isAuthenticated);
+  useEffect(()=>{
+    if(isAuth)props.history.push('/dashboard')
+  },[isAuth])
   return (
     <>
       <Banner>
