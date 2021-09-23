@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { ButtonContainer } from "../../../containers";
+import { timeName } from "../../../utils/dateUtils";
 import { Container, Profile, ProfileContainer, Hand } from "./style";
 
 const Header = ({ setModal }) => {
@@ -7,14 +8,12 @@ const Header = ({ setModal }) => {
   return (
     <Container>
       <ProfileContainer>
-        {" "}
         <Hand src={"/assets/svg/header/profile.svg"} alt={""} />
         <Profile>
           <img src={"/assets/svg/header/profile.png"} alt={""} />
         </Profile>
         <main>
-          {" "}
-          <h3>{`Good morning ${userDetails.firstname}`}</h3>
+          <h3>{`Good ${timeName()} ${userDetails.firstname}`}</h3>
           <p>Here is an overview of your saving</p>
         </main>
       </ProfileContainer>
