@@ -1,6 +1,6 @@
 import { HeaderCont, CircleContainer, LinkInfo } from "./style";
 
-const PriceDetailHeader = () => {
+const PriceDetailHeader = ({amount}) => {
   return (
     <HeaderCont>
       <main>
@@ -9,7 +9,7 @@ const PriceDetailHeader = () => {
         </CircleContainer>
         <aside>
           <p>Total Balance</p>
-          <h3>N600,000</h3>
+          <h3>{amount}</h3>
         </aside>
       </main>
       <LinkInfo>View Centerpocket Account Details</LinkInfo>

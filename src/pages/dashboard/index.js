@@ -16,9 +16,10 @@ import { useGetResquest } from "../../api/useRequestProcessor";
 const Dashboard = () => {
   const [modal, setModal] = useState(false);
   const [toggle, setToggle] = useState(true);
-  const {data:targetPocketBalance} = useGetResquest('/target-pocket/balance',['target-pocket','balance']);
-  const {data:lockPocketBalance} = useGetResquest('/lock-pocket/balance',['lock-pocket','balance']);
-  const {data:depositBalance} = useGetResquest('/deposit/balance',['deposit','balance'])
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
+  );
   const [successModal, setSuccessModal] = useState(false);
 
   return (
@@ -35,25 +36,27 @@ const Dashboard = () => {
       <MainLayout>
         <Header setModal={setModal} />
         <Info>
-          <PriceDetailHeader />
+          <PriceDetailHeader
+            amount={`₦${viewPocketBalance?.data?.total ?? "N/A"}`}
+          />
           <CardContainer>
             <DashCard
               title={"Flex Balance"}
-              amount={`${depositBalance?.balance??'/A'}`}
+              amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
               img={"/assets/svg/dashCards/dash1.svg"}
               bg={"#E7F5F5"}
               cl={"#149A9B"}
             />
             <DashCard
               title={"Pocket Lock Balance"}
-              amount={`${lockPocketBalance?.balance??'/A'}`}
+              amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
               img={"/assets/svg/dashCards/dash2.svg"}
               bg={"#fb70063a"}
               cl={"#FB7106"}
             />
             <DashCard
               title={"Pocket Target Balance"}
-              amount={`${targetPocketBalance?.balance??'/A'}`}
+              amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
               img={"/assets/svg/dashCards/dash3.svg"}
               bg={"#59027331"}
               cl={"#580273"}

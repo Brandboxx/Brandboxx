@@ -8,7 +8,7 @@ const SmallCard = ({ title, amount, content, img, cl, bg }) => {
         <p>{title}</p>
       </Header>
       <Content>{content}</Content>
-      <Amount cl={cl}>N{amount}</Amount>
+      <Amount cl={cl}>{amount}</Amount>
     </Container>
   );
 };

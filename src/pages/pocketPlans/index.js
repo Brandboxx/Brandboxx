@@ -9,18 +9,10 @@ import * as ROUTES from "../../constants/routes";
 
 const PocketPlans = () => {
   const history = useHistory();
-  const { data: targetPocketBalance } = useGetResquest(
-    "/target-pocket/balance",
-    ["target-pocket", "balance"]
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
   );
-  const { data: lockPocketBalance } = useGetResquest("/lock-pocket/balance", [
-    "lock-pocket",
-    "balance",
-  ]);
-  const { data: depositBalance } = useGetResquest("/deposit/balance", [
-    "deposit",
-    "balance",
-  ]);
   return (
     <MainLayout>
       <Wrapper>
@@ -43,7 +35,7 @@ const PocketPlans = () => {
               "Flexible savings that allows you to deposit and withdraw whenever you wish"
             }
             stat={"25%"}
-            amount={`${depositBalance?.balance ?? "/A"}`}
+            amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
             bg={"#E7F5F5"}
             cl={"#149A9B"}
           />
@@ -55,7 +47,7 @@ const PocketPlans = () => {
               "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
             }
             stat={"25%"}
-            amount={`${lockPocketBalance?.balance ?? "/A"}`}
+            amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
             bg={"#FFF1E6"}
             cl={"#FB7106"}
           />
@@ -67,7 +59,7 @@ const PocketPlans = () => {
               "Reach your desired savings goal, with consistent periodic savings."
             }
             stat={"25%"}
-            amount={`${targetPocketBalance?.balance ?? "/A"}`}
+            amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
             bg={"#EEE6F1"}
             cl={"#580273"}
           />
