@@ -4,7 +4,7 @@ import {
   TransactionContainer,
   Credit,
 } from "./style";
-
+import { useGetResquest } from "../../api/useRequestProcessor";
 import { GoBack, BigCard, SmallCard } from "../../components";
 
 import { Header } from "../pocketPlans/style";
@@ -16,7 +16,18 @@ import { POCKETPLANS, ADDMONEY } from "../../constants/routes";
 
 const FlexPocket = () => {
   const history = useHistory();
-
+  const { data: targetPocketBalance } = useGetResquest(
+    "/target-pocket/balance",
+    ["target-pocket", "balance"]
+  );
+  const { data: lockPocketBalance } = useGetResquest("/lock-pocket/balance", [
+    "lock-pocket",
+    "balance",
+  ]);
+  const { data: depositBalance } = useGetResquest("/deposit/balance", [
+    "deposit",
+    "balance",
+  ]);
   return (
     <MainLayout>
       <div style={{ marginTop: "35px", marginLeft: "30px" }}>
@@ -40,7 +51,7 @@ const FlexPocket = () => {
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish"
               }
               img={"/assets/svg/bigLogo.svg"}
-              amount={"100,000"}
+              amount={`${depositBalance?.balance ?? "/A"}`}
               icon={"/assets/svg/withdraw.svg"}
               btnText={"Withdraw"}
               handleClick={() => history.push(ADDMONEY)}
@@ -50,7 +61,7 @@ const FlexPocket = () => {
             <h1>Pocket Plans</h1>
             <SmallCard
               title={"Lock Pocket"}
-              amount={"100,000"}
+              amount={`${lockPocketBalance?.balance ?? "/A"}`}
               content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
@@ -61,7 +72,7 @@ const FlexPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={"100,000"}
+              amount={`${targetPocketBalance?.balance ?? "/A"}`}
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }
@@ -76,7 +87,7 @@ const FlexPocket = () => {
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
               {" "}
-              <img src={"/assets/svg/credit.svg"}  alt={""}/>
+              <img src={"/assets/svg/credit.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Flex pocket credited</p>
             </span>
             <p>Thurs 23/10/2020 12:12</p>
@@ -100,7 +111,7 @@ const FlexPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/debit.svg"} alt={""}/>
+              <img src={"/assets/svg/debit.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Flex pocket debited</p>
             </span>
             <p>Thurs 23/10/2020 12:12</p>
