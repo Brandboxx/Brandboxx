@@ -25,7 +25,7 @@ const BigCard = ({
       <CardHeader>
         <div>
           <TopHead cl={cl}>{title}</TopHead>
-          <Amount cl={cl}>N{amount}</Amount>
+          <Amount cl={cl}>{amount}</Amount>
         </div>
         <img src={img} alt={""} />
       </CardHeader>

@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Logo } from "../..";
 import { usePostRequest } from "../../../api/useRequestProcessor";
 import { ButtonContainer } from "../../../containers";
-import { IS_AUTHENTICATED, TOKEN, USER_DETAILS } from "../../../reduxSetup/constant";
 import { AuthModal } from "../authModal";
 import { Label, Container } from "../codeInput/style";
 
 export const VerificationComponent = ({ header, text, closeModal, data }) => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const { mutate: verifyEmail } = usePostRequest(
@@ -37,10 +34,7 @@ export const VerificationComponent = ({ header, text, closeModal, data }) => {
     };
     verifyEmail(payload, {
       onSuccess: (response) => {
-        dispatch({ type: USER_DETAILS, payload: response.user_data });
-        dispatch({ type: IS_AUTHENTICATED, payload: true });
-        dispatch({ type: TOKEN, payload: response.token});
-        history.replace('/dashboard');
+        history.replace('/login');
       },
     });
   };

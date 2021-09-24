@@ -6,7 +6,7 @@ const DashCard = ({ img, bg, cl, title, amount }) => {
       <img src={img} alt={""} />
       <aside>
         <p>{title}</p>
-        <h3>N{amount}</h3>
+        <h3>{amount}</h3>
       </aside>
     </Container>
   );

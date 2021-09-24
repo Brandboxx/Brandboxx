@@ -16,18 +16,10 @@ import { POCKETPLANS, ADDMONEY } from "../../constants/routes";
 
 const FlexPocket = () => {
   const history = useHistory();
-  const { data: targetPocketBalance } = useGetResquest(
-    "/target-pocket/balance",
-    ["target-pocket", "balance"]
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
   );
-  const { data: lockPocketBalance } = useGetResquest("/lock-pocket/balance", [
-    "lock-pocket",
-    "balance",
-  ]);
-  const { data: depositBalance } = useGetResquest("/deposit/balance", [
-    "deposit",
-    "balance",
-  ]);
   return (
     <MainLayout>
       <div style={{ marginTop: "35px", marginLeft: "30px" }}>
@@ -51,7 +43,7 @@ const FlexPocket = () => {
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish"
               }
               img={"/assets/svg/bigLogo.svg"}
-              amount={`${depositBalance?.balance ?? "/A"}`}
+              amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
               icon={"/assets/svg/withdraw.svg"}
               btnText={"Withdraw"}
               handleClick={() => history.push(ADDMONEY)}
@@ -61,7 +53,7 @@ const FlexPocket = () => {
             <h1>Pocket Plans</h1>
             <SmallCard
               title={"Lock Pocket"}
-              amount={`${lockPocketBalance?.balance ?? "/A"}`}
+              amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
               content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
@@ -72,7 +64,7 @@ const FlexPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={`${targetPocketBalance?.balance ?? "/A"}`}
+              amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }

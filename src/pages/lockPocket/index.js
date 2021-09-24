@@ -17,18 +17,10 @@ import { useHistory } from "react-router-dom";
 const LockPocket = () => {
 
   const history = useHistory()
-  const { data: targetPocketBalance } = useGetResquest(
-    "/target-pocket/balance",
-    ["target-pocket", "balance"]
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
   );
-  const { data: lockPocketBalance } = useGetResquest("/lock-pocket/balance", [
-    "lock-pocket",
-    "balance",
-  ]);
-  const { data: depositBalance } = useGetResquest("/deposit/balance", [
-    "deposit",
-    "balance",
-  ]);
   return (
     <MainLayout>
       <Container>
@@ -53,7 +45,7 @@ const LockPocket = () => {
               img={"/assets/svg/bigLock.svg"}
               icon={"/assets/svg/lockpocket.svg"}
               btnText={"Lock Money"}
-              amount={`${lockPocketBalance?.balance ?? "/A"}`}
+              amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
               onClick={()=>history.push(LOCKPAGE)}
             />
           </div>
@@ -61,7 +53,7 @@ const LockPocket = () => {
             <h1>Pocket Plans</h1>
             <SmallCard
               title={"Flex Pocket "}
-              amount={`${depositBalance?.balance ?? "/A"}`}
+              amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
               content={
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish"
               }
@@ -72,7 +64,7 @@ const LockPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={`${targetPocketBalance?.balance ?? "/A"}`}
+              amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }
