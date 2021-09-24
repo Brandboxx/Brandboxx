@@ -6,10 +6,15 @@ import {
   Label,
   Container,
 } from "../../../../components/molecules/codeInput/style";
+import { usePostRequest } from "../../../../api/useRequestProcessor";
+import { toast } from "react-toastify";
 
-export const Verification = () => {
+export const Verification = ({ data, setShow, setData }) => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
-
+  const { mutate: verifyPasswordToken } = usePostRequest(
+    "/users/verify-forgot-password-token",
+    "verify-forgot-password-token"
+  );
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
 
@@ -19,12 +24,38 @@ export const Verification = () => {
       element.nextSibling.focus();
     }
   };
-
+  const handleSend = (e) => {
+    e.preventDefault();
+    const token = otp.join("");
+    if (token.length < 6) return;
+    const payload = {
+      ...data,
+      token: otp.join(""),
+    };
+    verifyPasswordToken(payload, {
+      onSuccess: (response) => {
+        toast.success(response.message);
+        setData((prev) => ({ ...prev, token }));
+        setShow((prev) => ({
+          ...prev,
+          reset: false,
+          verification: false,
+          createPassword: true,
+        }));
+      },
+    });
+  };
   return (
     <AuthModal>
       <AuthModal.HeaderContainer>
         <Logo />
-        <img src={"/assets/svg/close.svg"} alt={""} />
+        <img
+          onClick={() =>
+            setShow((prev) => ({ ...prev, reset: false, verification: false }))
+          }
+          src={"/assets/svg/close.svg"}
+          alt={""}
+        />
       </AuthModal.HeaderContainer>
 
       <AuthModal.Content>
@@ -52,7 +83,9 @@ export const Verification = () => {
               )) ?? []}
             </Container>
             <br />
-            <ButtonContainer width={"100%"}>Send</ButtonContainer>
+            <ButtonContainer onClick={handleSend} width={"100%"}>
+              Send
+            </ButtonContainer>
             <p>
               Havn’t gotten an code?
               <span> Re-send Code</span>

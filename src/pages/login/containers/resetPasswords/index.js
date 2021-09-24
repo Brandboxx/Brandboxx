@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { usePostRequest } from "../../../../api/useRequestProcessor";
 import { toast } from "react-toastify";
 
-export const ResetPassword = ({ setShow }) => {
+export const ResetPassword = ({ setShow, setData }) => {
   const [state, setState] = useState("email");
   const { mutate: forgotPasswordRequest } = usePostRequest(
     "/users/forgot-password-request",
@@ -23,12 +23,11 @@ export const ResetPassword = ({ setShow }) => {
         ? actions.setErrors({ phone: "phone number is required" })
         : (payload.phone_number = values.phone);
     }
-    console.log({ payload });
     if (Object.keys(payload).length === 0) return;
     forgotPasswordRequest(payload, {
       onSuccess: (data) => {
-        console.log(data);
-        toast(data.message);
+        toast.success(data.message);
+        setData(data?.data);
         setShow((prev) => ({ ...prev, reset: false, verification: true }));
       },
     });
@@ -53,7 +52,7 @@ export const ResetPassword = ({ setShow }) => {
       <AuthModal.HeaderContainer>
         <Logo />
         <img
-          onClick={() => () => setShow((prev) => ({ ...prev, reset: false }))}
+          onClick={() => setShow((prev) => ({ ...prev, reset: false }))}
           src={"/assets/svg/close.svg"}
           alt={""}
         />

@@ -19,7 +19,8 @@ import { loginValidator } from "./loginValidator";
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [show, setShow] = useState({ reset: false, verification: false });
+  const [show, setShow] = useState({ reset: false, verification: false,createPassword:false });
+  const [data, setData] = useState(null);
   const { mutate: login } = usePostRequest("/users/login", "login");
 
   const handleOnSubmit = (values, actions) => {
@@ -46,8 +47,9 @@ const Login = () => {
   }, [isAuth]);
   return (
     <>
-      {show.reset && <ResetPassword setShow={setShow} />}
-      {show.verification && <Verification setShow={setShow} />}
+      {show.reset && <ResetPassword setShow={setShow} setData={setData}/>}
+      {show.verification && <Verification setShow={setShow} data={data} setData={setData}/>}
+      {show.createPassword && <CreatePassword setShow={setShow} data={data}/>}
       <AuthLayout text={"Login"}>
         <div style={{ maxWidth: "768px", margin: "0px auto" }}>
           <FormContainer>
