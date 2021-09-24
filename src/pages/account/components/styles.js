@@ -17,15 +17,25 @@ export const Profile = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+  position: relative;
 
   main {
     width: 124px;
     height: 124px;
     border-radius: 100px;
     overflow: hidden;
+    position: absolute;
     img {
       width: 100%;
       height: 100%;
     }
+  }
+
+  input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
   }
 `;

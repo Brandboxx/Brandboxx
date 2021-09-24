@@ -1,14 +1,67 @@
+import { useState, useEffect } from "react";
+import { EditButton } from ".";
+import {
+  useGetResquest,
+  usePostRequest,
+} from "../../../api/useRequestProcessor";
 import { InputContainer } from "../../../containers";
 import { Container, Title, Profile } from "./styles";
 
 const ProfileSetting = () => {
+  const { data: profile } = useGetResquest(
+    "/users/view-user-profile",
+    "profile"
+  );
+
+  console.log(profile, "hello")
+
+  const { mutate: editDp } = usePostRequest("/users/edit-dp", "editDp");
+
+  const uploadFile = (e) => {
+    const file = e.target.files[0];
+
+    console.log(file);
+
+    let data = new FormData();
+    data.append("profile_image", file);
+
+    editDp(data, {
+      onSuccess: (res) => {
+      console.log(res)
+      },
+    });
+  };
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [DOB, setDOB] = useState("");
+  const [gender, setGender] = useState("");
+  const [postalAddress, setPostalAddress] = useState("");
+
+  
+
+  const handleFirstNameChange = (e) => {
+    setFirstname(e.target.value);
+  };
+
   return (
     <Container>
       <Title>Edit Profile</Title>
       <Profile>
+        <input
+          type="file"
+          id="avatar"
+          name="avatar"
+          accept="image/png, image/jpeg"
+          onChange={uploadFile}
+        />
         <main>
-          <img src={"/assets/img/profile.png"} alt={""} />
+          <img
+            src={profile?.gottenUser?.profile_picture?.url}
+            alt={""}
+          />
         </main>
+        <EditButton />
       </Profile>
 
       <div
@@ -23,6 +76,9 @@ const ProfileSetting = () => {
           <InputContainer
             label={"First Name"}
             placeHolder={"Enter First Name"}
+            value={profile?.gottenUser?.firstname}
+            name={"firstname"}
+            onChange={handleFirstNameChange}
           />
         </div>
         <div style={{ width: "48%" }}>
@@ -128,11 +184,11 @@ const ProfileSetting = () => {
           width: "70%",
         }}
       >
-        <p style={{fontSize: "14px" }}>
+        <p style={{ fontSize: "14px" }}>
           Add an extra layer of security to your account using an authenticator
           app
         </p>
-        <img src={"/assets/svg/toggle.svg"} alt={""}/>
+        <img src={"/assets/svg/toggle.svg"} alt={""} />
       </div>
       <br />
       <br />
