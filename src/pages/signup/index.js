@@ -23,7 +23,7 @@ const SignUp = () => {
     register(values, {
       onSuccess: (data) => {
         action.resetForm();
-        toast(data.message);
+        toast.success(data.message);
         setShowModal(true);
       },
     });
