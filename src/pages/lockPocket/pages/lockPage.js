@@ -52,9 +52,23 @@ const LockPage = () => {
     setCurrentId(id);
   };
 
+  const [method, setMethod] = useState("Flex pocket (N200,000)");
+
+  const handleMethodName = (name) => {
+    setMethod(name);
+  };
+
   return (
     <>
-      {modal ? <LockModal modal={modal} setModal={setModal} /> : ""}
+      {modal ? (
+        <LockModal
+          handleMethodName={handleMethodName}
+          modal={modal}
+          setModal={setModal}
+        />
+      ) : (
+        ""
+      )}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={LOCKPOCKET} />
@@ -129,13 +143,16 @@ const LockPage = () => {
                 alt={""}
               />
               <InputContainer
-                value={"Flex pocket (N200,000)"}
+                value={method}
                 label={"Choose payment method"}
                 onClick={() => setModal(true)}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
-              <ButtonContainer width="100%" onClick={() => history.push(LOCKREVIEW)}>
+              <ButtonContainer
+                width="100%"
+                onClick={() => history.push(LOCKREVIEW)}
+              >
                 See review
               </ButtonContainer>
             </div>
