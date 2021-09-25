@@ -39,10 +39,22 @@ const FastSave = ({
         />
       </div>{" "}
       <div style={{ width: "70%", paddingTop: "20px" }}>
-        <InputContainer
-          label={"Which pocket plan do you want to save to?"}
-          width={"100%"}
-        />
+        <label>Choose a Pocket Plan</label>
+        <select
+          style={{
+            width: "100%",
+            height: "50px",
+            padding: "0px 10px",
+            borderRadius: "10px",
+            marginTop:"10px"
+          }}
+          name="cars"
+          id="cars"
+        >
+          <option value="volvo">Flex</option>
+          <option value="saab">Lock</option>
+          <option value="mercedes">Target</option>
+        </select>
       </div>
       <p style={{ marginTop: "10px" }}>
         Select the saving method that you prefer

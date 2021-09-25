@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import {
   Container,
@@ -18,7 +18,7 @@ import { GoBack } from "../../../components";
 import { InputContainer, ButtonContainer } from "../../../containers";
 import { MainLayout } from "../../layout";
 
-import {LOCKPOCKET, TARGETREVIEW} from "../../../constants/routes"
+import { LOCKPOCKET, TARGETREVIEW } from "../../../constants/routes";
 
 const TargetSave = () => {
   const history = useHistory();
@@ -76,9 +76,23 @@ const TargetSave = () => {
     setCurrentId(id);
   };
 
+  const [method, setMethod] = useState("Flex pocket (N200,000)");
+
+  const handleMethodName = (name) => {
+    setMethod(name);
+  };
+
   return (
     <>
-      {modal ? <LockModal modal={modal} setModal={setModal} /> : ""}
+      {modal ? (
+        <LockModal
+          handleMethodName={handleMethodName}
+          modal={modal}
+          setModal={setModal}
+        />
+      ) : (
+        ""
+      )}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={LOCKPOCKET} />
@@ -199,7 +213,7 @@ const TargetSave = () => {
                 alt={""}
               />
               <InputContainer
-                value={"Flex pocket (N200,000)"}
+                value={method}
                 label={"What date would you start saving?"}
                 onClick={() => setModal(true)}
               />

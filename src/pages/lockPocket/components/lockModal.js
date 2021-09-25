@@ -3,7 +3,7 @@ import { SmallModal } from "../../../components";
 
 import { Options, AddCard } from "./style";
 
-const LockModal = ({ setModal }) => {
+const LockModal = ({ setModal, handleMethodName }) => {
   const payMethods = [
     {
       id: 1,
@@ -13,21 +13,22 @@ const LockModal = ({ setModal }) => {
     {
       id: 2,
       img: "/assets/svg/modal/master.svg",
-      amount: "**** **** **** 3947",
+      amount: "Flutterwave",
     },
   ];
 
   const [payMethod, setPayMethod] = useState(1);
 
-  const getCurrent = (id) => {
+  const getCurrent = (id, name) => {
     setPayMethod(id);
+    handleMethodName(name)
   };
 
   return (
     <SmallModal setModal={setModal}>
       {payMethods.map((method) => (
         <Options
-          onClick={() => getCurrent(method.id)}
+          onClick={() => getCurrent(method.id, method.amount)}
           bg={
             payMethod === method.id ? "rgba(69, 194, 198, 0.1)" : "transparent"
           }
@@ -37,9 +38,6 @@ const LockModal = ({ setModal }) => {
           <p>{method.amount}</p>
         </Options>
       ))}
-      <AddCard>
-        <span>+</span>Add New Card
-      </AddCard>
     </SmallModal>
   );
 };
