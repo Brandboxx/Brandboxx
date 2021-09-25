@@ -2,22 +2,26 @@ import styled from "styled-components/macro";
 
 const EditButton = () => {
   return (
-    <Container>
-      <main>
-        <img src={"/assets/svg/edit.svg"} alt={""} />
-      </main>
-    </Container>
+      <Container>
+        <main>
+          <img src={"/assets/svg/edit.svg"} alt={""} />
+        </main>
+      </Container>
   );
 };
 
 const Container = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  position: absolute;
+  top: 70%;
+  left: 70%;
+  cursor: pointer;
 
   main {
     display: flex;
@@ -29,7 +33,7 @@ const Container = styled.div`
     border-radius: 50%;
 
     img {
-      width: 20px
+      width: 20px;
     }
   }
 `;
