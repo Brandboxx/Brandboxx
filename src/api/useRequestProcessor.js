@@ -2,7 +2,11 @@ import axios from "axios";
 // import NotificationManager from 'react-notifications/lib/NotificationManager';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
-import { CENTER_POCKET, IS_LOADING, TOKEN } from "../reduxSetup/constant";
+import {
+  CENTER_POCKET,
+  IS_LOADING,
+  LOGOUT,
+} from "../reduxSetup/constant";
 import { getStorage } from "../utils/storage";
 import { BASE_URL } from "./config";
 import { toast } from "react-toastify";
@@ -25,8 +29,11 @@ axios.interceptors.request.use(
   }
 );
 
-const handleErrorTypeCheck = (error) => {
+const handleErrorTypeCheck = (error, dispatch) => {
   if (error?.response) {
+    if (error.response.status === 401 && error.response?.data.error_no === 8) {
+      dispatch({ type: LOGOUT });
+    }
     throw { status: error.response.status, ...error.response.data };
   } else {
     throw { message: error.message };
@@ -52,7 +59,7 @@ export const useGetResquest = (url, queryName, enabled = true) => {
       return axios
         .get(url)
         .then((res) => res.data)
-        .catch((err) => handleErrorTypeCheck(err));
+        .catch((err) => handleErrorTypeCheck(err, dispatch));
     },
     {
       onError: (error) => {
@@ -81,7 +88,7 @@ export const usePostRequest = (url, queryNameToInvalidate) => {
       return axios
         .post(url, payload)
         .then((res) => res.data)
-        .catch((err) => handleErrorTypeCheck(err));
+        .catch((err) => handleErrorTypeCheck(err, dispatch));
     },
     {
       onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
@@ -110,49 +117,13 @@ export const useDeleteRequest = (url, queryNameToInvalidate) => {
       return axios
         .delete(url, { data: payload })
         .then((res) => res.data)
-        .catch((err) => handleErrorTypeCheck(err));
+        .catch((err) => handleErrorTypeCheck(err, dispatch));
     },
     {
       onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
       onError: (error) => {
         console.log(error);
         toast.error(error.message);
-      },
-      onSettled: () => {
-        dispatch({ type: IS_LOADING, payload: false });
-      },
-    }
-  );
-};
-
-/**
- *
- * @param {string} url
- * @param {string|Array} queryNameToInvalidate
- * @param {string|Array} queryCollectionNameToInvalidate
- */
-export const usePatchRequest = (
-  url,
-  queryNameToInvalidate,
-  queryCollectionNameToInvalidate
-) => {
-  const queryClient = useQueryClient();
-  const dispatch = useDispatch();
-  return useMutation(
-    (payload) => {
-      dispatch({ type: IS_LOADING, payload: true });
-      return axios.patch(url, payload).then((res) => res.data);
-    },
-    {
-      onError: (error, _, rollback) => {
-        rollback();
-        console.log(error);
-        toast.error(error.message);
-      },
-      onSuccess: async () => {
-        queryClient.refetchQueries(queryNameToInvalidate);
-        if (queryCollectionNameToInvalidate)
-          await queryClient.refetchQueries(queryCollectionNameToInvalidate);
       },
       onSettled: () => {
         dispatch({ type: IS_LOADING, payload: false });
