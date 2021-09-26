@@ -12,7 +12,7 @@ const PocketCards = ({ img, title, text, amount, bg, cl, stat, ...rest }) => {
         <p>
           <span>{stat}</span> Interest
         </p>
-        <h3>N{amount}</h3>
+        <h3>{amount}</h3>
       </footer>
     </Container>
   );
