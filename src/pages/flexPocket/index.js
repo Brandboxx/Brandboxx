@@ -13,6 +13,8 @@ import { MainLayout } from "../layout";
 import { useHistory } from "react-router-dom";
 
 import { POCKETPLANS, ADDMONEY } from "../../constants/routes";
+import { currencyFormatter } from "../../utils/numberFormater";
+import { getDateTime } from "../../utils/dateUtils";
 
 const FlexPocket = () => {
   const history = useHistory();
@@ -20,6 +22,11 @@ const FlexPocket = () => {
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
+  const { data: flexTransactions } = useGetResquest(
+    "/deposit/view-recent-transactions?plan_type=flex pocket&plan_code=01",
+    "flexTransactions"
+  );
+  console.log({ flexTransactions });
   return (
     <MainLayout>
       <div style={{ marginTop: "35px", marginLeft: "30px" }}>
@@ -43,7 +50,7 @@ const FlexPocket = () => {
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish"
               }
               img={"/assets/svg/bigLogo.svg"}
-              amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
+              amount={currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"}
               icon={"/assets/svg/withdraw.svg"}
               btnText={"Withdraw"}
               handleClick={() => history.push(ADDMONEY)}
@@ -76,39 +83,29 @@ const FlexPocket = () => {
         </CardsContainer>
         <TransactionContainer>
           <h4 style={{ fontSize: "18px" }}>Recent Transaction</h4>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              {" "}
-              <img src={"/assets/svg/credit.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Flex pocket credited</p>
-            </span>
-            <p>Thurs 23/10/2020 12:12</p>
-            <p>N20,000</p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/debit.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Flex pocket debited</p>
-            </span>
-            <p>Thurs 23/10/2020 12:12</p>
-            <p>N20,000</p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/credit.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Flex pocket credited</p>
-            </span>
-            <p>Thurs 23/10/2020 12:12</p>
-            <p>N20,000</p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/debit.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Flex pocket debited</p>
-            </span>
-            <p>Thurs 23/10/2020 12:12</p>
-            <p>N20,000</p>
-          </Credit>
+          {flexTransactions?.data.map((transaction, index) => {
+            return (
+              <Credit key={index}>
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  {transaction.action === "deposit" ? (
+                    <img src={"/assets/svg/credit.svg"} alt={""} />
+                  ) : (
+                    <img src={"/assets/svg/debit.svg"} alt={""} />
+                  )}
+
+                  <p style={{ marginLeft: "10px" }}>
+                    Flex pocket
+                    {transaction.action === "deposit"
+                      ? " credited"
+                      : " debited"}
+                  </p>
+                </span>
+                <p>{getDateTime(transaction.createdAt).toLocaleString()}</p>
+                <p>{currencyFormatter(transaction.amount) ?? "N?A"}</p>
+              </Credit>
+            );
+          })}
+          {!flexTransactions?.data.length && <>No recent transaction yet</>}
         </TransactionContainer>
       </Container>
     </MainLayout>
