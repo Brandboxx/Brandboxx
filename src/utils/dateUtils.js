@@ -1,3 +1,12 @@
+const days = [
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thurs",
+  "Fri",
+  "Sat",
+  "Sun",
+];
 const months = [
   "JAN",
   "FEB",
@@ -19,7 +28,7 @@ function formatAMPM(date) {
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? "0" + minutes : minutes;
-  var strTime = hours + ":" + minutes + " " + ampm;
+  var strTime = hours + ":" + minutes + ampm;
   return strTime;
 }
 
@@ -30,7 +39,7 @@ export const getDate = (dateString) => {
 
 export const getDateTime = (dataString) => {
   const date = new Date(dataString);
-  return `${date.toDateString()}   ${formatAMPM(date)}`;
+  return `${days[date.getDay()]} ${date.toLocaleDateString()}  ${formatAMPM(date) }`;
 };
 
 export const timeName = (date = new Date()) => {
