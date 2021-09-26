@@ -21,10 +21,10 @@ import {
 } from "./style";
 
 const Landing = (props) => {
-  const isAuth = useSelector(state=>state.auth.isAuthenticated);
-  useEffect(()=>{
-    if(isAuth)props.history.push('/dashboard')
-  },[isAuth])
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  useEffect(() => {
+    if (isAuth) props.history.push("/dashboard");
+  }, [isAuth, props.history]);
   return (
     <>
       <Banner>

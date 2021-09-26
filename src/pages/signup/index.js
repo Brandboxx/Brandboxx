@@ -43,7 +43,7 @@ const SignUp = () => {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   useEffect(() => {
     if (isAuth) history.push("/dashboard");
-  }, [isAuth]);
+  }, [isAuth,history]);
   return (
     <AuthLayout text={"Sign Up"}>
       <div>

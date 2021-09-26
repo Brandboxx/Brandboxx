@@ -44,7 +44,7 @@ const Login = () => {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   useEffect(() => {
     if (isAuth) history.push("/dashboard");
-  }, [isAuth]);
+  }, [isAuth,history]);
   return (
     <>
       {show.reset && <ResetPassword setShow={setShow} setData={setData}/>}
