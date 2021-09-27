@@ -21,6 +21,11 @@ const LockPocket = () => {
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
+  const { data: lockPockets } = useGetResquest(
+    "/lock-pocket/lock-pockets?plan_type=Lock Pocket&plan_code=02",
+    ["lock-pocket", "lock-pockets"]
+  );
+  console.log({lockPockets,viewPocketBalance});
   return (
     <MainLayout>
       <Container>

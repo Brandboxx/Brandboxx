@@ -6,6 +6,7 @@ import { Wrapper, Header, Padding, CardContainer } from "./style";
 import { useGetResquest } from "../../api/useRequestProcessor";
 
 import * as ROUTES from "../../constants/routes";
+import { currencyFormatter } from "../../utils/numberFormater";
 
 const PocketPlans = () => {
   const history = useHistory();
@@ -35,7 +36,9 @@ const PocketPlans = () => {
               "Flexible savings that allows you to deposit and withdraw whenever you wish"
             }
             stat={"25%"}
-            amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
+            amount={
+              currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+            }
             bg={"#E7F5F5"}
             cl={"#149A9B"}
           />
@@ -47,7 +50,9 @@ const PocketPlans = () => {
               "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
             }
             stat={"25%"}
-            amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
+            amount={
+              currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+            }
             bg={"#FFF1E6"}
             cl={"#FB7106"}
           />
@@ -59,7 +64,9 @@ const PocketPlans = () => {
               "Reach your desired savings goal, with consistent periodic savings."
             }
             stat={"25%"}
-            amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
+            amount={
+              currencyFormatter(viewPocketBalance?.data?.targetPocket) ?? "N/A"
+            }
             bg={"#EEE6F1"}
             cl={"#580273"}
           />
