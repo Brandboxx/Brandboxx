@@ -18,46 +18,94 @@ import { MainLayout } from "../../layout";
 
 import { LOCKPOCKET, LOCKREVIEW } from "../../../constants/routes";
 import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import { lockSchema } from "../validation";
+import { useMemo } from "react";
+import { currencyFormatter } from "../../../utils/numberFormater";
+import { useEffect } from "react";
+import { useGetResquest } from "../../../api/useRequestProcessor";
 
 const LockPage = () => {
   const badges = [
     {
-      id: 1,
+      id: 3,
       number: 3,
       unit: "months",
     },
     {
-      id: 2,
+      id: 6,
       number: 6,
       unit: "months",
     },
     {
-      id: 3,
+      id: 9,
       number: 9,
       unit: "months",
     },
     {
-      id: 4,
+      id: 12,
       number: 1,
       unit: "year",
     },
   ];
 
-  const [modal, setModal] = useState(false);
-  const [currentId, setCurrentId] = useState(1);
-
   const history = useHistory();
-
-  const getCurrentId = (id) => {
-    setCurrentId(id);
+  const [modal, setModal] = useState(false);
+  const [duration, setDuration] = useState(3);
+  const [payload, setPayload] = useState(null);
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
+  );
+  const handleOnSubmit = (values) => {
+    setPayload({ ...values, duration: duration ?? values.duration });
   };
 
-  const [method, setMethod] = useState("Flex pocket (N200,000)");
+  const { values, errors, handleChange, setFieldValue, handleSubmit } =
+    useFormik({
+      initialValues: {
+        title: "",
+        duration: "",
+        amount: "",
+        payment_mtd: "Flutterwave",
+      },
+      validationSchema: lockSchema,
+      onSubmit: handleOnSubmit,
+    });
 
   const handleMethodName = (name) => {
-    setMethod(name);
+    setFieldValue("payment_mtd", name);
+  };
+  const getCurrentId = (id) => {
+    setDuration(id);
+    setFieldValue("duration", "");
   };
 
+  const handleDurationChange = (e) => {
+    setFieldValue("duration", e.target.value);
+    e.target.value ? setDuration(null) : setDuration(3);
+  };
+
+  const maturityDate = useMemo(() => {
+    const date = new Date();
+    const months = duration ?? Number(values.duration);
+    date.setMonth(date.getMonth() + months);
+    return date.toDateString();
+  }, [duration, values.duration]);
+
+  const estimatedAmount = useMemo(() => {
+    const princpal = !isNaN(values.amount) ? Number(values.amount) : 0;
+    const rate = 5 / 100;
+    const months = duration ?? Number(values.duration);
+    const time = months / 12;
+    const simpleInterest = princpal * rate * time;
+    return princpal + simpleInterest;
+  }, [duration, values.duration, values.amount]);
+
+  useEffect(() => {
+    if (payload)
+      history.push(LOCKREVIEW, { ...payload, estimatedAmount, maturityDate });
+  }, [payload, history, estimatedAmount, maturityDate]);
   return (
     <>
       {modal ? (
@@ -66,9 +114,7 @@ const LockPage = () => {
           modal={modal}
           setModal={setModal}
         />
-      ) : (
-        ""
-      )}
+      ) : null}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={LOCKPOCKET} />
@@ -88,11 +134,19 @@ const LockPage = () => {
             <InputContainer
               placeHolder={"Enter Title of Lock"}
               label={"What are you saving for?"}
+              type={"text"}
+              value={values.title}
+              errorText={errors.title}
+              onChange={handleChange("title")}
             />
             <div style={{ marginTop: "50px" }}>
               <InputContainer
-                placeHolder={"Enter Title of Lock"}
+                placeHolder={"Enter amount to Lock"}
                 label={"How much do you want to lock?"}
+                type={"text"}
+                value={values.amount}
+                errorText={errors.amount}
+                onChange={handleChange("amount")}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
@@ -102,12 +156,12 @@ const LockPage = () => {
                   <Badge
                     onClick={() => getCurrentId(badge.id)}
                     bg={
-                      currentId === badge.id
+                      duration === badge.id
                         ? "rgba(90, 176, 255, 0.1)"
                         : "rgba(50, 52, 56, 0.05)"
                     }
                     cl={
-                      currentId === badge.id
+                      duration === badge.id
                         ? "rgba(20, 154, 155, 1)"
                         : "rgba(50, 52, 56, 0.8)"
                     }
@@ -117,12 +171,18 @@ const LockPage = () => {
                   </Badge>
                 ))}
               </ToggleBadges>
-              <InputContainer placeHolder={"Enter your choice"} />
+              <InputContainer
+                type={"number"}
+                placeHolder={"Enter your choice in months"}
+                value={values.duration}
+                errorText={errors.duration}
+                onChange={handleDurationChange}
+              />
             </div>
             <Interest>
-              <p>Interest Rate: 25%</p>
-              <p> Maturity Date: Jul 20, 2021 </p>
-              <p>Estimated Amount: N10,031</p>
+              <p>Interest Rate: 5%</p>
+              <p> Maturity Date: {`${maturityDate}`}</p>
+              <p>Estimated Amount:{" " + currencyFormatter(estimatedAmount)}</p>
             </Interest>
             <div
               style={{
@@ -143,15 +203,16 @@ const LockPage = () => {
                 alt={""}
               />
               <InputContainer
-                value={method}
+                value={values.payment_mtd}
                 label={"Choose payment method"}
                 onClick={() => setModal(true)}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
               <ButtonContainer
+                type={"button"}
                 width="100%"
-                onClick={() => history.push(LOCKREVIEW)}
+                onClick={handleSubmit}
               >
                 See review
               </ButtonContainer>

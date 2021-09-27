@@ -12,23 +12,95 @@ import {
   Info,
   Header,
 } from "./style";
-
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { MainLayout } from "../../layout";
 import { ButtonContainer } from "../../../containers";
 
 import { LOCKPAGE, WITHDRAW } from "../../../constants/routes";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { currencyFormatter } from "../../../utils/numberFormater";
+import { Amount } from "../../../components/atoms/bigCard/style";
+import { FLUTTERWAVE_PUBLIC_KEY } from "../../../api/config";
+import { useSelector } from "react-redux";
+import { usePostRequest } from "../../../api/useRequestProcessor";
 
 const LockPreview = () => {
   const history = useHistory();
-
+  const { state } = useLocation();
   const [modal, setModal] = useState(false);
+  const { userDetails } = useSelector((state) => state.auth);
+  const { mutate: lockPocketDepositFunds } = usePostRequest(
+    "/lock-pocket/deposit-funds",
+    "view-pocket-balance"
+  );
+  const config = {
+    public_key: FLUTTERWAVE_PUBLIC_KEY,
+    tx_ref: Date.now(),
+    amount: state.amount,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: userDetails.email,
+      phonenumber: userDetails.phone_number,
+      name: `${userDetails.firstname}`,
+    },
+    customizations: {
+      title: "Lock Pocket",
+      description: "Add money to Lock Pocket",
+    },
+  };
+  const handleFlutterPayment = useFlutterwave(config);
+  const handleDepositFunds = (response) => {
+    closePaymentModal();
+    const payload = {
+      plan_type: "Lock Pocket",
+      plan_code: "02",
+      title: state.title,
+      duration: `${state.duration} months`,
+      interest: 5,
+      amount: state.amount,
+      payment_mtd: { mtd: "card" },
+      transaction_id: response.transaction_id,
+      saveCard: 0,
+    };
+    lockPocketDepositFunds(payload, {
+      onSuccess: (data) => {
+        console.log({ data });
+        setModal(true);
+        setTimeout(() => {
+          history.replace(WITHDRAW);
+        }, 3000);
+      },
+    });
+  };
 
   const handleNavigate = () => {
-    setModal(true);
-    setTimeout(() => {
-      history.push(WITHDRAW);
-    }, 3000);
+    if (!state.payment_mtd.includes("Flex")) {
+      handleFlutterPayment({
+        callback: handleDepositFunds,
+        onClose: () => {},
+      });
+    }else{
+      const payload = {
+        plan_type: "Lock Pocket",
+        plan_code: "02",
+        title: state.title,
+        duration: `${state.duration} months`,
+        interest: 5,
+        amount: state.amount,
+        payment_mtd: { mtd: "flex" },
+        transaction_id:'',
+        saveCard: 0,
+      };
+      lockPocketDepositFunds(payload, {
+        onSuccess: (data) => {
+          setModal(true);
+          setTimeout(() => {
+            history.replace(WITHDRAW);
+          }, 3000);
+        },
+      });
+    }
   };
 
   return (
@@ -62,23 +134,27 @@ const LockPreview = () => {
                     </span>
                     Lock Title
                   </Title>
-                  <Header>Laptop Lock</Header>
+                  <Header>{state.title}</Header>
                 </div>
                 <div>
                   <Title style={{ textAlign: "right" }}>Maturity Date</Title>
-                  <Info style={{ textAlign: "right" }}>6th May 2021</Info>
+                  <Info style={{ textAlign: "right" }}>{state.maturityDate}</Info>
                 </div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Amount to lock</Title>
-                  <Info style={{ fontWeight: "600" }}>N200,000</Info>
+                  <Info style={{ fontWeight: "600" }}>
+                    {currencyFormatter(state.amount)}
+                  </Info>
                 </div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Total Amount on maturity</Title>
-                  <Info style={{ fontWeight: "600" }}>N225,000</Info>
+                  <Info style={{ fontWeight: "600" }}>
+                    {currencyFormatter(state.estimatedAmount)}
+                  </Info>
                 </div>
               </Review>
               <p style={{ marginTop: "30px", fontSize: "10px" }}>

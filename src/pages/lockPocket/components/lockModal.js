@@ -1,14 +1,22 @@
 import { useState } from "react";
+import { useGetResquest } from "../../../api/useRequestProcessor";
 import { SmallModal } from "../../../components";
+import { currencyFormatter } from "../../../utils/numberFormater";
 
-import { Options, AddCard } from "./style";
+import { Options } from "./style";
 
 const LockModal = ({ setModal, handleMethodName }) => {
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
+  );
   const payMethods = [
     {
       id: 1,
       img: "/assets/svg/plan3.svg",
-      amount: "Flex pocket (N200,000)",
+      amount: `Flex pocket (${
+        currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+      })`,
     },
     {
       id: 2,
@@ -21,7 +29,8 @@ const LockModal = ({ setModal, handleMethodName }) => {
 
   const getCurrent = (id, name) => {
     setPayMethod(id);
-    handleMethodName(name)
+    handleMethodName(name);
+    setModal(false);
   };
 
   return (

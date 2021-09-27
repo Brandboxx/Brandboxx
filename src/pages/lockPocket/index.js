@@ -13,10 +13,10 @@ import { Container, TabContainer, Tab, ActiveTab } from "./style";
 
 import { POCKETPLANS, LOCKPAGE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
+import { currencyFormatter } from "../../utils/numberFormater";
 
 const LockPocket = () => {
-
-  const history = useHistory()
+  const history = useHistory();
   const { data: viewPocketBalance } = useGetResquest(
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
@@ -45,15 +45,19 @@ const LockPocket = () => {
               img={"/assets/svg/bigLock.svg"}
               icon={"/assets/svg/lockpocket.svg"}
               btnText={"Lock Money"}
-              amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
-              onClick={()=>history.push(LOCKPAGE)}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+              }
+              onClick={() => history.push(LOCKPAGE)}
             />
           </div>
           <div style={{ width: "35%", marginTop: "30px" }}>
             <h1>Pocket Plans</h1>
             <SmallCard
               title={"Flex Pocket "}
-              amount={`₦${viewPocketBalance?.data?.flexPocket ?? "N/A"}`}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+              }
               content={
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish"
               }
@@ -64,7 +68,10 @@ const LockPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                "N/A"
+              }
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }
@@ -86,7 +93,7 @@ const LockPocket = () => {
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
               {" "}
-              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
+              <img src={"/assets/svg/circleLock.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Lock: N200,000</p>
@@ -99,7 +106,20 @@ const LockPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
+              <img src={"/assets/svg/circleLock.svg"} alt={""} />
+              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
+            </span>
+            <p>Lock: N200,000</p>
+            <p>
+              <span style={{ fontSize: "12px", color: "#FB7106" }}>
+                Interest
+              </span>
+              N500
+            </p>
+          </Credit>
+          <Credit>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <img src={"/assets/svg/circleLock.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Lock: N200,000</p>
@@ -113,21 +133,7 @@ const LockPocket = () => {
           </Credit>
           <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Lock: N200,000</p>
-            <p>
-              {" "}
-              <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} alt={""}/>
+              <img src={"/assets/svg/circleLock.svg"} alt={""} />
               <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
             </span>
             <p>Lock: N200,000</p>
