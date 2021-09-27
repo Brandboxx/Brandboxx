@@ -26,7 +26,6 @@ const FlexPocket = () => {
     "/deposit/view-recent-transactions?plan_type=flex pocket&plan_code=01",
     "flexTransactions"
   );
-  console.log({ flexTransactions });
   return (
     <MainLayout>
       <div style={{ marginTop: "35px", marginLeft: "30px" }}>
