@@ -14,18 +14,37 @@ import { Container, TabContainer, Tab, ActiveTab } from "./style";
 import { POCKETPLANS, LOCKPAGE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
 import { currencyFormatter } from "../../utils/numberFormater";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const LockPocket = () => {
   const history = useHistory();
+  const [lockPocketHistory, setLockPocketHistory] = useState(undefined);
+  const [selectedTab, setSelectedTab] = useState(0);
   const { data: viewPocketBalance } = useGetResquest(
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
-  const { data: lockPockets } = useGetResquest(
-    "/lock-pocket/lock-pockets?plan_type=Lock Pocket&plan_code=02",
-    ["lock-pocket", "lock-pockets"]
+  const { data: currentLockPockets } = useGetResquest(
+    "/lock-pocket/current-lock-pockets",
+    ["lock-pocket", "lock-pockets"],
+    selectedTab === 0
   );
-  console.log({lockPockets,viewPocketBalance});
+  const { data: completedLockPockets } = useGetResquest(
+    "/lock-pocket/completed-lock-pockets",
+    ["lock-pocket", "completed-lock-pockets"],
+    selectedTab === 1
+  );
+  
+  const Current = selectedTab ? Tab : ActiveTab;
+  const Completed = !selectedTab ? Tab : ActiveTab;
+
+  useEffect(() => {
+    selectedTab === 0
+      ? setLockPocketHistory(currentLockPockets)
+      : setLockPocketHistory(completedLockPockets);
+  }, [currentLockPockets, completedLockPockets, selectedTab]);
+
   return (
     <MainLayout>
       <Container>
@@ -88,68 +107,31 @@ const LockPocket = () => {
         </CardsContainer>
         <TransactionContainer>
           <TabContainer>
-            <Tab>
+            <Current onClick={() => setSelectedTab(0)}>
               <p>Current</p>
-            </Tab>
-            <ActiveTab>
+            </Current>
+            <Completed onClick={() => setSelectedTab(1)}>
               <p>Completed</p>
-            </ActiveTab>
+            </Completed>
           </TabContainer>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              {" "}
-              <img src={"/assets/svg/circleLock.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Lock: N200,000</p>
-            <p>
-              <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Lock: N200,000</p>
-            <p>
-              <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                Interest
-              </span>
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Lock: N200,000</p>
-            <p>
-              {" "}
-              <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleLock.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Lock: N200,000</p>
-            <p>
-              {" "}
-              <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
+          {lockPocketHistory?.data?.map((pocket, index) => {
+            return (
+              <Credit key={index}>
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <img src={"/assets/svg/circleLock.svg"} alt={""} />
+                  <p style={{ marginLeft: "10px" }}>{pocket.title} Lock</p>
+                </span>
+                <p>Lock: {currencyFormatter(pocket.amount)}</p>
+                <p>
+                  <span style={{ fontSize: "12px", color: "#FB7106" }}>
+                    Interest
+                  </span>
+                  {currencyFormatter(pocket.interest) ?? "N/A"}
+                </p>
+              </Credit>
+            );
+          })}
+          {!lockPocketHistory?.data.length && <>No recent transaction yet</>}
         </TransactionContainer>
       </Container>
     </MainLayout>
