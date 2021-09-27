@@ -2,7 +2,7 @@ import React from "react";
 
 import { ModalContainer, Container, Tint } from "../modal/style";
 
-const SuccessModal = ({ setSuccessModal }) => {
+const SuccessModal = ({ setSuccessModal,data }) => {
   return (
     <Container>
       <Tint onClick={() => setSuccessModal(false)} />
@@ -60,8 +60,7 @@ const SuccessModal = ({ setSuccessModal }) => {
               lineHeight: "25px",
             }}
           >
-            Your flex pocket have been
-            <br /> successfully credited with N50,000
+           {data.message}
           </p>
         </div>
       </ModalContainer>

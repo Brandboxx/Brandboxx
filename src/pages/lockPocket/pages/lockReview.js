@@ -19,7 +19,7 @@ import { ButtonContainer } from "../../../containers";
 import { LOCKPAGE, WITHDRAW } from "../../../constants/routes";
 import { useHistory, useLocation } from "react-router-dom";
 import { currencyFormatter } from "../../../utils/numberFormater";
-import { Amount } from "../../../components/atoms/bigCard/style";
+
 import { FLUTTERWAVE_PUBLIC_KEY } from "../../../api/config";
 import { useSelector } from "react-redux";
 import { usePostRequest } from "../../../api/useRequestProcessor";
@@ -29,7 +29,7 @@ const LockPreview = () => {
   const { state } = useLocation();
   const [modal, setModal] = useState(false);
   const { userDetails } = useSelector((state) => state.auth);
-  const { mutate: lockPocketDepositFunds } = usePostRequest(
+  const { mutate: lockPocketDepositFunds,data } = usePostRequest(
     "/lock-pocket/deposit-funds",
     "view-pocket-balance"
   );
@@ -89,14 +89,14 @@ const LockPreview = () => {
         interest: 5,
         amount: state.amount,
         payment_mtd: { mtd: "flex" },
-        transaction_id:'',
         saveCard: 0,
       };
+      
       lockPocketDepositFunds(payload, {
         onSuccess: (data) => {
           setModal(true);
           setTimeout(() => {
-            history.replace(WITHDRAW);
+            history.replace(WITHDRAW,data);
           }, 3000);
         },
       });
@@ -105,7 +105,7 @@ const LockPreview = () => {
 
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} /> : ""}
+      {modal ? <SuccessModal setSuccessModal={setModal} data={data}/> : ""}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={LOCKPAGE} />
