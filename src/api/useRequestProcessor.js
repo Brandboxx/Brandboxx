@@ -1,12 +1,7 @@
 import axios from "axios";
-// import NotificationManager from 'react-notifications/lib/NotificationManager';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
-import {
-  CENTER_POCKET,
-  IS_LOADING,
-  LOGOUT,
-} from "../reduxSetup/constant";
+import { CENTER_POCKET, IS_LOADING, LOGOUT } from "../reduxSetup/constant";
 import { getStorage } from "../utils/storage";
 import { BASE_URL } from "./config";
 import { toast } from "react-toastify";
@@ -34,9 +29,11 @@ const handleErrorTypeCheck = (error, dispatch) => {
     if (error.response.status === 401 && error.response?.data.error_no === 8) {
       dispatch({ type: LOGOUT });
     }
-    throw { status: error.response.status, ...error.response.data };
+    const errorMessage = { status: error.response.status, ...error.response.data };
+    throw errorMessage;
   } else {
-    throw { message: error.message };
+    const errorMessage = { message: error.message };
+    throw errorMessage;
   }
 };
 
