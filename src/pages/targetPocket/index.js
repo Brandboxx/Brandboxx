@@ -14,21 +14,45 @@ import { useGetResquest } from "../../api/useRequestProcessor";
 import { POCKETPLANS, TARGETSAVE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
 
+import { currencyFormatter } from "../../utils/numberFormater";
+import { useState, useEffect } from "react";
+
+
 const TargetPocket = () => {
   const history = useHistory();
-  
-  const { data: targetPocketBalance } = useGetResquest(
-    "/target-pocket/balance",
-    ["target-pocket", "balance"]
+  const [selectedTab, setSelectedTab] = useState("")
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
   );
-  const { data: lockPocketBalance } = useGetResquest("/lock-pocket/balance", [
-    "lock-pocket",
-    "balance",
-  ]);
-  const { data: depositBalance } = useGetResquest("/deposit/balance", [
-    "deposit",
-    "balance",
-  ]);
+  
+  const { data: completedTargetPockets } = useGetResquest(
+    "/target-pocket/completed-target-pockets",
+    ["target-pocket", "completed-target-pockets"],
+    selectedTab === 1
+  );
+  const { data: currentTargetPockets } = useGetResquest(
+    "/target-pocket/current-target-pockets",
+    ["target-pocket", "current-target-pockets"],
+    selectedTab === 1
+  );
+
+  const [targetPocketHistory, setTargetPocketHistory] = useState("")
+
+  const Current = selectedTab ? Tab : ActiveTab;
+  const Completed = !selectedTab ? Tab : ActiveTab;
+
+  useEffect(() => {
+    selectedTab === 0
+      ? setTargetPocketHistory(completedTargetPockets)
+      : setTargetPocketHistory(currentTargetPockets);
+      console.log("target pocket",targetPocketHistory?.data)
+  }, 
+
+  [currentTargetPockets, completedTargetPockets, selectedTab]
+  
+  );
+
   return (
     <MainLayout>
       <Container>
@@ -53,7 +77,10 @@ const TargetPocket = () => {
               img={"/assets/svg/bigTarget.svg"}
               icon={"/assets/svg/targetPocket.svg"}
               btnText={"Set New Target"}
-              amount={`${targetPocketBalance?.balance ?? "/A"}`}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                "N/A"
+              }              
               onClick={() => history.push(TARGETSAVE)}
             />
           </div>
@@ -61,7 +88,9 @@ const TargetPocket = () => {
             <h1>Pocket Plans</h1>
             <SmallCard
               title={"Flex Pocket "}
-              amount={`${depositBalance?.balance ?? "/A"}`}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+              }
               content={
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish."
               }
@@ -72,8 +101,9 @@ const TargetPocket = () => {
 
             <SmallCard
               title={"Lock Pocket"}
-              amount={`${lockPocketBalance?.balance ?? "/A"}`}
-              content={
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+              }              content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
               }
               img={"/assets/svg/plan1.svg"}
@@ -84,14 +114,41 @@ const TargetPocket = () => {
         </CardsContainer>
         <TransactionContainer>
           <TabContainer>
-            <Tab>
+            {/* <Tab>
               <p style={{ color: "rgba(173, 174, 175, 1)" }}>Current</p>
             </Tab>
             <ActiveTab style={{ background: "rgba(88, 2, 115, 1)" }}>
               <p>Completed</p>
-            </ActiveTab>
+            </ActiveTab> */}
+            <Current onClick={() => setSelectedTab(0)}>
+              <p>Current</p>
+            </Current>
+            <Completed onClick={() => setSelectedTab(1)}>
+              <p>Completed</p>
+            </Completed>
           </TabContainer>
-          <Credit>
+
+          {targetPocketHistory?.data?.map((element,index) => {
+            return(
+              <Credit> 
+                <span style={{ display: "flex", alignItems: "center" }}>
+                {" "}
+                <img src={"/assets/svg/circleTarget.svg"} alt={""} />
+                <p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
+              </span>
+              <p>Target: N{element.amount}</p>
+              <p>
+                <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
+                  Balance
+                </span>{" "}
+                {element.balance}
+              </p>
+              </Credit>
+            )
+          }
+          )}
+
+          {/* <Credit>
             <span style={{ display: "flex", alignItems: "center" }}>
               {" "}
               <img src={"/assets/svg/circleTarget.svg"} alt={""} />
@@ -132,7 +189,7 @@ const TargetPocket = () => {
               </span>{" "}
               N500
             </p>
-          </Credit>
+          </Credit> */}
         </TransactionContainer>
       </Container>
     </MainLayout>

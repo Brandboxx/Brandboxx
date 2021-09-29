@@ -17,18 +17,49 @@ import { MainLayout } from "../../layout";
 import { ButtonContainer } from "../../../containers";
 
 import { TARGETSAVE, TARGETWITHDRAW } from "../../../constants/routes";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+
+import { usePostRequest } from "../../../api/useRequestProcessor";
+
+
 
 const TargetReview = () => {
+  const { mutate: targetSaveFunds, data } = usePostRequest(
+    "/target-pocket/deposit-funds",
+    "view-pocket-balance"
+  );
   const history = useHistory();
+  const {state, pathname} = useLocation()
+
+  // console.log("state", state, pathname)
 
   const [modal, setModal] = useState(false);
 
   const handleNavigate = () => {
-    setModal(true);
-    setTimeout(() => {
-      history.push(TARGETWITHDRAW);
-    }, 3000);
+
+        const payload = {
+          plan_type: state.plan_type,
+          plan_code: "03",
+          title: "Investment",
+          duration: `${state.duration} months`,
+          start: state.start,
+          end: state.end,
+          mode: state.mode,
+          "interest": 25,
+          amount: state.amount,
+          "payment_mtd": {"mtd": "flex"},
+          transaction_id: "2512878",
+          "saveCard": ""
+        };
+        
+        targetSaveFunds(payload, {
+          onSuccess: (data) => {
+            setModal(true);
+            setTimeout(() => {
+              history.replace(TARGETWITHDRAW  ,data);
+            }, 3000);
+          },
+        });
   };
 
   return (
