@@ -7,6 +7,7 @@ const InputContainer = ({
   onChange,
   value,
   errorText,
+  type,
   ...rest
 }) => {
   return (
@@ -18,6 +19,7 @@ const InputContainer = ({
         onChange={onChange}
         errorText={errorText}
         value={value}
+        type={type}
         {...rest}
       />
       <span style={{ color: "#ff0033", fontSize: "12px" }}>{errorText}</span>
