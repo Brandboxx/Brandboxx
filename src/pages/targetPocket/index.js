@@ -14,21 +14,15 @@ import { useGetResquest } from "../../api/useRequestProcessor";
 import { POCKETPLANS, TARGETSAVE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
 
+import { currencyFormatter } from "../../utils/numberFormater";
+
+
 const TargetPocket = () => {
   const history = useHistory();
-  
-  const { data: targetPocketBalance } = useGetResquest(
-    "/target-pocket/balance",
-    ["target-pocket", "balance"]
+  const { data: viewPocketBalance } = useGetResquest(
+    "/users/view-pocket-balance",
+    ["users", "view-pocket-balance"]
   );
-  const { data: lockPocketBalance } = useGetResquest("/lock-pocket/balance", [
-    "lock-pocket",
-    "balance",
-  ]);
-  const { data: depositBalance } = useGetResquest("/deposit/balance", [
-    "deposit",
-    "balance",
-  ]);
   return (
     <MainLayout>
       <Container>
@@ -53,7 +47,10 @@ const TargetPocket = () => {
               img={"/assets/svg/bigTarget.svg"}
               icon={"/assets/svg/targetPocket.svg"}
               btnText={"Set New Target"}
-              amount={`${targetPocketBalance?.balance ?? "/A"}`}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                "N/A"
+              }              
               onClick={() => history.push(TARGETSAVE)}
             />
           </div>
@@ -61,7 +58,9 @@ const TargetPocket = () => {
             <h1>Pocket Plans</h1>
             <SmallCard
               title={"Flex Pocket "}
-              amount={`${depositBalance?.balance ?? "/A"}`}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+              }
               content={
                 "Flexible savings that alllows you to deposit and withdraw whenever you wish."
               }
@@ -72,8 +71,9 @@ const TargetPocket = () => {
 
             <SmallCard
               title={"Lock Pocket"}
-              amount={`${lockPocketBalance?.balance ?? "/A"}`}
-              content={
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+              }              content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
               }
               img={"/assets/svg/plan1.svg"}

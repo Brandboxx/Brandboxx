@@ -20,6 +20,10 @@ import { MainLayout } from "../../layout";
 
 import { LOCKPOCKET, TARGETREVIEW } from "../../../constants/routes";
 
+import { useFormik } from "formik";
+
+import { targetPocketSchema } from "../validation";
+
 const TargetSave = () => {
   const history = useHistory();
   const [targetSaveValue, setTargetSaveValue] = useState({
@@ -31,6 +35,27 @@ const TargetSave = () => {
     amount: 0,
     mode: ""
   })
+// FORMIK 
+  // const handleOnSubmit = (values) => {
+  //   setPayload({ ...values, duration: duration ?? values.duration });
+  // };
+
+  // const { values, errors, handleChange, setFieldValue, handleSubmit } =
+  //   useFormik({
+  //     initialValues: {
+  //       plan_type: "",
+  //       duration: "",
+  //       start: "",
+  //       end: "",
+  //       interest: 0,
+  //       amount: 0,
+  //       mode: ""
+  //     },
+  //     validationSchema: targetPocketSchema,
+  //     onSubmit: handleOnSubmit,
+  //   });
+
+// FORMIK ENDS 
 
   const badges = [
     {
@@ -81,11 +106,6 @@ const TargetSave = () => {
     setCurrentId(id);
   };
 
-  // const [method, setMethod] = useState("Flex pocket (N200,000)");
-
-  // const handleMethodName = (name) => {
-  //   setMethod(name);
-  // };
 
   const handleTargetSaveChange = (e) => {
     setTargetSaveValue((prevState) => ({
@@ -129,6 +149,7 @@ const TargetSave = () => {
               value={targetSaveValue.planType}
               onChange={handleTargetSaveChange}
             />
+
             <div style={{ marginTop: "50px" }}>
               <InputContainer
                 placeHolder={"Enter amount to target"}
@@ -138,6 +159,7 @@ const TargetSave = () => {
                 onChange={handleTargetSaveChange}
               />
             </div>
+
             <div style={{ marginTop: "50px" }}>
               <p>How will be the duration of lock?</p>
               <ToggleBadges>
@@ -161,9 +183,9 @@ const TargetSave = () => {
                 ))}
               </ToggleBadges>
               <InputContainer 
-                placeHolder={"Enter your choice"}
-                name="mode"
-                value={targetSaveValue.mode}
+                placeHolder={"Enter duration"}
+                name="duration"
+                value={targetSaveValue.duration}
                 onChange={handleTargetSaveChange}
                 />
             </div>
@@ -177,17 +199,7 @@ const TargetSave = () => {
                 cursor: "pointer",
               }}
             >
-              <img
-                onClick={() => setModal(true)}
-                style={{
-                  position: "absolute",
-                  right: "20px",
-                  top: "50px",
-                  cursor: "pointer",
-                }}
-                src={"/assets/svg/chevronDown.svg"}
-                alt={""}
-              />
+              
               <InputContainer
                 value={targetSaveValue.start}
                 label={"What date would you start saving?"}
@@ -215,9 +227,9 @@ const TargetSave = () => {
                 ))}
               </ToggleBadges>
               <InputContainer 
-                placeHolder={"Add your choice date"}
-                name="start"
-                value={targetSaveValue.start}
+                placeHolder={"Enter your mode of saving"}
+                name="mode"
+                value={targetSaveValue.mode}
                 onChange={handleTargetSaveChange} 
               />              
             </div>
@@ -229,17 +241,7 @@ const TargetSave = () => {
                 cursor: "pointer",
               }}
             >
-              <img
-                onClick={() => setModal(true)}
-                style={{
-                  position: "absolute",
-                  right: "20px",
-                  top: "50px",
-                  cursor: "pointer",
-                }}
-                src={"/assets/svg/chevronDown.svg"}
-                alt={""}
-              />
+             
               <InputContainer
                 type="date"
                 name="end"
@@ -252,7 +254,12 @@ const TargetSave = () => {
 
             <div style={{ marginTop: "50px" }}>
               <ButtonContainer
-                onClick={() => history.push(TARGETREVIEW)}
+              onClick={()=> history.push({ 
+                pathname: TARGETREVIEW,
+                state: targetSaveValue
+               })
+              }
+                // onClick={() => history.push(TARGETREVIEW)}
                 width="100%"
               >
                 See Preview
