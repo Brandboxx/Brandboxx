@@ -12,7 +12,7 @@ const PriceDetailHeader = ({amount}) => {
           <h3>{amount}</h3>
         </aside>
       </main>
-      <LinkInfo>View Centerpocket Account Details</LinkInfo>
+      {/* <LinkInfo>View Centerpocket Account Details</LinkInfo> */}
     </HeaderCont>
   );
 };

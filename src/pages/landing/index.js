@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { LandingNavigation, Logo } from "../../components";
 
 import { ButtonContainer } from "../../containers";
@@ -25,6 +26,8 @@ const Landing = (props) => {
   useEffect(() => {
     if (isAuth) props.history.push("/dashboard");
   }, [isAuth, props.history]);
+
+  const history = useHistory();
   return (
     <>
       <Banner>
@@ -40,7 +43,12 @@ const Landing = (props) => {
                 <br /> impulsive expenses and earn interests
               </p>
               <div style={{ height: "30px" }} />
-              <ButtonContainer width={"156px"}>Get Started</ButtonContainer>
+              <ButtonContainer
+                onClick={() => history.push("/register")}
+                width={"156px"}
+              >
+                Get Started
+              </ButtonContainer>
             </Text>
             <img src={"/assets/img/hero.png"} alt={""} />
           </BannerContent>
@@ -235,7 +243,12 @@ const Landing = (props) => {
                 and reap great harvest
               </h2>
               <div style={{ height: "30px" }} />
-              <ButtonContainer width={"156px"}>Get Started</ButtonContainer>
+              <ButtonContainer
+                onClick={() => history.push("/register")}
+                width={"156px"}
+              >
+                Get Started
+              </ButtonContainer>
             </aside>
           </MobileOverview>
           <RingImage src={"/assets/svg/rings.svg"} alt={""} />

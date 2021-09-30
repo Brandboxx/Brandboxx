@@ -8,10 +8,10 @@ import {
   ContactUs,
 } from "../../../pages/account/components";
 
-const AccountTabs = ({ setModal, saveChanges }) => {
+const AccountTabs = ({ setModal }) => {
   const tabs = [
     { id: 1, tab: "Profile Setting", component: <ProfileSetting /> },
-    { id: 2, tab: "Card & Bank", component: <CardBank setModal={setModal} /> },
+    // { id: 2, tab: "Card & Bank", component: <CardBank setModal={setModal} /> },
     { id: 3, tab: "Contact us", component: <ContactUs /> },
   ];
 
@@ -36,11 +36,6 @@ const AccountTabs = ({ setModal, saveChanges }) => {
             </Options>
           ))}
         </Tabs>
-        {currentId === 3 ? null : (
-          <ButtonContainer onClick={saveChanges} width="198px">
-            Save Changes
-          </ButtonContainer>
-        )}
       </Container>
       {tabs.map((tab, i) => (
         <div key={i}>{currentId === tab.id && tab.component}</div>

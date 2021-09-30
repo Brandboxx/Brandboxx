@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components/macro";
+import { Modal } from "../../../components";
 import { Container, Title } from "./styles";
 
 const CardBank = ({ setModal }) => {
@@ -20,7 +21,7 @@ const CardBank = ({ setModal }) => {
 
   return (
     <Container>
-      <Title>Card</Title>
+      {/* <Title>Card</Title>
       {card.map((card) => (
         <Card key={card.id} onClick={() => getCurrentId(card.id)}>
           <img src={card.img} alt={""} />
@@ -40,7 +41,7 @@ const CardBank = ({ setModal }) => {
         + Add Another Card
       </p>
       <br />
-      <br />
+      <br /> */}
       <Title>Bank</Title>
       <Bank>
         <img src={"/assets/svg/bankToken.svg"} alt={""} />

@@ -128,3 +128,27 @@ export const useDeleteRequest = (url, queryNameToInvalidate) => {
     }
   );
 };
+
+export const usePatchRequest = (url, queryNameToInvalidate) => {
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+  return useMutation(
+    (payload) => {
+      dispatch({ type: IS_LOADING, payload: true });
+      return axios
+        .patch(url, payload)
+        .then((res) => res.data)
+        .catch((err) => handleErrorTypeCheck(err, dispatch));
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(queryNameToInvalidate),
+      onError: (error) => {
+        console.log(error);
+        toast.error(error.message);
+      },
+      onSettled: () => {
+        dispatch({ type: IS_LOADING, payload: false });
+      },
+    }
+  );
+};

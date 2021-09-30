@@ -4,10 +4,11 @@ import { EditButton } from ".";
 import {
   useGetResquest,
   usePostRequest,
+  usePatchRequest,
 } from "../../../api/useRequestProcessor";
 
-import {profileValidator} from "./profileValidation";
-import { InputContainer } from "../../../containers";
+import { profileValidator } from "./profileValidation";
+import { ButtonContainer, InputContainer } from "../../../containers";
 import { Container, Title, Profile } from "./styles";
 
 const ProfileSetting = () => {
@@ -19,6 +20,11 @@ const ProfileSetting = () => {
   console.log(profile, "hello");
 
   const { mutate: editDp } = usePostRequest("/users/edit-dp", "editDp");
+
+  const { mutate: profileDp } = usePatchRequest(
+    "/users/edit-account",
+    "profileDp"
+  );
 
   const uploadFile = (e) => {
     const file = e.target.files[0];
@@ -35,6 +41,32 @@ const ProfileSetting = () => {
     });
   };
 
+  const handleProfileSubmit = () => {
+    console.log("hi");
+    const payload = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      date_of_birth: values.date_of_birth,
+      gender: values.gender,
+      address: values.address,
+      // email: values.email,
+      phone_number: values.phone_number,
+      next_of_kin: {
+        fullname: values.next_of_kin_fullname,
+        phone_number: values.next_of_kin_phone_number,
+        email: values.next_of_kin_email,
+        gender: values.next_of_kin_gender,
+        relationship: values.next_of_kin_relationship,
+      },
+    };
+
+    profileDp(payload, {
+      onSuccess: (res) => {
+        console.log(res);
+      },
+    });
+  };
+
   const { values, errors, handleChange, handleSubmit, setFieldValue, touched } =
     useFormik({
       initialValues: {
@@ -45,12 +77,17 @@ const ProfileSetting = () => {
         address: "",
         email: "",
         phone_number: "",
+        next_of_kin_fullname: "",
+        next_of_kin_phone_number: "",
+        next_of_kin_email: "",
+        next_of_kin_gender: "",
+        next_of_kin_relationship: "",
       },
       validationSchema: profileValidator,
-      // onSubmit: handleOnSubmit,
+      onSubmit: handleProfileSubmit,
     });
 
-    console.log(errors)
+  console.log(errors);
 
   useEffect(() => {
     setFieldValue("firstname", profile?.gottenUser?.firstname);
@@ -60,6 +97,23 @@ const ProfileSetting = () => {
     setFieldValue("address", profile?.gottenUser?.address);
     setFieldValue("email", profile?.gottenUser?.email);
     setFieldValue("phone_number", profile?.gottenUser?.phone_number);
+    setFieldValue(
+      "next_of_kin_fullname",
+      profile?.gottenUser?.next_of_kin?.fullname
+    );
+    setFieldValue(
+      "next_of_kin_phone_number",
+      profile?.gottenUser?.next_of_kin?.phone_number
+    );
+    setFieldValue("next_of_kin_email", profile?.gottenUser?.next_of_kin?.email);
+    setFieldValue(
+      "next_of_kin_gender",
+      profile?.gottenUser?.next_of_kin?.gender
+    );
+    setFieldValue(
+      "next_of_kin_relationship",
+      profile?.gottenUser?.next_of_kin?.relationship
+    );
   }, [profile]);
 
   return (
@@ -201,7 +255,7 @@ const ProfileSetting = () => {
         <br />
         <br />
         <h3 style={{ color: "rgba(20, 154, 155, 1)" }}>Pin & Password</h3>
-        <div
+        {/* <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -219,8 +273,8 @@ const ProfileSetting = () => {
             alt={""}
             style={{ cursor: "pointer" }}
           />
-        </div>
-        <br />
+        </div> */}
+        {/* <br />
         <br />
         <h4 style={{ color: "rgba(20, 154, 155, 1)" }}>
           Two-Factor Authentication
@@ -239,9 +293,7 @@ const ProfileSetting = () => {
             authenticator app
           </p>
           <img src={"/assets/svg/toggle.svg"} alt={""} />
-        </div>
-        <br />
-        <br />
+        </div> */}
         <Title>Next of Kin</Title>
         <div
           style={{
@@ -255,6 +307,9 @@ const ProfileSetting = () => {
             <InputContainer
               label={"Name of Next of Kin"}
               placeHolder={"Enter Name of Next of Kin"}
+              value={values.next_of_kin_fullname}
+              name={"next_of_kin_fullname"}
+              onChange={handleChange}
             />
           </div>
           <div style={{ width: "48%" }}>
@@ -262,6 +317,9 @@ const ProfileSetting = () => {
               width={"48%"}
               label={"Phone Number"}
               placeHolder={"Enter Phone Number"}
+              value={values.next_of_kin_phone_number}
+              name={"next_of_kin_phone_number"}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -277,6 +335,9 @@ const ProfileSetting = () => {
             <InputContainer
               label={"Email Address"}
               placeHolder={"Enter Email Address"}
+              value={values.next_of_kin_email}
+              name={"next_of_kin_email"}
+              onChange={handleChange}
             />
           </div>
           <div style={{ width: "48%" }}>
@@ -284,6 +345,9 @@ const ProfileSetting = () => {
               width={"48%"}
               label={"Gender"}
               placeHolder={"Enter Gender"}
+              value={values.next_of_kin_gender}
+              name={"next_of_kin_gender"}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -299,10 +363,18 @@ const ProfileSetting = () => {
             <InputContainer
               label={"Relationship"}
               placeHolder={"Enter Relationship"}
+              value={values.next_of_kin_relationship}
+              name={"next_of_kin_relationship"}
+              onChange={handleChange}
             />
           </div>
         </div>
+        <br />
       </Container>
+
+      <ButtonContainer onClick={handleSubmit} width="198px">
+        Save Changes
+      </ButtonContainer>
     </>
   );
 };
