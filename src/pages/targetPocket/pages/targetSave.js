@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
@@ -71,8 +71,11 @@ const TargetSave = () => {
   const [payload, setpayload] = useState(null)
 // FORMIK 
   const handleOnSubmit = (values) => {
-    setpayload({ ...values });
-    console.log('jjjjjjjjjjjjjj', payload)
+    history.push({ 
+      pathname: TARGETREVIEW,
+      state: values
+     }
+    )
   };
 
   const { values, errors, handleChange, handleSubmit } =
@@ -100,17 +103,6 @@ const TargetSave = () => {
   const getCurrentId = (id) => {
     setCurrentId(id);
   };
-
-
-  useEffect(() => {
-    console.log('useEffect payloda', payload)
-    if (payload)
-      history.push({ 
-          pathname: TARGETREVIEW,
-          state: payload
-         }
-        )
-  }, [payload, history]);
 
   return (
     <>

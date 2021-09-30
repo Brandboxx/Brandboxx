@@ -91,33 +91,33 @@ const TargetReview = () => {
                     </span>
                     Target Title
                   </Title>
-                  <Header>Land Target</Header>
+                  <Header>{state.plan_type}</Header>
                 </div>
                 <div></div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Target amount</Title>
-                  <Info style={{ fontWeight: "600" }}>N200,000</Info>
+                  <Info style={{ fontWeight: "600" }}>{state.amount}</Info>
                 </div>{" "}
                 <div style={{ marginTop: "40px" }}>
                   <Title style={{ textAlign: "right" }}>
                     Method of payment
                   </Title>
                   <Info style={{ fontWeight: "600", textAlign: "right" }}>
-                    Weekly
+                    {state.mode}
                   </Info>
                 </div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Start Date</Title>
-                  <Info style={{ fontWeight: "600" }}>12th Feb</Info>
+                  <Info style={{ fontWeight: "600" }}>{state.start}</Info>
                 </div>
                 <div style={{ marginTop: "40px" }}>
                   <Title style={{ textAlign: "right" }}>End Date</Title>
                   <Info style={{ fontWeight: "600", textAlign: "right" }}>
-                    12th April
+                    {state.end}
                   </Info>
                 </div>
               </Review>
