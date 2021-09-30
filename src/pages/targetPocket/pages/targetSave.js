@@ -36,24 +36,24 @@ const TargetSave = () => {
     mode: ""
   })
 // FORMIK 
-  // const handleOnSubmit = (values) => {
-  //   setPayload({ ...values, duration: duration ?? values.duration });
-  // };
+  const handleOnSubmit = (values) => {
+    setTargetSaveValue({ ...values, ...targetSaveValue });
+  };
 
-  // const { values, errors, handleChange, setFieldValue, handleSubmit } =
-  //   useFormik({
-  //     initialValues: {
-  //       plan_type: "",
-  //       duration: "",
-  //       start: "",
-  //       end: "",
-  //       interest: 0,
-  //       amount: 0,
-  //       mode: ""
-  //     },
-  //     validationSchema: targetPocketSchema,
-  //     onSubmit: handleOnSubmit,
-  //   });
+  const { values, errors, handleChange, setFieldValue, handleSubmit } =
+    useFormik({
+      initialValues: {
+        plan_type: "",
+        duration: "",
+        start: "",
+        end: "",
+        interest: 0,
+        amount: 0,
+        mode: ""
+      },
+      validationSchema: targetPocketSchema,
+      onSubmit: handleOnSubmit,
+    });
 
 // FORMIK ENDS 
 
@@ -146,8 +146,12 @@ const TargetSave = () => {
               placeHolder={"Enter Title of Lock"}
               label={"What are you saving for?"}
               name="plan_type"
-              value={targetSaveValue.planType}
-              onChange={handleTargetSaveChange}
+              // value={targetSaveValue.planType}
+              // onChange={handleTargetSaveChange}
+
+              errorText={errors.planType}
+              value={values.planType}
+              onChange={handleChange}
             />
 
             <div style={{ marginTop: "50px" }}>
@@ -155,8 +159,12 @@ const TargetSave = () => {
                 placeHolder={"Enter amount to target"}
                 label={"How much do you want to target?"}
                 name="amount"
-                value={targetSaveValue.amount}
-                onChange={handleTargetSaveChange}
+                // value={targetSaveValue.amount}
+                // onChange={handleTargetSaveChange}
+
+                errorText={errors.amount}
+                value={values.amount}
+                onChange={handleChange}
               />
             </div>
 
@@ -185,8 +193,12 @@ const TargetSave = () => {
               <InputContainer 
                 placeHolder={"Enter duration"}
                 name="duration"
-                value={targetSaveValue.duration}
-                onChange={handleTargetSaveChange}
+                // value={targetSaveValue.duration}
+                // onChange={handleTargetSaveChange}
+
+                errorText={errors.duration}
+                value={values.duration}
+                onChange={handleChange}
                 />
             </div>
             <Interest>
@@ -201,12 +213,15 @@ const TargetSave = () => {
             >
               
               <InputContainer
-                value={targetSaveValue.start}
+                // value={targetSaveValue.start}
                 label={"What date would you start saving?"}
                 name="start"
                 type="date"
-                onChange={handleTargetSaveChange}
-                // onClick={() => setModal(true)}
+                // onChange={handleTargetSaveChange}
+                
+                errorText={errors.start}
+                value={values.start}
+                onChange={handleChange}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
@@ -229,8 +244,11 @@ const TargetSave = () => {
               <InputContainer 
                 placeHolder={"Enter your mode of saving"}
                 name="mode"
-                value={targetSaveValue.mode}
-                onChange={handleTargetSaveChange} 
+                // value={targetSaveValue.mode}
+                // onChange={handleTargetSaveChange} 
+                errorText={errors.mode}
+                value={values.mode}
+                onChange={handleChange}
               />              
             </div>
             
@@ -245,10 +263,13 @@ const TargetSave = () => {
               <InputContainer
                 type="date"
                 name="end"
-                value={targetSaveValue.end}
-                onChange={handleTargetSaveChange}
+                // value={targetSaveValue.end}
+                // onChange={handleTargetSaveChange}
                 label={"What date would you withdraw?"}
-                // onClick={() => setModal(true)}
+
+                errorText={errors.end}
+                value={values.end}
+                onChange={handleChange}
               />
             </div>
 
@@ -259,7 +280,7 @@ const TargetSave = () => {
                 state: targetSaveValue
                })
               }
-                // onClick={() => history.push(TARGETREVIEW)}
+                onClick={() => {handleSubmit()}}
                 width="100%"
               >
                 See Preview

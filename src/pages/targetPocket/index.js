@@ -29,7 +29,7 @@ const TargetPocket = () => {
   const { data: completedTargetPockets } = useGetResquest(
     "/target-pocket/completed-target-pockets",
     ["target-pocket", "completed-target-pockets"],
-    selectedTab === 1
+    selectedTab === 0
   );
   const { data: currentTargetPockets } = useGetResquest(
     "/target-pocket/current-target-pockets",
@@ -114,12 +114,6 @@ const TargetPocket = () => {
         </CardsContainer>
         <TransactionContainer>
           <TabContainer>
-            {/* <Tab>
-              <p style={{ color: "rgba(173, 174, 175, 1)" }}>Current</p>
-            </Tab>
-            <ActiveTab style={{ background: "rgba(88, 2, 115, 1)" }}>
-              <p>Completed</p>
-            </ActiveTab> */}
             <Current onClick={() => setSelectedTab(0)}>
               <p>Current</p>
             </Current>
@@ -130,66 +124,25 @@ const TargetPocket = () => {
 
           {targetPocketHistory?.data?.map((element,index) => {
             return(
-              <Credit> 
+              <Credit key={index}> 
                 <span style={{ display: "flex", alignItems: "center" }}>
                 {" "}
                 <img src={"/assets/svg/circleTarget.svg"} alt={""} />
                 <p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
-              </span>
-              <p>Target: N{element.amount}</p>
-              <p>
-                <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
-                  Balance
-                </span>{" "}
-                {element.balance}
-              </p>
+                </span>
+
+                <p>Target: N{element.amount}</p>
+                <p>
+                  <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
+                    Balance
+                  </span>{" "}
+                  {element.balance}
+                </p>
               </Credit>
             )
           }
           )}
 
-          {/* <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              {" "}
-              <img src={"/assets/svg/circleTarget.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Laptop Lock</p>
-            </span>
-            <p>Target: N200,000</p>
-            <p>
-              <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
-                Balance
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleTarget.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>House Target</p>
-            </span>
-            <p>Target: N200,000</p>
-            <p>
-              {" "}
-              <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit>
-          <Credit>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <img src={"/assets/svg/circleTarget.svg"} alt={""} />
-              <p style={{ marginLeft: "10px" }}>Casr Target</p>
-            </span>
-            <p>Target: N200,000</p>
-            <p>
-              {" "}
-              <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
-                Interest
-              </span>{" "}
-              N500
-            </p>
-          </Credit> */}
         </TransactionContainer>
       </Container>
     </MainLayout>
