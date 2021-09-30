@@ -17,23 +17,52 @@ import { MainLayout } from "../../layout";
 import { ButtonContainer } from "../../../containers";
 
 import { TARGETSAVE, TARGETWITHDRAW } from "../../../constants/routes";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+
+import { usePostRequest } from "../../../api/useRequestProcessor";
+
+
 
 const TargetReview = () => {
+  const { mutate: targetSaveFunds, data } = usePostRequest(
+    "/target-pocket/deposit-funds",
+    "view-pocket-balance"
+  );
   const history = useHistory();
+  const {state, pathname} = useLocation()
 
   const [modal, setModal] = useState(false);
 
   const handleNavigate = () => {
-    setModal(true);
-    setTimeout(() => {
-      history.push(TARGETWITHDRAW);
-    }, 3000);
+
+        const payload = {
+          plan_type: state.plan_type,
+          plan_code: "03",
+          title: "Investment",
+          duration: `${state.duration} months`,
+          start: state.start,
+          end: state.end,
+          mode: state.mode,
+          "interest": 25,
+          amount: state.amount,
+          "payment_mtd": {"mtd": "flex"},
+          transaction_id: "2512878",
+          "saveCard": ""
+        };
+        
+        targetSaveFunds(payload, {
+          onSuccess: (data) => {
+            setModal(true);
+            setTimeout(() => {
+              history.replace(TARGETWITHDRAW  ,data);
+            }, 3000);
+          },
+        });
   };
 
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} /> : ""}
+      {modal ? <SuccessModal setSuccessModal={setModal} data={data} /> : ""}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={TARGETSAVE} />
@@ -62,33 +91,33 @@ const TargetReview = () => {
                     </span>
                     Target Title
                   </Title>
-                  <Header>Land Target</Header>
+                  <Header>{state.plan_type}</Header>
                 </div>
                 <div></div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Target amount</Title>
-                  <Info style={{ fontWeight: "600" }}>N200,000</Info>
+                  <Info style={{ fontWeight: "600" }}>{state.amount}</Info>
                 </div>{" "}
                 <div style={{ marginTop: "40px" }}>
                   <Title style={{ textAlign: "right" }}>
                     Method of payment
                   </Title>
                   <Info style={{ fontWeight: "600", textAlign: "right" }}>
-                    Weekly
+                    {state.mode}
                   </Info>
                 </div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Start Date</Title>
-                  <Info style={{ fontWeight: "600" }}>12th Feb</Info>
+                  <Info style={{ fontWeight: "600" }}>{state.start}</Info>
                 </div>
                 <div style={{ marginTop: "40px" }}>
                   <Title style={{ textAlign: "right" }}>End Date</Title>
                   <Info style={{ fontWeight: "600", textAlign: "right" }}>
-                    12th April
+                    {state.end}
                   </Info>
                 </div>
               </Review>

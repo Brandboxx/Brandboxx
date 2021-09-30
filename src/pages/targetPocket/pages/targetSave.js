@@ -20,9 +20,11 @@ import { MainLayout } from "../../layout";
 
 import { LOCKPOCKET, TARGETREVIEW } from "../../../constants/routes";
 
-const TargetSave = () => {
-  const history = useHistory();
+import { useFormik } from "formik";
 
+import { targetPocketSchema } from "../validation";
+
+const TargetSave = () => {
   const badges = [
     {
       id: 1,
@@ -49,25 +51,51 @@ const TargetSave = () => {
   const otherBadges = [
     {
       id: 1,
-      number: 3,
-      unit: "months",
+      mode: "daily",
     },
     {
       id: 2,
-      number: 6,
-      unit: "months",
+      mode: "weekly",
     },
     {
       id: 3,
-      number: 9,
-      unit: "months",
+      mode: "monthly",
     },
     {
       id: 4,
-      number: 1,
-      unit: "year",
+      mode: "yearly",
     },
   ];
+
+  const history = useHistory();
+  const [payload, setpayload] = useState(null)
+// FORMIK 
+  const handleOnSubmit = (values) => {
+    history.push({ 
+      pathname: TARGETREVIEW,
+      state: values
+     }
+    )
+  };
+
+  const { values, errors, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        plan_type: "",
+        duration: "",
+        start: "",
+        end: "",
+        interest: 0,
+        amount: 0,
+        mode: ""
+      },
+      validationSchema: targetPocketSchema,
+      onSubmit: handleOnSubmit,
+    });
+
+// FORMIK ENDS 
+
+  
 
   const [modal, setModal] = useState(false);
   const [currentId, setCurrentId] = useState(1);
@@ -76,17 +104,10 @@ const TargetSave = () => {
     setCurrentId(id);
   };
 
-  const [method, setMethod] = useState("Flex pocket (N200,000)");
-
-  const handleMethodName = (name) => {
-    setMethod(name);
-  };
-
   return (
     <>
       {modal ? (
         <LockModal
-          handleMethodName={handleMethodName}
           modal={modal}
           setModal={setModal}
         />
@@ -112,15 +133,25 @@ const TargetSave = () => {
             <InputContainer
               placeHolder={"Enter Title of Lock"}
               label={"What are you saving for?"}
+              name="plan_type"
+              errorText={errors.planType}
+              value={values.planType}
+              onChange={handleChange}
             />
+
             <div style={{ marginTop: "50px" }}>
               <InputContainer
                 placeHolder={"Enter amount to target"}
                 label={"How much do you want to target?"}
+                name="amount"
+                errorText={errors.amount}
+                value={values.amount}
+                onChange={handleChange}
               />
             </div>
+
             <div style={{ marginTop: "50px" }}>
-              <p>How long would you want to lock?</p>
+              <p>How will be the duration of lock?</p>
               <ToggleBadges>
                 {badges.map((badge) => (
                   <Badge
@@ -141,7 +172,13 @@ const TargetSave = () => {
                   </Badge>
                 ))}
               </ToggleBadges>
-              <InputContainer placeHolder={"Enter your choice"} />
+              <InputContainer 
+                placeHolder={"Enter duration"}
+                name="duration"
+                errorText={errors.duration}
+                value={values.duration}
+                onChange={handleChange}
+                />
             </div>
             <Interest>
               <p>N5,000 x 30days = N150,000</p>
@@ -153,25 +190,18 @@ const TargetSave = () => {
                 cursor: "pointer",
               }}
             >
-              <img
-                onClick={() => setModal(true)}
-                style={{
-                  position: "absolute",
-                  right: "20px",
-                  top: "50px",
-                  cursor: "pointer",
-                }}
-                src={"/assets/svg/chevronDown.svg"}
-                alt={""}
-              />
+              
               <InputContainer
-                value={"21/05/2021"}
                 label={"What date would you start saving?"}
-                onClick={() => setModal(true)}
+                name="start"
+                type="date"
+                errorText={errors.start}
+                value={values.start}
+                onChange={handleChange}
               />
             </div>
             <div style={{ marginTop: "50px" }}>
-              <p>Set date to meet target</p>
+              <p>Set mode of target</p>
               <ToggleBadges>
                 {otherBadges.map((badge) => (
                   <Badge
@@ -181,19 +211,21 @@ const TargetSave = () => {
                         ? "rgba(90, 176, 255, 0.1)"
                         : "rgba(50, 52, 56, 0.05)"
                     }
-                    cl={
-                      currentId === badge.id
-                        ? "rgba(20, 154, 155, 1)"
-                        : "rgba(50, 52, 56, 0.8)"
-                    }
                     key={badge.id}
                   >
-                    {badge.number + " " + badge.unit}
+                    {badge.mode}
                   </Badge>
                 ))}
               </ToggleBadges>
-              <InputContainer placeHolder={"Add your choice date"} />
+              <InputContainer 
+                placeHolder={"Enter your mode of saving"}
+                name="mode"
+                errorText={errors.mode}
+                value={values.mode}
+                onChange={handleChange}
+              />              
             </div>
+            
             <div
               style={{
                 marginTop: "50px",
@@ -201,31 +233,28 @@ const TargetSave = () => {
                 cursor: "pointer",
               }}
             >
-              <img
-                onClick={() => setModal(true)}
-                style={{
-                  position: "absolute",
-                  right: "20px",
-                  top: "50px",
-                  cursor: "pointer",
-                }}
-                src={"/assets/svg/chevronDown.svg"}
-                alt={""}
-              />
+             
               <InputContainer
-                value={method}
-                label={"What date would you start saving?"}
-                onClick={() => setModal(true)}
+                type="date"
+                name="end"
+                label={"What date would you withdraw?"}
+
+                errorText={errors.end}
+                value={values.end}
+                onChange={handleChange}
               />
             </div>
+
             <div style={{ marginTop: "50px" }}>
               <ButtonContainer
-                onClick={() => history.push(TARGETREVIEW)}
+                onClick={handleSubmit}
                 width="100%"
+                type={"button"}
               >
                 See Preview
               </ButtonContainer>
             </div>
+
           </InputBox>
         </Container>
       </MainLayout>
