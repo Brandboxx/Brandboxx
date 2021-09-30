@@ -61,7 +61,7 @@ const LockPage = () => {
     setPayload({ ...values, duration: duration ?? values.duration });
   };
 
-  const { values, errors, handleChange, setFieldValue, handleSubmit } =
+  const { values, errors, handleChange, setFieldValue, handleSubmit } = 
     useFormik({
       initialValues: {
         title: "",
