@@ -31,8 +31,6 @@ const TargetReview = () => {
   const history = useHistory();
   const {state, pathname} = useLocation()
 
-  // console.log("state", state, pathname)
-
   const [modal, setModal] = useState(false);
 
   const handleNavigate = () => {
@@ -64,7 +62,7 @@ const TargetReview = () => {
 
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} /> : ""}
+      {modal ? <SuccessModal setSuccessModal={setModal} data={data} /> : ""}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={TARGETSAVE} />
