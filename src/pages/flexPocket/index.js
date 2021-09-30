@@ -50,8 +50,8 @@ const FlexPocket = () => {
               }
               img={"/assets/svg/bigLogo.svg"}
               amount={currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"}
-              icon={"/assets/svg/withdraw.svg"}
-              btnText={"Withdraw"}
+              // icon={"/assets/svg/withdraw.svg"}
+              // btnText={"Withdraw"}
               handleClick={() => history.push(ADDMONEY)}
             />
           </div>

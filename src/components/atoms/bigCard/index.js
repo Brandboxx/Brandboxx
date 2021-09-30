@@ -18,7 +18,7 @@ const BigCard = ({
   amount,
   icon,
   btnText,
-  onClick
+  onClick,
 }) => {
   return (
     <Container bg={bg}>
@@ -38,10 +38,12 @@ const BigCard = ({
         ) : (
           ""
         )}
-        <AltButton  onClick={onClick} cl={cl}>
-          <img src={icon} alt={""} />
-          <p>{btnText}</p>
-        </AltButton>
+        {title !== "Flex Pocket Balance" && (
+          <AltButton onClick={onClick} cl={cl}>
+            <img src={icon} alt={""} />
+            <p>{btnText}</p>
+          </AltButton>
+        )}
       </div>
       <Content>{text}</Content>
     </Container>

@@ -10,7 +10,7 @@ const Header = ({ setModal }) => {
       <ProfileContainer>
         <Hand src={"/assets/svg/header/profile.svg"} alt={""} />
         <Profile>
-          <img src={"/assets/svg/header/profile.png"} alt={""} />
+          {/* <img src={"/assets/svg/header/profile.png"} alt={""} /> */}
         </Profile>
         <main>
           <h3>{`Good ${timeName()} ${userDetails.firstname}`}</h3>
@@ -24,9 +24,9 @@ const Header = ({ setModal }) => {
         style={{ marginRight: "30px" }}
         alt={""}
       />
-      <ButtonContainer onClick={() => setModal(true)} width={"196px"}>
+      {/* <ButtonContainer onClick={() => setModal(true)} width={"196px"}>
         Fast Save
-      </ButtonContainer>
+      </ButtonContainer> */}
     </Container>
   );
 };

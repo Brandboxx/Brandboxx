@@ -108,7 +108,7 @@ const ProfileSetting = () => {
     setFieldValue("next_of_kin_email", profile?.gottenUser?.next_of_kin?.email);
     setFieldValue(
       "next_of_kin_gender",
-      profile?.gottenUser?.next_of_kin_gender?.gender
+      profile?.gottenUser?.next_of_kin?.gender
     );
     setFieldValue(
       "next_of_kin_relationship",
