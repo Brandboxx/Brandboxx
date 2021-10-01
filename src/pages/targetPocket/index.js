@@ -9,7 +9,7 @@ import {
   Credit,
 } from "../flexPocket/style";
 
-import { Container, TabContainer, Tab, ActiveTab } from "../lockPocket/style";
+import { Container, TabContainer, Tab, ActiveTab } from "../targetPocket/style";
 import { useGetResquest } from "../../api/useRequestProcessor";
 import { POCKETPLANS, TARGETSAVE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
@@ -124,20 +124,24 @@ const TargetPocket = () => {
 
           {targetPocketHistory?.data?.map((element,index) => {
             return(
-              <Credit key={index}> 
-                <span style={{ display: "flex", alignItems: "center" }}>
-                {" "}
-                <img src={"/assets/svg/circleTarget.svg"} alt={""} />
-                <p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
-                </span>
-
-                <p>Target: N{element.amount}</p>
-                <p>
-                  <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
-                    Balance
-                  </span>{" "}
-                  {element.balance}
-                </p>
+              <Credit   key={index} className={index===0? "custom-active" : null} > 
+              <div style={{display: "flex", width: "100%"}}>
+                  <div style={{display: "flex", alignItems: "center", width: "33.3%" }}>
+                    <img src={"/assets/svg/circleTarget.svg"} alt={""} />
+                    <p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
+                  </div>
+                  <div style={{width: "33.3%" }}>
+                    <p>Target: N{element.amount}</p>
+                  </div>
+                  <div className="" style={{width: "33.3%"}}>
+                    <p>
+                      <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
+                        Balance
+                      </span>{" "}
+                      {element.balance}
+                    </p>
+                  </div>
+              </div>
               </Credit>
             )
           }
