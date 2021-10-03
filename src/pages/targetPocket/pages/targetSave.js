@@ -131,7 +131,7 @@ const TargetSave = () => {
           </TextInfo>
           <InputBox>
             <InputContainer
-              placeHolder={"Enter Title of Lock"}
+              placeHolder={"Enter  Target Title"}
               label={"What are you saving for?"}
               name="plan_type"
               errorText={errors.planType}
@@ -151,7 +151,7 @@ const TargetSave = () => {
             </div>
 
             <div style={{ marginTop: "50px" }}>
-              <p>How will be the duration of lock?</p>
+              <p>What will be the duration of lock?</p>
               <ToggleBadges>
                 {badges.map((badge) => (
                   <Badge
@@ -180,9 +180,6 @@ const TargetSave = () => {
                 onChange={handleChange}
                 />
             </div>
-            <Interest>
-              <p>N5,000 x 30days = N150,000</p>
-            </Interest>
             <div
               style={{
                 marginTop: "50px",
@@ -201,7 +198,7 @@ const TargetSave = () => {
               />
             </div>
             <div style={{ marginTop: "50px" }}>
-              <p>Set mode of target</p>
+              <p>What will be the mode of target</p>
               <ToggleBadges>
                 {otherBadges.map((badge) => (
                   <Badge
