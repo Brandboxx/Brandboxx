@@ -29,35 +29,35 @@ const TargetReview = () => {
     "view-pocket-balance"
   );
   const history = useHistory();
-  const {state, pathname} = useLocation()
+  const { state, pathname } = useLocation()
 
   const [modal, setModal] = useState(false);
 
   const handleNavigate = () => {
 
-        const payload = {
-          plan_type: state.plan_type,
-          plan_code: "03",
-          title: "Investment",
-          duration: `${state.duration} months`,
-          start: state.start,
-          end: state.end,
-          mode: state.mode,
-          "interest": 25,
-          amount: state.amount,
-          "payment_mtd": {"mtd": "flex"},
-          transaction_id: "2512878",
-          "saveCard": ""
-        };
-        
-        targetSaveFunds(payload, {
-          onSuccess: (data) => {
-            setModal(true);
-            setTimeout(() => {
-              history.replace(TARGETWITHDRAW  ,data);
-            }, 3000);
-          },
-        });
+    const payload = {
+      plan_type: state.plan_type,
+      plan_code: "03",
+      title: "Investment",
+      duration: `${state.duration} months`,
+      start: state.start,
+      end: state.end,
+      mode: state.mode,
+      "interest": 25,
+      amount: state.amount,
+      "payment_mtd": { "mtd": "flex" },
+      transaction_id: "2512878",
+      "saveCard": ""
+    };
+
+    targetSaveFunds(payload, {
+      onSuccess: (data) => {
+        setModal(true);
+        setTimeout(() => {
+          history.replace("/pocket_plans/target_pocket");
+        }, 3000);
+      },
+    });
   };
 
   return (

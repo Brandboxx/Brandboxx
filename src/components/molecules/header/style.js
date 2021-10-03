@@ -31,13 +31,13 @@ export const ProfileContainer = styled.div`
 `;
 
 export const Profile = styled.div`
-  width: 98px;
-  height: 98px;
-  border-radius: 50px;
-  border: 3px solid #149a9b;
-  overflow: hidden;
 
-  img {
-    width: 100%;
+img {
+    width: 98px;
+    height: 98px;
+    border-radius: 50px;
+    border: 3px solid #149a9b;
+    overflow: hidden;
+    object-fit: cover;
   }
 `;

@@ -2,11 +2,11 @@ import styled from "styled-components/macro";
 
 const EditButton = () => {
   return (
-      <Container>
-        <main>
-          <img src={"/assets/svg/edit.svg"} alt={""} />
-        </main>
-      </Container>
+    <Container>
+      <main >
+        <img style={{ cursor: "pointer" }} src={"/assets/svg/edit.svg"} alt={""} />
+      </main>
+    </Container>
   );
 };
 

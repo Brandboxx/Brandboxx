@@ -7,6 +7,7 @@ import { useGetResquest } from "../../api/useRequestProcessor";
 
 import * as ROUTES from "../../constants/routes";
 import { currencyFormatter } from "../../utils/numberFormater";
+import { toast } from "react-toastify";
 
 const PocketPlans = () => {
   const history = useHistory();
@@ -14,6 +15,8 @@ const PocketPlans = () => {
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
+
+  console.log({ viewPocketBalance })
   return (
     <MainLayout>
       <Wrapper>
@@ -22,10 +25,10 @@ const PocketPlans = () => {
             <h1>Choose a Pocket Plan</h1>
             <p>Here is an overview of your saving</p>
           </main>
-          <img src={"/assets/svg/header/notification.svg"} alt={""} />
+          <img src={"/assets/svg/header/notification.svg"} alt={""} onClick={() => toast("No notification yet!", { delay: 1000 })} />
         </Header>
         <Padding>
-          <PriceDetailHeader />
+          <PriceDetailHeader amount={currencyFormatter(viewPocketBalance?.data?.total) ?? "N/A"} />
         </Padding>
         <CardContainer>
           <PocketCards
@@ -51,7 +54,7 @@ const PocketPlans = () => {
             }
             stat={"25%"}
             amount={
-              currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+              "Last lock amount: " + currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
             }
             bg={"#FFF1E6"}
             cl={"#FB7106"}

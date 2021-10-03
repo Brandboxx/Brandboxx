@@ -25,7 +25,7 @@ const TargetPocket = () => {
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
-  
+
   const { data: completedTargetPockets } = useGetResquest(
     "/target-pocket/completed-target-pockets",
     ["target-pocket", "completed-target-pockets"],
@@ -46,11 +46,9 @@ const TargetPocket = () => {
     selectedTab === 0
       ? setTargetPocketHistory(completedTargetPockets)
       : setTargetPocketHistory(currentTargetPockets);
-      console.log("target pocket",targetPocketHistory?.data)
-  }, 
-
-  [currentTargetPockets, completedTargetPockets, selectedTab]
-  
+    console.log("target pocket", targetPocketHistory?.data)
+  },
+    [currentTargetPockets, completedTargetPockets, selectedTab]
   );
 
   return (
@@ -80,13 +78,14 @@ const TargetPocket = () => {
               amount={
                 currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                 "N/A"
-              }              
+              }
               onClick={() => history.push(TARGETSAVE)}
             />
           </div>
           <div style={{ width: "35%", marginTop: "30px" }}>
             <h1>Pocket Plans</h1>
             <SmallCard
+              routeTo={"/pocket_plans/flex_pocket"}
               title={"Flex Pocket "}
               amount={
                 currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
@@ -101,9 +100,10 @@ const TargetPocket = () => {
 
             <SmallCard
               title={"Lock Pocket"}
+              routeTo={"/pocket_plans/lock_pocket"}
               amount={
                 currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
-              }              content={
+              } content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
               }
               img={"/assets/svg/plan1.svg"}
@@ -122,31 +122,34 @@ const TargetPocket = () => {
             </Completed>
           </TabContainer>
 
-          {targetPocketHistory?.data?.map((element,index) => {
-            return(
-              <Credit   key={index} className={index===0? "custom-active" : null} > 
-              <div style={{display: "flex", width: "100%"}}>
-                  <div style={{display: "flex", alignItems: "center", width: "33.3%" }}>
-                    <img src={"/assets/svg/circleTarget.svg"} alt={""} />
-                    <p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
+          {
+            targetPocketHistory?.data?.map((element, index) => {
+              return (
+                <Credit key={index} className={index === 0 ? "custom-active" : null} style={{ width: "65%", cursor: "pointer", alignItems: "center" }} targetPocket>
+                  <div className={"customWidth"} style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ display: "flex", alignItems: "center", width: "33.3%" }}>
+                      <img src={"/assets/svg/circleTarget.svg"} alt={""} />
+                      <p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
+                    </div>
+
+                    <div style={{ width: "33.3%" }}>
+                      <p>Target: {currencyFormatter(element.amount)}</p>
+                    </div>
+
+                    <div className="" style={{ width: "33.3%" }}>
+                      <p>
+                        <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
+                          Balance :
+                        </span>{" "}
+                        {currencyFormatter(element.balance)}
+                      </p>
+                    </div>
                   </div>
-                  <div style={{width: "33.3%" }}>
-                    <p>Target: N{element.amount}</p>
-                  </div>
-                  <div className="" style={{width: "33.3%"}}>
-                    <p>
-                      <span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
-                        Balance
-                      </span>{" "}
-                      {element.balance}
-                    </p>
-                  </div>
-              </div>
-              </Credit>
-            )
+                </Credit>
+              )
+            })
           }
-          )}
-          {!targetPocketHistory?.data?.length && <p>No Transaction History yet</p> }
+          {!targetPocketHistory?.data?.length && <p>No Transaction History yet</p>}
 
         </TransactionContainer>
       </Container>

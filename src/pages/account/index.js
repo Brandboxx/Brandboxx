@@ -14,6 +14,7 @@ import { ButtonContainer, InputContainer } from "../../containers";
 import { FLUTTERWAVE_PUBLIC_KEY } from "../../api/config";
 
 const Account = () => {
+
   const [modal, setModal] = useState(false);
   const [toast, setToast] = useState(false);
 
@@ -45,6 +46,7 @@ const Account = () => {
 
   const handleBankSubmit = () => {
     console.log("hi");
+    
     addBank(values, {
       onSuccess: (res) => {
         console.log(res, "hi2");

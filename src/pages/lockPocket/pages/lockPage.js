@@ -53,32 +53,33 @@ const LockPage = () => {
   const [modal, setModal] = useState(false);
   const [duration, setDuration] = useState(3);
   const [payload, setPayload] = useState(null);
+
   const { data: viewPocketBalance } = useGetResquest(
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
+
   const handleOnSubmit = (values) => {
     setPayload({ ...values, duration: duration ?? values.duration });
   };
 
-  const { values, errors, handleChange, setFieldValue, handleSubmit } = 
-    useFormik({
-      initialValues: {
-        title: "",
-        duration: "",
-        amount: "",
-        payment_mtd: "Flutterwave",
-      },
-      validationSchema: lockSchema,
-      onSubmit: handleOnSubmit,
-    });
+  const { values, errors, handleChange, setFieldValue, handleSubmit } = useFormik({
+    initialValues: {
+      title: "",
+      duration: "3",
+      amount: "",
+      payment_mtd: "",
+    },
+    validationSchema: lockSchema,
+    onSubmit: handleOnSubmit,
+  });
 
   const handleMethodName = (name) => {
     setFieldValue("payment_mtd", name);
   };
   const getCurrentId = (id) => {
     setDuration(id);
-    setFieldValue("duration", "");
+    setFieldValue("duration", id);
   };
 
   const handleDurationChange = (e) => {
@@ -112,6 +113,7 @@ const LockPage = () => {
         <LockModal
           handleMethodName={handleMethodName}
           modal={modal}
+          name={values.payment_mtd}
           setModal={setModal}
         />
       ) : null}
@@ -132,8 +134,8 @@ const LockPage = () => {
           </TextInfo>
           <InputBox>
             <InputContainer
-              placeHolder={"Enter Title of Lock"}
-              label={"What are you saving for?"}
+              placeHolder={"Enter title of lock"}
+              label={<>What are you saving for? <br /> <small style={{ color: "#c4c4c4" }}>input a title to your Lock Pocket</small></>}
               type={"text"}
               value={values.title}
               errorText={errors.title}
@@ -141,7 +143,7 @@ const LockPage = () => {
             />
             <div style={{ marginTop: "50px" }}>
               <InputContainer
-                placeHolder={"Enter amount to Lock"}
+                placeHolder={"Enter amount to lock"}
                 label={"How much do you want to lock?"}
                 type={"text"}
                 value={values.amount}
@@ -204,6 +206,9 @@ const LockPage = () => {
               />
               <InputContainer
                 value={values.payment_mtd}
+                style={{ cursor: "pointer" }}
+                disabled
+                placeHolder={"Select payment method"}
                 label={"Choose payment method"}
                 onClick={() => setModal(true)}
               />

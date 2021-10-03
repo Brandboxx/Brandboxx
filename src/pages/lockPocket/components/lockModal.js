@@ -5,7 +5,7 @@ import { currencyFormatter } from "../../../utils/numberFormater";
 
 import { Options } from "./style";
 
-const LockModal = ({ setModal, handleMethodName }) => {
+const LockModal = ({ setModal, handleMethodName, name }) => {
   const { data: viewPocketBalance } = useGetResquest(
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
@@ -14,21 +14,22 @@ const LockModal = ({ setModal, handleMethodName }) => {
     {
       id: 1,
       img: "/assets/svg/plan3.svg",
-      amount: `Flex pocket (${
-        currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
-      })`,
+      name: `Flex pocket (${currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+        })`,
     },
     {
       id: 2,
       img: "/assets/svg/modal/master.svg",
-      amount: "Flutterwave",
+      name: "Flutterwave",
     },
   ];
 
-  const [payMethod, setPayMethod] = useState(1);
+  console.log({ name })
+
+  // const [payMethod, setPayMethod] = useState(name);
 
   const getCurrent = (id, name) => {
-    setPayMethod(id);
+    // setPayMethod(id);
     handleMethodName(name);
     setModal(false);
   };
@@ -37,14 +38,14 @@ const LockModal = ({ setModal, handleMethodName }) => {
     <SmallModal setModal={setModal}>
       {payMethods.map((method) => (
         <Options
-          onClick={() => getCurrent(method.id, method.amount)}
+          onClick={() => getCurrent(method.id, method.name)}
           bg={
-            payMethod === method.id ? "rgba(69, 194, 198, 0.1)" : "transparent"
+            name === method.name ? "rgba(69, 194, 198, 0.1)" : "transparent"
           }
           key={method.id}
         >
           <img src={method.img} alt={""} />
-          <p>{method.amount}</p>
+          <p>{method.name}</p>
         </Options>
       ))}
     </SmallModal>

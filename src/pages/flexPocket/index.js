@@ -58,6 +58,7 @@ const FlexPocket = () => {
           <div style={{ width: "35%", marginTop: "30px" }}>
             <h1>Pocket Plans</h1>
             <SmallCard
+              routeTo={"/pocket_plans/lock_pocket"}
               title={"Lock Pocket"}
               amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
               content={
@@ -77,11 +78,12 @@ const FlexPocket = () => {
               img={"/assets/svg/plan2.svg"}
               bg={"rgba(88, 2, 115, 0.2)"}
               cl={"rgba(88, 2, 115, 1)"}
+              routeTo={"/pocket_plans/target_pocket"}
             />
           </div>
         </CardsContainer>
         <TransactionContainer>
-          <h4 style={{ fontSize: "18px" }}>Recent Transaction</h4>
+          <h4 style={{ fontSize: "18px", paddingBottom:20 }}>Recent Transaction</h4>
           {flexTransactions?.data.map((transaction, index) => {
             return (
               <Credit key={index}>

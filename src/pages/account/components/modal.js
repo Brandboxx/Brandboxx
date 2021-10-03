@@ -11,6 +11,7 @@ const ModalContainer = ({ setModal }) => {
             onClick={() => setModal(false)}
             src={"/assets/svg/close.svg"}
             alt={""}
+            style={{cursor:"pointer"}}
           />
         </div>
         <h1 style={{ color: "rgba(0, 0, 0, 1)", fontSize: "34px" }}>

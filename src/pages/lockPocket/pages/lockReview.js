@@ -28,15 +28,15 @@ const LockPreview = () => {
   const history = useHistory();
   const { state } = useLocation();
   const [modal, setModal] = useState(false);
-  const { userDetails } = useSelector((state) => state.auth);
-  const { mutate: lockPocketDepositFunds,data } = usePostRequest(
+  const { userDetails } = useSelector((state) => state?.auth);
+  const { mutate: lockPocketDepositFunds, data } = usePostRequest(
     "/lock-pocket/deposit-funds",
     "view-pocket-balance"
   );
   const config = {
     public_key: FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: Date.now(),
-    amount: state.amount,
+    amount: state?.amount,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
@@ -51,14 +51,16 @@ const LockPreview = () => {
   };
   const handleFlutterPayment = useFlutterwave(config);
   const handleDepositFunds = (response) => {
+    console.log({ response });
+    
     closePaymentModal();
     const payload = {
       plan_type: "Lock Pocket",
       plan_code: "02",
-      title: state.title,
-      duration: `${state.duration} months`,
+      title: state?.title,
+      duration: `${state?.duration} months`,
       interest: 5,
-      amount: state.amount,
+      amount: state?.amount,
       payment_mtd: { mtd: "card" },
       transaction_id: response.transaction_id,
       saveCard: 0,
@@ -75,28 +77,28 @@ const LockPreview = () => {
   };
 
   const handleNavigate = () => {
-    if (!state.payment_mtd.includes("Flex")) {
+    if (!state?.payment_mtd.includes("Flex")) {
       handleFlutterPayment({
         callback: handleDepositFunds,
-        onClose: () => {},
+        onClose: () => { },
       });
-    }else{
+    } else {
       const payload = {
         plan_type: "Lock Pocket",
         plan_code: "02",
-        title: state.title,
-        duration: `${state.duration} months`,
+        title: state?.title,
+        duration: `${state?.duration} months`,
         interest: 5,
-        amount: state.amount,
+        amount: state?.amount,
         payment_mtd: { mtd: "flex" },
         saveCard: 0,
       };
-      
+
       lockPocketDepositFunds(payload, {
         onSuccess: (data) => {
           setModal(true);
           setTimeout(() => {
-            history.replace(WITHDRAW,data);
+            history.replace("/pocket_plans/lock_pocket", "urlhistory");
           }, 3000);
         },
       });
@@ -105,7 +107,7 @@ const LockPreview = () => {
 
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} data={data}/> : ""}
+      {modal ? <SuccessModal setSuccessModal={setModal} data={data} /> : ""}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={LOCKPAGE} />
@@ -134,18 +136,18 @@ const LockPreview = () => {
                     </span>
                     Lock Title
                   </Title>
-                  <Header>{state.title}</Header>
+                  <Header>{state?.title}</Header>
                 </div>
                 <div>
                   <Title style={{ textAlign: "right" }}>Maturity Date</Title>
-                  <Info style={{ textAlign: "right" }}>{state.maturityDate}</Info>
+                  <Info style={{ textAlign: "right" }}>{state?.maturityDate}</Info>
                 </div>
               </Review>
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Amount to lock</Title>
                   <Info style={{ fontWeight: "600" }}>
-                    {currencyFormatter(state.amount)}
+                    {currencyFormatter(state?.amount)}
                   </Info>
                 </div>
               </Review>
@@ -153,7 +155,7 @@ const LockPreview = () => {
                 <div style={{ marginTop: "40px" }}>
                   <Title>Total Amount on maturity</Title>
                   <Info style={{ fontWeight: "600" }}>
-                    {currencyFormatter(state.estimatedAmount)}
+                    {currencyFormatter(state?.estimatedAmount)}
                   </Info>
                 </div>
               </Review>

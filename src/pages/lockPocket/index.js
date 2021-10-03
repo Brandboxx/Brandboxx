@@ -35,7 +35,7 @@ const LockPocket = () => {
     ["lock-pocket", "completed-lock-pockets"],
     selectedTab === 1
   );
-  
+
   const Current = selectedTab ? Tab : ActiveTab;
   const Completed = !selectedTab ? Tab : ActiveTab;
 
@@ -70,7 +70,7 @@ const LockPocket = () => {
               icon={"/assets/svg/lockpocket.svg"}
               btnText={"Lock Money"}
               amount={
-                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+                "Last lock amount: " + currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
               }
               onClick={() => history.push(LOCKPAGE)}
             />
@@ -78,6 +78,7 @@ const LockPocket = () => {
           <div style={{ width: "35%", marginTop: "30px" }}>
             <h1>Pocket Plans</h1>
             <SmallCard
+              routeTo={"/pocket_plans/flex_pocket"}
               title={"Flex Pocket "}
               amount={
                 currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
@@ -92,6 +93,7 @@ const LockPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
+              routeTo={"/pocket_plans/target_pocket"}
               amount={
                 currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                 "N/A"
@@ -123,8 +125,8 @@ const LockPocket = () => {
                 </span>
                 <p>Lock: {currencyFormatter(pocket.amount)}</p>
                 <p>
-                  <span style={{ fontSize: "12px", color: "#FB7106" }}>
-                    Interest
+                  <span style={{ fontSize: "12px", color: "#FB7106", marginRight: 5 }}>
+                    Interest :
                   </span>
                   {currencyFormatter(pocket.interest) ?? "N/A"}
                 </p>

@@ -11,8 +11,8 @@ import {
 const AccountTabs = ({ setModal }) => {
   const tabs = [
     { id: 1, tab: "Profile Setting", component: <ProfileSetting /> },
-    // { id: 2, tab: "Card & Bank", component: <CardBank setModal={setModal} /> },
-    { id: 3, tab: "Contact us", component: <ContactUs /> },
+    { id: 2, tab: "Card & Bank", component: <CardBank setModal={setModal} /> },
+    { id: 3, tab: "Contact Us", component: <ContactUs /> },
   ];
 
   const [currentId, setCurrentId] = useState(1);

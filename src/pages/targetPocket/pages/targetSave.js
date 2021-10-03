@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
@@ -25,6 +25,7 @@ import { useFormik } from "formik";
 import { targetPocketSchema } from "../validation";
 
 const TargetSave = () => {
+
   const badges = [
     {
       id: 1,
@@ -43,7 +44,7 @@ const TargetSave = () => {
     },
     {
       id: 4,
-      number: 1,
+      number: 12,
       unit: "year",
     },
   ];
@@ -66,23 +67,22 @@ const TargetSave = () => {
       mode: "yearly",
     },
   ];
-
   const history = useHistory();
-  const [payload, setpayload] = useState(null)
-// FORMIK 
+  // const [payload, setpayload] = useState(null)
+
+  // FORMIK 
   const handleOnSubmit = (values) => {
-    history.push({ 
+    history.push({
       pathname: TARGETREVIEW,
       state: values
-     }
-    )
+    })
   };
 
-  const { values, errors, handleChange, handleSubmit } =
+  const { values, errors, handleChange, handleSubmit, setFieldValue, setValues } =
     useFormik({
       initialValues: {
         plan_type: "",
-        duration: "",
+        duration: "3",
         start: "",
         end: "",
         interest: 0,
@@ -92,16 +92,26 @@ const TargetSave = () => {
       validationSchema: targetPocketSchema,
       onSubmit: handleOnSubmit,
     });
+  // FORMIK ENDS 
 
-// FORMIK ENDS 
+  useEffect(() => {
+    setValues(prevS => ({
+      ...prevS,
+      mode: "daily",
+      duration: "3",
+      end: String(new Date(new Date(values.start).getTime() + (Number(values.duration) * 2592000000)).toLocaleDateString())
+    }))
+  }, []);
 
-  
+  useEffect(() => {
+    setFieldValue("end", (new Date(new Date(values.start).getTime() + (Number(values.duration) * 2592000000)).toLocaleDateString()));
+    console.log(values.end)
+  }, [values.start, values.duration])
 
   const [modal, setModal] = useState(false);
-  const [currentId, setCurrentId] = useState(1);
 
-  const getCurrentId = (id) => {
-    setCurrentId(id);
+  const getCurrentId = (number) => {
+    setFieldValue("duration", number)
   };
 
   return (
@@ -131,7 +141,7 @@ const TargetSave = () => {
           </TextInfo>
           <InputBox>
             <InputContainer
-              placeHolder={"Enter  Target Title"}
+              placeHolder={"Enter Target Title"}
               label={"What are you saving for?"}
               name="plan_type"
               errorText={errors.planType}
@@ -150,36 +160,6 @@ const TargetSave = () => {
               />
             </div>
 
-            <div style={{ marginTop: "50px" }}>
-              <p>What will be the duration of lock?</p>
-              <ToggleBadges>
-                {badges.map((badge) => (
-                  <Badge
-                    onClick={() => getCurrentId(badge.id)}
-                    bg={
-                      currentId === badge.id
-                        ? "rgba(90, 176, 255, 0.1)"
-                        : "rgba(50, 52, 56, 0.05)"
-                    }
-                    cl={
-                      currentId === badge.id
-                        ? "rgba(20, 154, 155, 1)"
-                        : "rgba(50, 52, 56, 0.8)"
-                    }
-                    key={badge.id}
-                  >
-                    {badge.number + " " + badge.unit}
-                  </Badge>
-                ))}
-              </ToggleBadges>
-              <InputContainer 
-                placeHolder={"Enter duration"}
-                name="duration"
-                errorText={errors.duration}
-                value={values.duration}
-                onChange={handleChange}
-                />
-            </div>
             <div
               style={{
                 marginTop: "50px",
@@ -187,7 +167,7 @@ const TargetSave = () => {
                 cursor: "pointer",
               }}
             >
-              
+
               <InputContainer
                 label={"What date would you start saving?"}
                 name="start"
@@ -197,14 +177,46 @@ const TargetSave = () => {
                 onChange={handleChange}
               />
             </div>
+
             <div style={{ marginTop: "50px" }}>
-              <p>What will be the mode of target</p>
-              <ToggleBadges>
+              <p>Set date to meet target</p>
+              <ToggleBadges key={values.duration}>
+                {badges.map((badge) => (
+                  <Badge
+                    onClick={() => getCurrentId(badge.number)}
+                    bg={
+                      values.duration === String(badge.number)
+                        ? "rgba(90, 176, 255, 0.1)"
+                        : "rgba(50, 52, 56, 0.05)"
+                    }
+                    cl={
+                      values.duration === String(badge.number)
+                        ? "rgba(20, 154, 155, 1)"
+                        : "rgba(50, 52, 56, 0.8)"
+                    }
+                    key={values.number}
+                  >
+                    {badge.number + " " + badge.unit}
+                  </Badge>
+                ))}
+              </ToggleBadges>
+              <InputContainer
+                placeHolder={"Enter duration"}
+                name="duration"
+                errorText={errors.duration}
+                value={values.duration}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div style={{ marginTop: "50px" }}>
+              <p>Choose payment mode</p>
+              <ToggleBadges key={values}>
                 {otherBadges.map((badge) => (
                   <Badge
-                    onClick={() => getCurrentId(badge.id)}
+                    onClick={() => setFieldValue("mode", badge.mode)}
                     bg={
-                      currentId === badge.id
+                      values.mode === badge.mode
                         ? "rgba(90, 176, 255, 0.1)"
                         : "rgba(50, 52, 56, 0.05)"
                     }
@@ -214,23 +226,23 @@ const TargetSave = () => {
                   </Badge>
                 ))}
               </ToggleBadges>
-              <InputContainer 
+              {/* <InputContainer
                 placeHolder={"Enter your mode of saving"}
                 name="mode"
                 errorText={errors.mode}
                 value={values.mode}
                 onChange={handleChange}
-              />              
+              /> */}
             </div>
-            
-            <div
+
+            {/* <div
               style={{
                 marginTop: "50px",
                 position: "relative",
                 cursor: "pointer",
               }}
             >
-             
+
               <InputContainer
                 type="date"
                 name="end"
@@ -240,7 +252,7 @@ const TargetSave = () => {
                 value={values.end}
                 onChange={handleChange}
               />
-            </div>
+            </div> */}
 
             <div style={{ marginTop: "50px" }}>
               <ButtonContainer

@@ -13,10 +13,10 @@ export const targetPocketSchema = yup.object({
   amount: yup
     .string()
     .required()
-    .test("amount", "amount must be a valid number", (value) => {
+    .test("amount", "amount must be a greater than 1000", (value) => {
       const num = value?value.replace(",", ""):value;
       if (isNaN(num)) return false;
-      else if (num > 0) return true;
+      else if (num > 1000) return true;
       else return false;
     }),
   interest: yup.string().required(),

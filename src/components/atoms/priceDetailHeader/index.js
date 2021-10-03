@@ -1,6 +1,6 @@
 import { HeaderCont, CircleContainer, LinkInfo } from "./style";
 
-const PriceDetailHeader = ({amount}) => {
+const PriceDetailHeader = ({ amount }) => {
   return (
     <HeaderCont>
       <main>

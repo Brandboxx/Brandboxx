@@ -12,7 +12,7 @@ const ButtonContainer = ({
         {children}
       </Button>
     );
-  } else{
+  } else {
     return (
       <Button {...restProps} width={width} bg={"#149A9B"} cl={"#fff"}>
         {children}

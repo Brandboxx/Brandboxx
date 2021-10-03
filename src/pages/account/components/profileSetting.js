@@ -10,39 +10,37 @@ import {
 import { profileValidator } from "./profileValidation";
 import { ButtonContainer, InputContainer } from "../../../containers";
 import { Container, Title, Profile } from "./styles";
+import { Input } from "../../../components";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router";
 
 const ProfileSetting = () => {
+  const { go } = useHistory()
+  const { mutate: editDp } = usePostRequest("/users/edit-dp", "editDp");
+  const { mutate: profileDp } = usePatchRequest(
+    "/users/edit-account",
+    "profileDp"
+  );
   const { data: profile } = useGetResquest(
     "/users/view-user-profile",
     "profile"
   );
 
-  console.log(profile, "hello");
-
-  const { mutate: editDp } = usePostRequest("/users/edit-dp", "editDp");
-
-  const { mutate: profileDp } = usePatchRequest(
-    "/users/edit-account",
-    "profileDp"
-  );
-
   const uploadFile = (e) => {
     const file = e.target.files[0];
-
-    console.log(file);
 
     let data = new FormData();
     data.append("profile_image", file);
 
     editDp(data, {
       onSuccess: (res) => {
-        console.log(res);
+        go(0)
+        toast("Profile photo updated successfully!", { type: "success" });
       },
     });
   };
 
   const handleProfileSubmit = () => {
-    console.log("hi");
     const payload = {
       firstname: values.firstname,
       lastname: values.lastname,
@@ -62,12 +60,12 @@ const ProfileSetting = () => {
 
     profileDp(payload, {
       onSuccess: (res) => {
-        console.log(res);
+        toast("Profile updated successfully!", { type: "success" })
       },
     });
   };
 
-  const { values, errors, handleChange, handleSubmit, setFieldValue, touched } =
+  const { values, errors, handleChange, handleSubmit, setFieldValue, touched, setValues } =
     useFormik({
       initialValues: {
         firstname: "",
@@ -87,34 +85,27 @@ const ProfileSetting = () => {
       onSubmit: handleProfileSubmit,
     });
 
-  console.log(errors);
+  useEffect(() => {
+    setValues(prevState => ({
+      ...prevState,
+      "firstname": profile?.gottenUser?.firstname ?? "",
+      "lastname": profile?.gottenUser?.lastname ?? "",
+      "date_of_birth": profile?.gottenUser?.date_of_birth ? new Date(profile?.gottenUser?.date_of_birth) : "",
+      "gender": profile?.gottenUser?.gender ?? "",
+      "address": profile?.gottenUser?.address ?? "",
+      "email": profile?.gottenUser?.email ?? "",
+      "phone_number": profile?.gottenUser?.phone_number ?? "",
+      "next_of_kin_fullname": profile?.gottenUser?.next_of_kin?.fullname ?? "",
+      "next_of_kin_phone_number": profile?.gottenUser?.next_of_kin?.phone_number ?? "",
+      "next_of_kin_email": profile?.gottenUser?.next_of_kin?.email ?? "",
+      "next_of_kin_gender": profile?.gottenUser?.next_of_kin?.gender ?? "",
+      "next_of_kin_relationship": profile?.gottenUser?.next_of_kin?.relationship ?? "",
+    }))
+  }, [profile]);
 
   useEffect(() => {
-    setFieldValue("firstname", profile?.gottenUser?.firstname);
-    setFieldValue("lastname", profile?.gottenUser?.lastname);
-    setFieldValue("date_of_birth", profile?.gottenUser?.date_of_birth);
-    setFieldValue("gender", profile?.gottenUser?.gender);
-    setFieldValue("address", profile?.gottenUser?.address);
-    setFieldValue("email", profile?.gottenUser?.email);
-    setFieldValue("phone_number", profile?.gottenUser?.phone_number);
-    setFieldValue(
-      "next_of_kin_fullname",
-      profile?.gottenUser?.next_of_kin?.fullname
-    );
-    setFieldValue(
-      "next_of_kin_phone_number",
-      profile?.gottenUser?.next_of_kin?.phone_number
-    );
-    setFieldValue("next_of_kin_email", profile?.gottenUser?.next_of_kin?.email);
-    setFieldValue(
-      "next_of_kin_gender",
-      profile?.gottenUser?.next_of_kin?.gender
-    );
-    setFieldValue(
-      "next_of_kin_relationship",
-      profile?.gottenUser?.next_of_kin?.relationship
-    );
-  }, [profile]);
+    console.log({ values })
+  }, [values])
 
   return (
     <>
@@ -126,6 +117,7 @@ const ProfileSetting = () => {
             id="avatar"
             name="avatar"
             accept="image/png, image/jpeg"
+            style={{ cursor: "pointer" }}
             onChange={uploadFile}
           />
           <main>
@@ -180,22 +172,20 @@ const ProfileSetting = () => {
               placeHolder={"Enter Date of Birth"}
               value={values.date_of_birth}
               name={"date_of_birth"}
+              type={"date"}
               onChange={handleChange}
               errorText={touched.date_of_birth && errors.date_of_birth}
               error={touched.date_of_birth && errors.date_of_birth}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <InputContainer
-              width={"48%"}
-              label={"Gender"}
-              placeHolder={"Enter Gender"}
-              value={values.gender}
-              name={"gender"}
-              onChange={handleChange}
-              errorText={touched.gender && errors.gender}
-              error={touched.gender && errors.gender}
-            />
+          <div style={{ width: "48%", display: "flex", flexDirection: "column" }}>
+            <Input.Label>Gender</Input.Label>
+            <select required value={values.gender} name={"gender"} onChange={handleChange} style={{ marginTop: 10, height: 50, padding: 10, borderRadius: 8 }}>
+              <option disabled value="">Select Gender</option>
+              <option value={"male"}>Male</option>
+              <option value={"female"}>Female</option>
+              <option value={"others"}>Rather not say</option>
+            </select>
           </div>
         </div>
         <div
@@ -234,6 +224,7 @@ const ProfileSetting = () => {
               placeHolder={"Enter Email Address"}
               value={values.email}
               name={"email"}
+              disabled
               onChange={handleChange}
               errorText={touched.email && errors.email}
               error={touched.email && errors.email}

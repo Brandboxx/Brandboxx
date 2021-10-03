@@ -12,13 +12,15 @@ import { useSelector } from "react-redux";
 import { FLUTTERWAVE_PUBLIC_KEY } from "../../api/config";
 import { usePostRequest } from "../../api/useRequestProcessor";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router";
 
 const AddMoney = () => {
   const [modal, setModal] = useState(false);
-  const [select, setSelect] = useState(null);
+  const { push } = useHistory()
+  const [select, setSelect] = useState(true);
   const [topUpAmount, setTopUpAmount] = useState("");
   const [successModal, setSuccessModal] = useState(false);
-  const [payMethod, setPayMethod] = useState("");
+  const [payMethod, setPayMethod] = useState("card");
   const [amount, setAmount] = useState(false);
   const [saveCard, setSaveCard] = useState(false);
 
@@ -52,22 +54,23 @@ const AddMoney = () => {
       amount: response.amount,
       plan_code: "01",
       transaction_id: response.transaction_id,
-      saveCard: saveCard ? 1 : 0,
+      saveCard: 1,
       payment_mtd: "card",
     };
     depositFunds(payload, {
       onSuccess: (data) => {
         toast.success(data.message);
         setTopUpAmount("");
-        setSaveCard(false);
-        setSelect(null);
+        push("/pocket_plans/flex_pocket")
+        // setSaveCard(false);
+        // setSelect(null);
       },
     });
   };
   const handleSubmit = () => {
     handleFlutterPayment({
       callback: handleDepositFunds,
-      onClose: () => {},
+      onClose: () => { },
     });
   };
 
@@ -78,16 +81,16 @@ const AddMoney = () => {
 
   return (
     <>
-      {modal ? (
+      {/* {modal ? (
         <ChoosePayment
           setModal={setModal}
-          setAmount={setAmount}
+          // // setAmount={setAmount}
           payMethod={payMethod}
           setSuccessModal={setSuccessModal}
         />
       ) : (
         <></>
-      )}
+      )} */}
 
       {successModal ? (
         <SuccessModal setSuccessModal={setSuccessModal} />
@@ -118,8 +121,9 @@ const AddMoney = () => {
               onChange={(e) => setTopUpAmount(e.target.value)}
               type={"number"}
               placeHolder={"Enter amount"}
+              errorText={topUpAmount && topUpAmount < 200 ? "must be more than NGN 200" : ""}
             />
-            <p style={{ color: "rgba(50, 52, 56, 0.6)", marginTop: "30px" }}>
+            {/* <p style={{ color: "rgba(50, 52, 56, 0.6)", marginTop: "30px" }}>
               Select the saving method that you prefer
             </p>
 
@@ -186,8 +190,8 @@ const AddMoney = () => {
                   <p style={{ marginLeft: "20px", fontSize: "12px" }}>
                     Save Card
                   </p>
-                </div>
-                {/* <div
+                </div> */}
+            {/* <div
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -208,12 +212,13 @@ const AddMoney = () => {
                   )}
                   <img src={"/assets/svg/modal/visa.svg"} alt={""} />
                   <p style={{ marginLeft: "20px" }}>Bank Card</p>
-                </div> */}
-              </>
-            )}
+                  </div> */}
+            {/* </>
+            )} */}
+
             <ButtonContainer
-              onClick={handleSubmit}
-              disabled={!topUpAmount || !payMethod}
+              style={{ marginTop: 50, backgroundColor: topUpAmount < 200 ? "#149a9b90" : "#149a9b" }}
+              onClick={topUpAmount < 200 ? null : handleSubmit}
               // onClick={amount ? handleSubmit : () => setModal(true)}
               width={"100%"}
             >

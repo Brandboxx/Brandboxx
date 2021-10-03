@@ -1,13 +1,14 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-
 import { ButtonContainer } from "../../../containers";
-
 import { Container, Title } from "./styles";
 
 const ContactUs = () => {
+
+  const { userDetails } = useSelector(state => state.auth);
   return (
     <Container>
-      <Title>Hello Jane</Title>
+      <Title>Hello {userDetails.firstname}</Title>
       <FlexContainer>
         <main>
           <p
@@ -71,7 +72,7 @@ const ContactUs = () => {
             you better
           </p>
           <TextArea placeholder="Type message" rows={8} />
-          <div style={{marginTop:"40px"}}>
+          <div style={{ marginTop: "40px" }}>
             <ButtonContainer width={"196px"}>Save Changes</ButtonContainer>
           </div>
         </main>

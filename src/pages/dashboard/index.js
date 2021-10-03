@@ -55,6 +55,7 @@ const Dashboard = () => {
               img={"/assets/svg/dashCards/dash1.svg"}
               bg={"#E7F5F5"}
               cl={"#149A9B"}
+              routeTo={"/pocket_plans/flex_pocket"}
             />
             <DashCard
               title={"Pocket Lock Balance"}
@@ -64,6 +65,7 @@ const Dashboard = () => {
               img={"/assets/svg/dashCards/dash2.svg"}
               bg={"#fb70063a"}
               cl={"#FB7106"}
+              routeTo={"/pocket_plans/lock_pocket"}
             />
             <DashCard
               title={"Pocket Target Balance"}
@@ -74,6 +76,7 @@ const Dashboard = () => {
               img={"/assets/svg/dashCards/dash3.svg"}
               bg={"#59027331"}
               cl={"#580273"}
+              routeTo={"/pocket_plans/target_pocket"}
             />
           </CardContainer>
 
@@ -82,7 +85,7 @@ const Dashboard = () => {
           <Chart />
 
           <CardInfo>
-            <h3>Recent Transactions</h3>
+            <h3>Recent Transactions (Flex)</h3>
             {flexTransactions?.data.map((transaction, index) => {
               return (
                 <div>
@@ -94,13 +97,13 @@ const Dashboard = () => {
                     )}
 
                     <p>
-                      Pocket Flex{" "}
+                      Pocket Flex {" "}
                       {transaction.action === "deposit"
-                        ? " credited"
-                        : " debited"}
+                        ? " credited "
+                        : " debited "}
                     </p>
                   </main>
-                  <p>{currencyFormatter(transaction.amount) ?? "N?A"}</p>
+                  <p> {currencyFormatter(transaction.amount) ?? "N?A"}</p>
                 </div>
               );
             })}

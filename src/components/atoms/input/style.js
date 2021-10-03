@@ -7,7 +7,7 @@ export const Container = styled.div`
 export const Label = styled.label`
   font-size: 16px;
   color: #111111;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 `;
 
 export const TextField = styled.input`
