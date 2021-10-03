@@ -52,7 +52,7 @@ const LockPreview = () => {
   const handleFlutterPayment = useFlutterwave(config);
   const handleDepositFunds = (response) => {
     console.log({ response });
-    
+
     closePaymentModal();
     const payload = {
       plan_type: "Lock Pocket",
@@ -138,9 +138,11 @@ const LockPreview = () => {
                   </Title>
                   <Header>{state?.title}</Header>
                 </div>
-                <div>
-                  <Title style={{ textAlign: "right" }}>Maturity Date</Title>
-                  <Info style={{ textAlign: "right" }}>{state?.maturityDate}</Info>
+              </Review>
+              <Review>
+                <div style={{ marginTop: 30 }}>
+                  <Title>Maturity Date</Title>
+                  <Info style={{ fontWeight: "600" }}>{state?.maturityDate}</Info>
                 </div>
               </Review>
               <Review>

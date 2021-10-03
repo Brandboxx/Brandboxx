@@ -23,7 +23,7 @@ import { lockSchema } from "../validation";
 import { useMemo } from "react";
 import { currencyFormatter } from "../../../utils/numberFormater";
 import { useEffect } from "react";
-import { useGetResquest } from "../../../api/useRequestProcessor";
+// import { useGetResquest } from "../../../api/useRequestProcessor";
 
 const LockPage = () => {
   const badges = [
@@ -54,10 +54,10 @@ const LockPage = () => {
   const [duration, setDuration] = useState(3);
   const [payload, setPayload] = useState(null);
 
-  const { data: viewPocketBalance } = useGetResquest(
-    "/users/view-pocket-balance",
-    ["users", "view-pocket-balance"]
-  );
+  // const { data: viewPocketBalance } = useGetResquest(
+  //   "/users/view-pocket-balance",
+  //   ["users", "view-pocket-balance"]
+  // );
 
   const handleOnSubmit = (values) => {
     setPayload({ ...values, duration: duration ?? values.duration });

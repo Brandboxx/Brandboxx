@@ -29,12 +29,12 @@ const TargetPocket = () => {
   const { data: completedTargetPockets } = useGetResquest(
     "/target-pocket/completed-target-pockets",
     ["target-pocket", "completed-target-pockets"],
-    selectedTab === 0
+    selectedTab === 1
   );
   const { data: currentTargetPockets } = useGetResquest(
     "/target-pocket/current-target-pockets",
     ["target-pocket", "current-target-pockets"],
-    selectedTab === 1
+    selectedTab === 0
   );
 
   const [targetPocketHistory, setTargetPocketHistory] = useState("")
@@ -44,8 +44,8 @@ const TargetPocket = () => {
 
   useEffect(() => {
     selectedTab === 0
-      ? setTargetPocketHistory(completedTargetPockets)
-      : setTargetPocketHistory(currentTargetPockets);
+    ? setTargetPocketHistory(currentTargetPockets)
+    : setTargetPocketHistory(completedTargetPockets)
     console.log("target pocket", targetPocketHistory?.data)
   },
     [currentTargetPockets, completedTargetPockets, selectedTab]
