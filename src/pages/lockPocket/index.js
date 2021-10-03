@@ -95,7 +95,7 @@ const LockPocket = () => {
               title={"Target Pocket"}
               routeTo={"/pocket_plans/target_pocket"}
               amount={
-                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                "Latest Target: " + currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                 "N/A"
               }
               content={

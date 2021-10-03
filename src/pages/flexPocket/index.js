@@ -60,7 +60,7 @@ const FlexPocket = () => {
             <SmallCard
               routeTo={"/pocket_plans/lock_pocket"}
               title={"Lock Pocket"}
-              amount={`₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
+              amount={`Last lock: ₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
               content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
@@ -71,7 +71,7 @@ const FlexPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={`₦${viewPocketBalance?.data?.targetPocket ?? "N/A"}`}
+              amount={`Latest Target: ${currencyFormatter(viewPocketBalance?.data?.targetPocket) ?? "N/A"}`}
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }
@@ -83,7 +83,7 @@ const FlexPocket = () => {
           </div>
         </CardsContainer>
         <TransactionContainer>
-          <h4 style={{ fontSize: "18px", paddingBottom:20 }}>Recent Transaction</h4>
+          <h4 style={{ fontSize: "18px", paddingBottom: 20 }}>Recent Transaction</h4>
           {flexTransactions?.data.map((transaction, index) => {
             return (
               <Credit key={index}>

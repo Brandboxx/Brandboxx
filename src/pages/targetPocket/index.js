@@ -75,8 +75,7 @@ const TargetPocket = () => {
               icon={"/assets/svg/targetPocket.svg"}
               btnText={"Set New Target"}
               amount={
-                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
-                "N/A"
+                "Latest target: " + currencyFormatter(viewPocketBalance?.data?.targetPocket ?? 0)
               }
               onClick={() => history.push(TARGETSAVE)}
             />
@@ -101,7 +100,7 @@ const TargetPocket = () => {
               title={"Lock Pocket"}
               routeTo={"/pocket_plans/lock_pocket"}
               amount={
-                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+                "Last lock: " + currencyFormatter(viewPocketBalance?.data?.lockPocket ?? 0)
               } content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
               }

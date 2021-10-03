@@ -87,7 +87,7 @@ const TargetSave = () => {
         end: "",
         interest: "5",
         amount: "0",
-        mode: ""
+        mode: "daily"
       },
       validationSchema: targetPocketSchema,
       onSubmit: handleOnSubmit,
@@ -95,18 +95,9 @@ const TargetSave = () => {
   // FORMIK ENDS 
 
   useEffect(() => {
-    setValues(prevS => ({
-      ...prevS,
-      mode: "daily",
-      duration: "3",
-      end: String(new Date(new Date(values.start).getTime() + (Number(values.duration) * 2592000000)).toLocaleDateString())
-    }))
-  }, []);
+    if (values?.start && values.duration) setFieldValue("end", (new Date(new Date(values?.start).getTime() + (Number(values.duration) * 2592000000))?.toISOString()));
 
-  useEffect(() => {
-    setFieldValue("end", (new Date(new Date(values.start).getTime() + (Number(values.duration) * 2592000000)).toLocaleDateString()));
-
-    console.log({ targetSave: values })
+    console.log({ targetSave: values });
   }, [values.start, values.duration])
 
   const [modal, setModal] = useState(false);

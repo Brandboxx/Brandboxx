@@ -21,6 +21,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import { usePostRequest } from "../../../api/useRequestProcessor";
 import { useEffect } from "react";
+import { currencyFormatter } from "../../../utils/numberFormater";
 
 
 
@@ -103,7 +104,7 @@ const TargetReview = () => {
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Target amount</Title>
-                  <Info style={{ fontWeight: "600" }}>{state.amount}</Info>
+                  <Info style={{ fontWeight: "600" }}>{currencyFormatter(state.amount)}</Info>
                 </div>{" "}
                 <div style={{ marginTop: "40px" }}>
                   <Title style={{ textAlign: "right" }}>
@@ -117,12 +118,12 @@ const TargetReview = () => {
               <Review>
                 <div style={{ marginTop: "40px" }}>
                   <Title>Start Date</Title>
-                  <Info style={{ fontWeight: "600" }}>{state.start}</Info>
+                  <Info style={{ fontWeight: "600" }}>{new Date(state.start)?.toDateString()}</Info>
                 </div>
                 <div style={{ marginTop: "40px" }}>
                   <Title style={{ textAlign: "right" }}>End Date</Title>
                   <Info style={{ fontWeight: "600", textAlign: "right" }}>
-                    {state.end}
+                    {new Date(state.end).toDateString()}
                   </Info>
                 </div>
               </Review>
