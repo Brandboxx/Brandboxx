@@ -29,22 +29,22 @@ const TargetSave = () => {
   const badges = [
     {
       id: 1,
-      number: 3,
+      number: '3',
       unit: "months",
     },
     {
       id: 2,
-      number: 6,
+      number: '6',
       unit: "months",
     },
     {
       id: 3,
-      number: 9,
+      number: '9',
       unit: "months",
     },
     {
       id: 4,
-      number: 12,
+      number: '12',
       unit: "year",
     },
   ];
@@ -85,8 +85,8 @@ const TargetSave = () => {
         duration: "3",
         start: "",
         end: "",
-        interest: 0,
-        amount: 0,
+        interest: "5",
+        amount: "0",
         mode: ""
       },
       validationSchema: targetPocketSchema,
@@ -105,7 +105,8 @@ const TargetSave = () => {
 
   useEffect(() => {
     setFieldValue("end", (new Date(new Date(values.start).getTime() + (Number(values.duration) * 2592000000)).toLocaleDateString()));
-    console.log(values.end)
+
+    console.log({ targetSave: values })
   }, [values.start, values.duration])
 
   const [modal, setModal] = useState(false);

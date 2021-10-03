@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 
 const TargetPocket = () => {
   const history = useHistory();
-  const [selectedTab, setSelectedTab] = useState("")
+  const [selectedTab, setSelectedTab] = useState(0)
   const { data: viewPocketBalance } = useGetResquest(
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
@@ -43,10 +43,9 @@ const TargetPocket = () => {
   const Completed = !selectedTab ? Tab : ActiveTab;
 
   useEffect(() => {
-    selectedTab === 0
-    ? setTargetPocketHistory(currentTargetPockets)
-    : setTargetPocketHistory(completedTargetPockets)
-    console.log("target pocket", targetPocketHistory?.data)
+    if (!selectedTab) setTargetPocketHistory(currentTargetPockets)
+    else setTargetPocketHistory(completedTargetPockets)
+    console.log("target pocket", selectedTab)
   },
     [currentTargetPockets, completedTargetPockets, selectedTab]
   );

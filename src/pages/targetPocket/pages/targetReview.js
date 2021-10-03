@@ -20,6 +20,7 @@ import { TARGETSAVE, TARGETWITHDRAW } from "../../../constants/routes";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { usePostRequest } from "../../../api/useRequestProcessor";
+import { useEffect } from "react";
 
 
 
@@ -59,6 +60,10 @@ const TargetReview = () => {
       },
     });
   };
+
+  useEffect(() => {
+    console.log({ state })
+  }, [state])
 
   return (
     <>
