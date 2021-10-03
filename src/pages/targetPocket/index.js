@@ -146,6 +146,7 @@ const TargetPocket = () => {
             )
           }
           )}
+          {!targetPocketHistory?.data?.length && <p>No Transaction History yet</p> }
 
         </TransactionContainer>
       </Container>
