@@ -70,7 +70,7 @@ const LockPreview = () => {
         console.log({ data });
         setModal(true);
         setTimeout(() => {
-          history.replace(WITHDRAW);
+          history.replace("/pocket_plans/lock_pocket", "urlhistory");
         }, 3000);
       },
     });

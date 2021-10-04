@@ -22,7 +22,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import { usePostRequest } from "../../../api/useRequestProcessor";
 import { useEffect } from "react";
 import { currencyFormatter } from "../../../utils/numberFormater";
-
+import { closePaymentModal, useFlutterwave } from "flutterwave-react-v3";
+import { FLUTTERWAVE_PUBLIC_KEY } from "../../../api/config";
+import { useSelector } from "react-redux";
 
 
 const TargetReview = () => {
@@ -30,26 +32,47 @@ const TargetReview = () => {
     "/target-pocket/deposit-funds",
     "view-pocket-balance"
   );
+  const { userDetails } = useSelector((state) => state?.auth);
   const history = useHistory();
   const { state, pathname } = useLocation()
 
   const [modal, setModal] = useState(false);
 
-  const handleNavigate = () => {
+  const config = {
+    public_key: FLUTTERWAVE_PUBLIC_KEY,
+    tx_ref: Date.now(),
+    amount: state?.amount,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: userDetails.email,
+      phonenumber: userDetails.phone_number,
+      name: `${userDetails.firstname}`,
+    },
+    customizations: {
+      title: "Target Pocket",
+      description: "Add money to Target Pocket",
+    },
+  };
+  const handleFlutterPayment = useFlutterwave(config);
 
+  const handleDepositFunds = (response) => {
+    console.log({ response });
+
+    closePaymentModal();
     const payload = {
-      plan_type: state.plan_type,
+      plan_type: "Target Pocket",
       plan_code: "03",
-      title: "Investment",
-      duration: `${state.duration} months`,
+      title: state.plan_type,
+      duration: `${state?.duration} months`,
+      interest: 25,
       start: state.start,
       end: state.end,
       mode: state.mode,
-      "interest": 25,
-      amount: state.amount,
-      "payment_mtd": { "mtd": "flex" },
-      transaction_id: "2512878",
-      "saveCard": ""
+      amount: state?.amount,
+      payment_mtd: { mtd: "card" },
+      transaction_id: response.transaction_id,
+      saveCard: 0,
     };
 
     targetSaveFunds(payload, {
@@ -61,6 +84,39 @@ const TargetReview = () => {
       },
     });
   };
+
+  const handleNavigate = () => {
+    if (!state?.payment_mtd.includes("Flex")) {
+      handleFlutterPayment({
+        callback: handleDepositFunds,
+        onClose: () => { },
+      });
+    } else {
+      const payload = {
+        plan_type: state.plan_type,
+        plan_code: "03",
+        title: state.plan_type,
+        duration: `${state.duration} months`,
+        start: state.start,
+        end: state.end,
+        mode: state.mode,
+        "interest": 25,
+        amount: state.amount,
+        "payment_mtd": { "mtd": "flex" },
+        transaction_id: String(Math.random()).split(".").join(""),
+        "saveCard": "0"
+      };
+
+      targetSaveFunds(payload, {
+        onSuccess: (data) => {
+          setModal(true);
+          setTimeout(() => {
+            history.replace("/pocket_plans/target_pocket");
+          }, 3000);
+        },
+      });
+    };
+  }
 
   useEffect(() => {
     console.log({ state })

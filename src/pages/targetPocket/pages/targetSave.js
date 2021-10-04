@@ -18,7 +18,7 @@ import { GoBack } from "../../../components";
 import { InputContainer, ButtonContainer } from "../../../containers";
 import { MainLayout } from "../../layout";
 
-import { LOCKPOCKET, TARGETREVIEW } from "../../../constants/routes";
+import { LOCKPOCKET, TARGETPOCKET, TARGETREVIEW } from "../../../constants/routes";
 
 import { useFormik } from "formik";
 
@@ -78,6 +78,7 @@ const TargetSave = () => {
     })
   };
 
+
   const { values, errors, handleChange, handleSubmit, setFieldValue, setValues } =
     useFormik({
       initialValues: {
@@ -87,18 +88,25 @@ const TargetSave = () => {
         end: "",
         interest: "5",
         amount: "0",
-        mode: "daily"
+        mode: "daily",
+        payment_mtd: "",
       },
       validationSchema: targetPocketSchema,
       onSubmit: handleOnSubmit,
     });
   // FORMIK ENDS 
 
+  const handleMethodName = (name) => {
+    setFieldValue("payment_mtd", name);
+  };
+
   useEffect(() => {
     if (values?.start && values.duration) setFieldValue("end", (new Date(new Date(values?.start).getTime() + (Number(values.duration) * 2592000000))?.toISOString()));
-
-    console.log({ targetSave: values });
   }, [values.start, values.duration])
+
+  useEffect(() => {
+    console.log({ values })
+  }, [values])
 
   const [modal, setModal] = useState(false);
 
@@ -112,13 +120,15 @@ const TargetSave = () => {
         <LockModal
           modal={modal}
           setModal={setModal}
+          handleMethodName={handleMethodName}
+          name={values.payment_mtd}
         />
       ) : (
         ""
       )}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
-          <GoBack title={"Go Back"} route={LOCKPOCKET} />
+          <GoBack title={"Go Back"} route={TARGETPOCKET} />
         </div>
         <Container>
           <TextInfo>
@@ -245,6 +255,33 @@ const TargetSave = () => {
                 onChange={handleChange}
               />
             </div> */}
+            <div
+              style={{
+                marginTop: "50px",
+                position: "relative",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                onClick={() => setModal(true)}
+                style={{
+                  position: "absolute",
+                  right: "20px",
+                  top: "50px",
+                  cursor: "pointer",
+                }}
+                src={"/assets/svg/chevronDown.svg"}
+                alt={""}
+              />
+              <InputContainer
+                value={values.payment_mtd}
+                style={{ cursor: "pointer" }}
+                disabled
+                placeHolder={"Select payment method"}
+                label={"Choose payment method"}
+                onClick={() => setModal(true)}
+              />
+            </div>
 
             <div style={{ marginTop: "50px" }}>
               <ButtonContainer
