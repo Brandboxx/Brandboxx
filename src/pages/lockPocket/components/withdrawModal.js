@@ -1,12 +1,16 @@
 import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
 
+import { useParams } from "react-router";
+
 import { Modal } from "../../../components";
 
 import { ButtonContainer } from "../../../containers";
+import { useGetResquest } from "../../../api/useRequestProcessor";
 
-const WithdrawModal = ({ setModal, route }) => {
+const WithdrawModal = ({ setModal, route, amount, interest }) => {
   const history = useHistory();
+
 
   return (
     <Modal setModal={setModal}>
@@ -29,8 +33,8 @@ const WithdrawModal = ({ setModal, route }) => {
 
           <p>
             Note that withdrawing this fund before maturity date,
-            <br /> would warrant 5% off the balance
-            <br /> i.e 95,000 instead 100,000
+            <br /> would warrant {interest}% off the balance
+            <br /> i.e {amount - (interest / 100) * amount} instead {amount}
           </p>
 
           <div>

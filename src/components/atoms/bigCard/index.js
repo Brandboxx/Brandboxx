@@ -38,12 +38,11 @@ const BigCard = ({
         ) : (
           ""
         )}
-        {title !== "Flex Pocket Balance" && (
-          <AltButton onClick={onClick} cl={cl}>
-            <img src={icon} alt={""} />
-            <p>{btnText}</p>
-          </AltButton>
-        )}
+
+        <AltButton onClick={onClick} cl={cl}>
+          <img src={icon} alt={""} />
+          <p>{btnText}</p>
+        </AltButton>
       </div>
       <Content>{text}</Content>
     </Container>

@@ -12,7 +12,7 @@ import { Header } from "../pocketPlans/style";
 import { MainLayout } from "../layout";
 import { useHistory } from "react-router-dom";
 
-import { POCKETPLANS, ADDMONEY } from "../../constants/routes";
+import { POCKETPLANS, ADDMONEY, WITHDRAW } from "../../constants/routes";
 import { currencyFormatter } from "../../utils/numberFormater";
 import { getDateTime } from "../../utils/dateUtils";
 
@@ -50,9 +50,10 @@ const FlexPocket = () => {
               }
               img={"/assets/svg/bigLogo.svg"}
               amount={currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"}
-              // icon={"/assets/svg/withdraw.svg"}
-              // btnText={"Withdraw"}
+              icon={"/assets/svg/withdraw.svg"}
+              btnText={"Withdraw"}
               handleClick={() => history.push(ADDMONEY)}
+              onClick={() => history.push(WITHDRAW)}
             />
           </div>
           <div style={{ width: "35%", marginTop: "30px" }}>

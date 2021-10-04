@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ButtonContainer } from "../../../containers";
 import { Container, Tabs, Options } from "./style";
 
 import {
@@ -11,7 +10,11 @@ import {
 const AccountTabs = ({ setModal }) => {
   const tabs = [
     { id: 1, tab: "Profile Setting", component: <ProfileSetting /> },
-    { id: 2, tab: "Card & Bank", component: <CardBank setModal={setModal} /> },
+    {
+      id: 2,
+      tab: "Card & Bank",
+      component: <CardBank setModal={setModal} />,
+    },
     { id: 3, tab: "Contact Us", component: <ContactUs /> },
   ];
 

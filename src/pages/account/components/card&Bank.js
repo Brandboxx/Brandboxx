@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components/macro";
-import { Modal } from "../../../components";
+import { useGetResquest } from "../../../api/useRequestProcessor";
 import { Container, Title } from "./styles";
+import bankData from "../bankData.json";
 
 const CardBank = ({ setModal }) => {
   const [current, setCurrent] = useState(1);
@@ -10,14 +11,9 @@ const CardBank = ({ setModal }) => {
     setCurrent(id);
   };
 
-  const card = [
-    { id: 1, name: "**** **** **** 3947", img: "/assets/svg/modal/master.svg" },
-    {
-      id: 2,
-      name: "**** **** **** 3947",
-      img: "/assets/svg/modal/visacard.svg",
-    },
-  ];
+  const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
+
+  console.log(banks, "banks");
 
   return (
     <Container>
@@ -43,12 +39,18 @@ const CardBank = ({ setModal }) => {
       <br />
       <br /> */}
       <Title>Bank</Title>
-      <Bank>
-        <img src={"/assets/svg/bankToken.svg"} alt={""} />
-        <p>0789083947</p>
-        <div style={{ flex: 1 }} />
-        <p>Access Bank</p>
-      </Bank>
+      {banks?.data?.map((bank) => (
+        <Bank key={bank._id}>
+          <img src={"/assets/svg/bankToken.svg"} alt={""} />
+          <p>{bank?.account_number}</p>
+          <div style={{ flex: 1 }} />
+          <p>
+            {bankData.map(
+              (data) => data.code === bank.account_bank && data.name
+            )}
+          </p>
+        </Bank>
+      ))}
       <br />
       <br />
       <br />

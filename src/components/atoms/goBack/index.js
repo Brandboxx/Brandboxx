@@ -6,7 +6,7 @@ const GoBack = ({ title, route }) => {
   const history = useHistory()
 
   return (
-    <Button onClick={()=>history.push(route)}>
+    <Button onClick={()=>history.goBack()}>
       <img src={"/assets/svg/modal/back.svg"} alt={""} />
       <p>{title}</p>
     </Button>
