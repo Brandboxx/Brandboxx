@@ -2,7 +2,7 @@ import React from "react";
 
 import { ModalContainer, Container, Tint } from "../modal/style";
 
-const SuccessModal = ({ setSuccessModal,data }) => {
+const SuccessModal = ({ setSuccessModal, data }) => {
   return (
     <Container>
       <Tint onClick={() => setSuccessModal(false)} />
@@ -60,7 +60,7 @@ const SuccessModal = ({ setSuccessModal,data }) => {
               lineHeight: "25px",
             }}
           >
-           {data.message}
+            {data}
           </p>
         </div>
       </ModalContainer>

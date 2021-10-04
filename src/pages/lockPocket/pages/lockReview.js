@@ -16,7 +16,7 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { MainLayout } from "../../layout";
 import { ButtonContainer } from "../../../containers";
 
-import { LOCKPAGE, WITHDRAW } from "../../../constants/routes";
+import { LOCKPAGE } from "../../../constants/routes";
 import { useHistory, useLocation } from "react-router-dom";
 import { currencyFormatter } from "../../../utils/numberFormater";
 

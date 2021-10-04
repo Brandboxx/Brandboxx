@@ -2,64 +2,76 @@ import { useState } from "react";
 
 import styled from "styled-components/macro";
 
-import { GoBack } from "../../../components";
+import { GoBack } from "../../components";
 
-import { WithdrawModal } from "../components";
+import { WithdrawModal } from "../lockPocket/components";
 
-import { MainLayout } from "../../layout";
+import { MainLayout } from "../layout";
 
-import { LOCKREVIEW, LOCKFUNDS } from "../../../constants/routes";
+import { FLEXPOCKET } from "../../constants/routes";
 
-const WithDraw = () => {
-
+const WithDraw = ({ bg, cl, info, id }) => {
   const [modal, setModal] = useState(false);
 
   return (
     <>
-      {modal ? <WithdrawModal setModal={setModal} route={LOCKFUNDS} /> : null}
+      {modal ? (
+        <WithdrawModal
+          amount={info?.amount}
+          interest={info?.interest}
+          setModal={setModal}
+          route={`/pocket_plans/withdraw_locked_funds/${id}`}
+        />
+      ) : null}
       <MainLayout>
         <Container>
-          <GoBack title={"Go back"} route={LOCKREVIEW} />
+          <GoBack title={"Go back"} route={FLEXPOCKET} />
 
           <Header>
             Your funds are
             <br /> safely locked !
           </Header>
 
-          <Card>
+          <Card bg={bg} cl={cl}>
             <CardHeader>
               <p>Laptop Lock</p>
               <img src={"/assets/svg/plan1.svg"} alt={""} />
             </CardHeader>
 
-            <Info>
+            <Info cl={cl}>
               <div>
                 <AltInfoHeader>Balance</AltInfoHeader>
-                <InfoBigText>N100,000</InfoBigText>
+                <InfoBigText cl={cl}>
+                  {info?.amount > 0 ? `N${info?.amount}` : `NaN`}
+                </InfoBigText>
               </div>
-              <div>
-                <InfoHeader>Duration</InfoHeader>
-                <InfoText>3 months</InfoText>
+              <div cl={cl}>
+                <InfoHeader cl={cl}>Duration</InfoHeader>
+                <InfoText>{info?.duration}</InfoText>
               </div>
             </Info>
 
-            <Button onClick={() => setModal(true)}>Withdraw fund</Button>
+            <Button onClick={() => setModal(true)} cl={cl}>
+              Withdraw fund
+            </Button>
 
-            <Info>
+            <Info cl={cl}>
               <div>
-                <InfoHeader>Lock Date</InfoHeader>
-                <InfoText>6th April 2021</InfoText>
+                <InfoHeader cl={cl}>Lock Date</InfoHeader>
+                <InfoText>{new Date(info?.createdAt).toDateString()}</InfoText>
               </div>
               <div>
-                <InfoHeader>Maturity Date</InfoHeader>
+                <InfoHeader cl={cl}>Maturity Date</InfoHeader>
                 <InfoText>6th July 2021</InfoText>
               </div>
             </Info>
 
-            <Info>
+            <Info cl={cl}>
               <div>
-                <InfoHeader>Status </InfoHeader>
-                <InfoText>Ongoing</InfoText>
+                <InfoHeader cl={cl}>Status </InfoHeader>
+                <InfoText>
+                  {info?.pocket_status === 0 ? "Ongoing" : "Completed"}
+                </InfoText>
               </div>
               <div></div>
             </Info>
@@ -76,12 +88,12 @@ const Container = styled.div`
 
 const Header = styled.h1`
   font-size: 34px;
-  color: rgba(0, 0, 0, 1);
+  color: ${({ cl }) => cl};
   padding: 50px 0px;
 `;
 
 const Card = styled.div`
-  background-color: rgba(255, 241, 230, 1);
+  background-color: ${({ bg }) => bg};
   border: 5px;
   padding: 50px 60px;
   padding-right: 140px;
@@ -93,7 +105,7 @@ const CardHeader = styled.div`
   justify-content: space-between;
   p {
     font-size: 22px;
-    color: rgba(50, 52, 56, 1);
+    color: ${({ cl }) => cl};
   }
 `;
 
@@ -113,7 +125,7 @@ const Info = styled.div`
 `;
 
 const InfoHeader = styled.p`
-  color: rgba(251, 113, 6, 1);
+  color: ${({ cl }) => cl};
   font-size: 14px;
 `;
 
@@ -124,7 +136,8 @@ const AltInfoHeader = styled.p`
 
 const InfoBigText = styled.h3`
   font-size: 20px;
-  color: rgba(251, 113, 6, 1);
+  color: ${({ cl }) => cl};
+
   margin-top: 5px;
 `;
 
@@ -135,8 +148,8 @@ const InfoText = styled.p`
 const Button = styled.button`
   padding: 5px 15px;
   border-radius: 5px;
-  color: rgba(251, 113, 6, 1);
-  border: 1px solid rgba(251, 113, 6, 1);
+  color: ${({ cl }) => cl};
+  border: 1px solid ${({ cl }) => cl};
   font-size: 12px;
   margin-top: 30px;
   background: transparent;

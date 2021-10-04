@@ -11,7 +11,7 @@ import {
 import { useGetResquest } from "../../api/useRequestProcessor";
 import { Container, TabContainer, Tab, ActiveTab } from "./style";
 
-import { POCKETPLANS, LOCKPAGE } from "../../constants/routes";
+import { POCKETPLANS, LOCKPAGE, LOCK_WITHDRAW } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
 import { currencyFormatter } from "../../utils/numberFormater";
 import { useState } from "react";
@@ -70,7 +70,9 @@ const LockPocket = () => {
               icon={"/assets/svg/lockpocket.svg"}
               btnText={"Lock Money"}
               amount={
-                "Last lock amount: " + currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+                "Last lock amount: " +
+                  currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
+                "N/A"
               }
               onClick={() => history.push(LOCKPAGE)}
             />
@@ -95,7 +97,8 @@ const LockPocket = () => {
               title={"Target Pocket"}
               routeTo={"/pocket_plans/target_pocket"}
               amount={
-                "Latest Target: " + currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                "Latest Target: " +
+                  currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                 "N/A"
               }
               content={
@@ -118,14 +121,25 @@ const LockPocket = () => {
           </TabContainer>
           {lockPocketHistory?.data?.map((pocket, index) => {
             return (
-              <Credit key={index}>
+              <Credit
+                onClick={() =>
+                  history.push(`/pocket_plans/lock_withdraw/${pocket._id}`)
+                }
+                key={index}
+              >
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <img src={"/assets/svg/circleLock.svg"} alt={""} />
                   <p style={{ marginLeft: "10px" }}>{pocket.title} Lock</p>
                 </span>
                 <p>Lock: {currencyFormatter(pocket.amount)}</p>
                 <p>
-                  <span style={{ fontSize: "12px", color: "#FB7106", marginRight: 5 }}>
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      color: "#FB7106",
+                      marginRight: 5,
+                    }}
+                  >
                     Interest :
                   </span>
                   {currencyFormatter(pocket.interest) ?? "N/A"}

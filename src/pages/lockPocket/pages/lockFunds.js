@@ -9,13 +9,62 @@ import { MainLayout } from "../../layout";
 
 import { WITHDRAW } from "../../../constants/routes";
 import { LockModal } from "../components";
+import {
+  useGetResquest,
+  usePostRequest,
+} from "../../../api/useRequestProcessor";
+import { useParams } from "react-router";
+
+import bankData from "../../account/bankData.json";
 
 const LockFunds = () => {
+  const { id } = useParams();
+
   const [modal, setModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const { data: funds } = useGetResquest(
+    `/lock-pocket/lock-pocket/${id}`,
+    "funds"
+  );
+
+  const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
+
+  const { mutate: withdraw } = usePostRequest(
+    "/lock-pocket/withdraw-funds",
+    "withdraw"
+  );
+
+  const handleBankSubmit = () => {
+    const values = {
+      lock_id: id,
+      bank_id: banks?.data[0]?._id,
+      password: password,
+    };
+
+    withdraw(values, {
+      onSuccess: (res) => {
+        console.log(res, "hi2");
+        setModal(true);
+      },
+    });
+  };
+
+  console.log(banks, "hell");
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} /> : null}
+      {modal ? (
+        <SuccessModal
+          setSuccessModal={setModal}
+          data={`You have successfuly withdrawn
+N${funds?.data?.amount} from your lock pocket`}
+        />
+      ) : null}
       {paymentModal ? <LockModal setModal={setPaymentModal} /> : null}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
@@ -31,21 +80,28 @@ const LockFunds = () => {
           <InputBox>
             <Balance>
               <p>Total Balance</p>
-              <h3>N100,000</h3>
+              <h3>N{funds?.data?.amount}</h3>
             </Balance>
             <Info>
               <p>Commision rate</p>
-              <p>5%</p>
+              <p>{funds?.data?.interest}%</p>
             </Info>
             <Info>
               <p>Total withdrawal</p>
-              <p>N95,000</p>
+              <p>
+                N
+                {funds?.data?.amount -
+                  (funds?.data?.interest / 100) * funds?.data?.amount}
+              </p>
             </Info>
 
             <div style={{ marginTop: "30px" }}>
               <BankCard
-                bank={"Access bank"}
-                number={"0789083947"}
+                bank={bankData.map(
+                  (data) =>
+                    data.code === banks?.data[0]?.account_bank && data.name
+                )}
+                number={banks?.data[0]?.account_number}
                 img={"/assets/svg/access.svg"}
               />
             </div>
@@ -55,10 +111,12 @@ const LockFunds = () => {
                 label={"Enter Password"}
                 placeHolder={"For security purpose, enter your password"}
                 width={"100%"}
+                onChange={handlePasswordChange}
+                value={password}
               />
             </div>
 
-            <div style={{ marginTop: "50px" }}>
+            {/* <div style={{ marginTop: "50px" }}>
               <InputContainer
                 label={"Choose withdrawal destination"}
                 placeHolder={""}
@@ -66,9 +124,9 @@ const LockFunds = () => {
                 width={"100%"}
                 onClick={() => setPaymentModal(true)}
               />
-            </div>
+            </div> */}
             <div style={{ marginTop: "50px" }}>
-              <ButtonContainer onClick={() => setModal(true)} width={"100%"}>
+              <ButtonContainer onClick={handleBankSubmit} width={"100%"}>
                 Withdraw funds
               </ButtonContainer>
             </div>
