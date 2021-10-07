@@ -112,6 +112,7 @@ const LockFunds = () => {
             <div style={{ marginTop: "50px" }}>
               <InputContainer
                 label={"Enter Password"}
+                type={"password"}
                 placeHolder={"For security purpose, enter your password"}
                 width={"100%"}
                 onChange={handlePasswordChange}

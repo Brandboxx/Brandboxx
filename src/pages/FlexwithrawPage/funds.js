@@ -62,7 +62,7 @@ const FlexFunds = () => {
                     routeTo={"/pocket_plans/flex_pocket"}
                 />
             ) : null}
-            {paymentModal ? <LockModal setModal={setPaymentModal} /> : null}
+            {/* {paymentModal ? <LockModal setModal={setPaymentModal} /> : null} */}
             <MainLayout>
                 <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
                     <GoBack title={"Go Back"} route={WITHDRAW} />
@@ -77,7 +77,7 @@ const FlexFunds = () => {
                     <InputBox>
                         <Balance>
                             <p>Available Balance</p>
-                            <p>{currencyFormatter(viewPocketBalance?.data?.flexPocket)}</p>
+                            <h3>{currencyFormatter(viewPocketBalance?.data?.flexPocket)}</h3>
                         </Balance>
 
                         <div style={{ marginTop: "30px" }}>
@@ -96,6 +96,7 @@ const FlexFunds = () => {
                                 label={"Amount to Withdraw"}
                                 placeHolder={"enter amount"}
                                 value={amount}
+                                type={"number"}
                                 width={"100%"}
                                 onChange={(e) => setAmount(e.target.value)}
                             // onClick={() => (true)}

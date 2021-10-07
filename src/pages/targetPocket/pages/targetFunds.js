@@ -24,6 +24,7 @@ const TargetFunds = () => {
   const [modal, setModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState(null)
 
   const { data: funds } = useGetResquest(
     `/target-pocket/target-pocket/${id}`,
@@ -48,6 +49,7 @@ const TargetFunds = () => {
       onSuccess: (res) => {
         console.log(res, "hi2");
         setModal(true);
+        setResponse(res)
         // setTimeout(() => {
         //   replace("/pocket_plans/lock_pocket")
         // }, 2000);
@@ -66,7 +68,7 @@ const TargetFunds = () => {
         <SuccessModal
           routeTo={"/pocket_plans/target_pocket"}
           setSuccessModal={setModal}
-          data={`You have successfuly withdrawn ${funds?.data?.amount - (funds?.data?.interest / 100) * funds?.data?.amount} from your lock pocket`}
+          data={`You have successfuly withdrawn ${currencyFormatter(response?.data?.amountToWithdraw)} from your lock pocket`}
         />
       ) : null}
       {paymentModal ? <LockModal setModal={setPaymentModal} /> : null}
@@ -111,6 +113,7 @@ const TargetFunds = () => {
             <div style={{ marginTop: "50px" }}>
               <InputContainer
                 label={"Enter Password"}
+                type={"password"}
                 placeHolder={"For security purpose, enter your password"}
                 width={"100%"}
                 onChange={handlePasswordChange}

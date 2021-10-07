@@ -5,7 +5,7 @@ const BankCard = ({ bank, number, img }) => {
     <Container>
       <Header>Your fund would be sent to your {bank}</Header>
       <div>
-        <img src={img} alt={""} />
+        <img src={img} alt={""} width={26} height={26} />
         <main>
           <Number>{number}</Number>
           <p>{bank}</p>
