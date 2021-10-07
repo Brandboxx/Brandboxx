@@ -1,19 +1,17 @@
 import { useState } from "react";
-
 import styled from "styled-components/macro";
-
 import { GoBack } from "../../components";
-
 import { WithdrawModal } from "../lockPocket/components";
-
 import { MainLayout } from "../layout";
-
 import { FLEXPOCKET } from "../../constants/routes";
+import { currencyFormatter } from "../../utils/numberFormater";
+import { useHistory } from "react-router";
 
-const WithDraw = ({ bg, cl, info, id, fromFlex, title }) => {
+const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount }) => {
+
   const [modal, setModal] = useState(false);
+  const { push } = useHistory();
 
-  console.log({ info })
   return (
     <>
       {modal ? (
@@ -21,6 +19,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title }) => {
           amount={info?.amount}
           interest={info?.interest}
           setModal={setModal}
+          fromFlex
           route={`/pocket_plans/withdraw_locked_funds/${id}`}
         />
       ) : null}
@@ -43,7 +42,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title }) => {
               <div>
                 <AltInfoHeader>Balance</AltInfoHeader>
                 <InfoBigText cl={cl}>
-                  {info?.amount > 0 ? `N${info?.amount}` : `loading...`}
+                  {(amount || info?.amount) > 0 ? `${currencyFormatter(amount) || currencyFormatter(info?.amount)}` : `loading...`}
                 </InfoBigText>
               </div>
 
@@ -59,33 +58,37 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title }) => {
             </Info>
 
             {
-              !fromFlex &&
-              <>
-                <Button onClick={() => setModal(true)} cl={cl}>
+              !fromFlex ?
+                <>
+                  <Button onClick={() => setModal(true)} cl={cl}>
+                    Withdraw fund
+                  </Button>
+
+                  <Info cl={cl}>
+                    <div>
+                      <InfoHeader cl={cl}>Lock Date</InfoHeader>
+                      <InfoText>{new Date(info?.createdAt).toDateString()}</InfoText>
+                    </div>
+                    <div>
+                      <InfoHeader cl={cl}>Maturity Date</InfoHeader>
+                      <InfoText>6th July 2021</InfoText>
+                    </div>
+                  </Info>
+
+                  <Info cl={cl}>
+                    <div>
+                      <InfoHeader cl={cl}>Status </InfoHeader>
+                      <InfoText>
+                        {info?.pocket_status === 0 ? "Ongoing" : "Completed"}
+                      </InfoText>
+                    </div>
+                    <div></div>
+                  </Info>
+                </>
+                :
+                <Button onClick={() => push("/pocket_plans/withdraw_funds")} cl={cl}>
                   Withdraw fund
                 </Button>
-
-                <Info cl={cl}>
-                  <div>
-                    <InfoHeader cl={cl}>Lock Date</InfoHeader>
-                    <InfoText>{new Date(info?.createdAt).toDateString()}</InfoText>
-                  </div>
-                  <div>
-                    <InfoHeader cl={cl}>Maturity Date</InfoHeader>
-                    <InfoText>6th July 2021</InfoText>
-                  </div>
-                </Info>
-
-                <Info cl={cl}>
-                  <div>
-                    <InfoHeader cl={cl}>Status </InfoHeader>
-                    <InfoText>
-                      {info?.pocket_status === 0 ? "Ongoing" : "Completed"}
-                    </InfoText>
-                  </div>
-                  <div></div>
-                </Info>
-              </>
             }
 
           </Card>

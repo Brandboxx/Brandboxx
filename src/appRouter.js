@@ -29,6 +29,7 @@ import {
   TargetFunds,
 } from "./pages";
 import ProtectedRoute from "./components/router/protectedRoute";
+import { FlexFunds } from "./pages/FlexwithrawPage/funds";
 
 const AppRouter = () => {
   return (
@@ -50,6 +51,7 @@ const AppRouter = () => {
       <ProtectedRoute exact component={LockPage} path={ROUTES.LOCKPAGE} />
       <ProtectedRoute exact component={LockPreview} path={ROUTES.LOCKREVIEW} />
       <ProtectedRoute exact component={WithdrawPage} path={ROUTES.WITHDRAW} />
+      <ProtectedRoute exact component={FlexFunds} path={ROUTES.FLEXWITHDRAW} />
       <ProtectedRoute exact component={LockFunds} path={ROUTES.LOCKFUNDS} />
       <ProtectedRoute exact component={TargetFunds} path={ROUTES.TARGETFUNDS} />
       <ProtectedRoute exact component={TargetPocket} path={ROUTES.TARGETPOCKET} />

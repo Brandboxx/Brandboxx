@@ -54,7 +54,7 @@ const FlexPocket = () => {
               onClick={() => history.push(WITHDRAW)}
             />
           </div>
-          <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding:20 }}>
+          <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding: 20 }}>
             <h1>Pocket Plans</h1>
             <SmallCard
               routeTo={"/pocket_plans/lock_pocket"}

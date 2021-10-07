@@ -23,7 +23,7 @@ const Dashboard = () => {
   );
 
   const { data: flexTransactions } = useGetResquest(
-    "/deposit/view-recent-transactions?plan_type=flex pocket&plan_code=01",
+    "/users/view-recent-transactions",
     "flexTransactions"
   );
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
                     )}
 
                     <p>
-                      Pocket Flex {" "}
+                      {transaction.plan_type +" "}
                       {transaction.action === "deposit"
                         ? " credited "
                         : " debited "}
