@@ -19,7 +19,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount }) => {
           amount={info?.amount}
           interest={info?.interest}
           setModal={setModal}
-          fromFlex
+          fromFlex={fromFlex}
           route={`/pocket_plans/withdraw_locked_funds/${id}`}
         />
       ) : null}
@@ -34,7 +34,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount }) => {
 
           <Card bg={bg} cl={cl}>
             <CardHeader>
-              <p>{fromFlex ? " Flex Pocket" : title || 'Laptop Lock'}</p>
+              <p>{fromFlex ? " Flex Pocket" : title || info?.title || 'Laptop Lock'}</p>
               <img src={"/assets/svg/plan1.svg"} alt={""} />
             </CardHeader>
 
@@ -71,7 +71,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount }) => {
                     </div>
                     <div>
                       <InfoHeader cl={cl}>Maturity Date</InfoHeader>
-                      <InfoText>6th July 2021</InfoText>
+                      <InfoText>{info?.maturity}</InfoText>
                     </div>
                   </Info>
 
