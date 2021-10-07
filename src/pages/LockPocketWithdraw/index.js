@@ -10,7 +10,7 @@ export const LockPageWithdraw = () => {
     "funds",
   );
 
-  console.log({ funds })
+  //console.log({ funds })
 
   return (
     <>

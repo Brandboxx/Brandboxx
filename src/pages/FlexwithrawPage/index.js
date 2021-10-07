@@ -9,7 +9,7 @@ export const WithdrawPage = () => {
     ["users", "view-pocket-balance"]
   );
 
-  // console.log({ viewPocketBalance: viewPocketBalance?.data?.flexPocket })
+  // //console.log({ viewPocketBalance: viewPocketBalance?.data?.flexPocket })
 
   return (
     <WithDraw bg={"rgba(231, 245, 245, 1)"} cl={"rgba(20, 154, 155, 1)"} fromFlex amount={viewPocketBalance?.data?.flexPocket} />

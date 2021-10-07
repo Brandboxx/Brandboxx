@@ -16,7 +16,7 @@ const PocketPlans = () => {
     ["users", "view-pocket-balance"]
   );
 
-  console.log({ viewPocketBalance })
+  //console.log({ viewPocketBalance })
   return (
     <MainLayout>
       <Wrapper>

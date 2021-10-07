@@ -38,7 +38,7 @@ const TargetReview = () => {
 
   const [modal, setModal] = useState(false);
 
-  console.log({ state })
+  //console.log({ state })
 
   const config = {
     public_key: FLUTTERWAVE_PUBLIC_KEY,
@@ -59,7 +59,7 @@ const TargetReview = () => {
   const handleFlutterPayment = useFlutterwave(config);
 
   const handleDepositFunds = (response) => {
-    console.log({ response });
+    //console.log({ response });
 
     closePaymentModal();
     const payload = {
@@ -121,7 +121,7 @@ const TargetReview = () => {
   }
 
   useEffect(() => {
-    console.log({ state })
+    //console.log({ state })
   }, [state])
 
   return (

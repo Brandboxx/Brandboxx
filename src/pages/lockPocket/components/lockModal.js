@@ -24,7 +24,7 @@ const LockModal = ({ setModal, handleMethodName, name }) => {
     },
   ];
 
-  console.log({ name })
+  //console.log({ name })
 
   // const [payMethod, setPayMethod] = useState(name);
 

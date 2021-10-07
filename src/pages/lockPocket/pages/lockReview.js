@@ -51,7 +51,7 @@ const LockPreview = () => {
   };
   const handleFlutterPayment = useFlutterwave(config);
   const handleDepositFunds = (response) => {
-    console.log({ response });
+    //console.log({ response });
 
     closePaymentModal();
     const payload = {
@@ -67,7 +67,7 @@ const LockPreview = () => {
     };
     lockPocketDepositFunds(payload, {
       onSuccess: (data) => {
-        console.log({ data });
+        //console.log({ data });
         setModal(true);
         setTimeout(() => {
           history.replace("/pocket_plans/lock_pocket", "urlhistory");

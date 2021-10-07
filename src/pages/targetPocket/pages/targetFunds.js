@@ -47,7 +47,7 @@ const TargetFunds = () => {
 
     withdraw(values, {
       onSuccess: (res) => {
-        console.log(res, "hi2");
+        //console.log(res, "hi2");
         setModal(true);
         setResponse(res)
         // setTimeout(() => {
@@ -57,7 +57,7 @@ const TargetFunds = () => {
     });
   };
 
-  console.log(banks, "hell");
+  //console.log(banks, "hell");
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);

@@ -47,7 +47,7 @@ const LockFunds = () => {
 
     withdraw(values, {
       onSuccess: (res) => {
-        console.log(res, "hi2");
+        //console.log(res, "hi2");
         setModal(true);
         // setTimeout(() => {
         //   replace("/pocket_plans/lock_pocket")
@@ -56,7 +56,7 @@ const LockFunds = () => {
     });
   };
 
-  console.log(banks, "hell");
+  //console.log(banks, "hell");
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);

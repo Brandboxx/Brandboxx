@@ -104,7 +104,7 @@ const ProfileSetting = () => {
   }, [profile]);
 
   useEffect(() => {
-    console.log({ values })
+    //console.log({ values })
   }, [values])
 
   return (

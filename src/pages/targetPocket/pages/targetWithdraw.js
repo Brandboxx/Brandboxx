@@ -20,8 +20,8 @@ const TargetWithDraw = () => {
     "funds",
     true,
   );
-  
-  console.log(funds)
+
+  // //console.log(funds)
 
   const [modal, setModal] = useState(false);
 

@@ -44,7 +44,7 @@ const TargetPocket = () => {
 	useEffect(() => {
 		if (!selectedTab) setTargetPocketHistory(currentTargetPockets)
 		else setTargetPocketHistory(completedTargetPockets)
-		console.log("target pocket", selectedTab)
+		//console.log("target pocket", selectedTab)
 	},
 		[currentTargetPockets, completedTargetPockets, selectedTab]
 	);

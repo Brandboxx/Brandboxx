@@ -14,7 +14,7 @@ const CardBank = ({ setModal }) => {
 
   const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
 
-  console.log(banks, "banks");
+  //console.log(banks, "banks");
 
   return (
     <Container>

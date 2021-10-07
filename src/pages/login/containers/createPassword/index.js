@@ -34,7 +34,7 @@ export const CreatePassword = ({ setShow, data }) => {
     validationSchema: resetPasswordValidator,
     onSubmit: handleOnSubmit,
   });
-  console.log(data);
+  //console.log(data);
   return (
     <AuthModal>
       <AuthModal.HeaderContainer>

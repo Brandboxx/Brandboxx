@@ -105,7 +105,7 @@ const TargetSave = () => {
   }, [values.start, values.duration])
 
   useEffect(() => {
-    console.log({ values })
+    //console.log({ values })
   }, [values])
 
   const [modal, setModal] = useState(false);
