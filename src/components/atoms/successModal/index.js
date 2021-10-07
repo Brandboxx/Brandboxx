@@ -1,16 +1,25 @@
 import React from "react";
+import { useHistory } from "react-router";
 
 import { ModalContainer, Container, Tint } from "../modal/style";
 
-const SuccessModal = ({ setSuccessModal, data }) => {
+const SuccessModal = ({ setSuccessModal, data, routeTo }) => {
+
+  const { replace } = useHistory();
+
+  const closeModal = () => {
+    setSuccessModal(false)
+    replace(routeTo);
+  }
+
   return (
     <Container>
-      <Tint onClick={() => setSuccessModal(false)} />
+      <Tint onClick={closeModal} />
       <ModalContainer>
         <div style={{ display: "flex" }}>
           <div style={{ flex: 1 }}></div>
           <img
-            onClick={() => setSuccessModal(false)}
+            onClick={closeModal}
             style={{ cursor: "pointer", marginTop: "10px" }}
             src={"/assets/svg/close.svg"}
             alt={""}
@@ -48,7 +57,7 @@ const SuccessModal = ({ setSuccessModal, data }) => {
             />
           </div>
           <h3
-            style={{ color: "#149A9B", textAlign: "center", marginTop: "10px" }}
+            style={{ color: "#149A9B", textAlign: "center", marginTop: "30px" }}
           >
             Successful
           </h3>
@@ -62,6 +71,7 @@ const SuccessModal = ({ setSuccessModal, data }) => {
           >
             {data}
           </p>
+
         </div>
       </ModalContainer>
     </Container>

@@ -23,10 +23,10 @@ export const Credit = styled.div`
   padding: 15px 0px;
   border-bottom: 1px solid #e4e4e490;
   padding-left: 20px;
-  /* cursor: pointer; */
+  cursor: ${props => (props.targetPocket || props.lockPocket) ? "pointer" : "default"};
 
   &:hover {
-    background: ${props => props.targetPocket ? 'rgba(50, 52, 56, 0.1)' : "transparent"};
+    background: ${props => (props.targetPocket || props.lockPocket) ? 'rgba(50, 52, 56, 0.1)' : "transparent"};
     opacity: 0.75;
     box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
     border-radius: 8px;

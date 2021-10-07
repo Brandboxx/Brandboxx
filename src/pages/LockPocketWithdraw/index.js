@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-
 import { WithDraw } from "../FlexwithrawPage/withdraw";
 import { useGetResquest } from "../../api/useRequestProcessor";
 
@@ -8,10 +7,10 @@ export const LockPageWithdraw = () => {
 
   const { data: funds } = useGetResquest(
     `/lock-pocket/lock-pocket/${id}`,
-    "funds"
+    "funds",
   );
 
-  console.log(funds, "funds");
+  console.log({funds})
 
   return (
     <>

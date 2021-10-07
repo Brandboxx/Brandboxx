@@ -7,6 +7,7 @@ import { Modal } from "../../../components";
 
 import { ButtonContainer } from "../../../containers";
 import { useGetResquest } from "../../../api/useRequestProcessor";
+import { currencyFormatter } from "../../../utils/numberFormater";
 
 const WithdrawModal = ({ setModal, route, amount, interest }) => {
   const history = useHistory();
@@ -34,7 +35,7 @@ const WithdrawModal = ({ setModal, route, amount, interest }) => {
           <p>
             Note that withdrawing this fund before maturity date,
             <br /> would warrant {interest}% off the balance
-            <br /> i.e {amount - (interest / 100) * amount} instead {amount}
+            <br /> i.e {currencyFormatter(amount - (interest / 100) * amount)} instead {currencyFormatter(amount)}
           </p>
 
           <div>
@@ -46,7 +47,8 @@ const WithdrawModal = ({ setModal, route, amount, interest }) => {
             </ButtonContainer>
             <ButtonContainer
               width={"140px"}
-              onClick={() => setModal(false)}
+              onClick={() => {
+                setModal(false)}}
               status={"alternate"}
             >
               Cancel

@@ -1,20 +1,25 @@
 import { useFormik } from "formik";
-
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { usePostRequest } from "../../../api/useRequestProcessor";
-
 import { Modal } from "../../../components";
 import { ButtonContainer, InputContainer } from "../../../containers";
 
 const ModalContainer = ({ setModal, bank }) => {
+
+  const [loading, setLoading] = useState(false)
   const { mutate: addBank } = usePostRequest(
     "/bank-accounts/register-bank-account",
     "addBank"
   );
 
   const handleBankSubmit = () => {
+    setLoading(true)
     addBank(values, {
       onSuccess: (res) => {
-        console.log(res, "hi2");
+        toast(res.message, { type: "success" });
+        setModal(false);
+        setLoading(false)
       },
     });
   };
@@ -84,10 +89,11 @@ const ModalContainer = ({ setModal, bank }) => {
             label={"Account Number"}
             value={values.account_number}
             name={"account_number"}
+            maxLength={10}
           />
         </div>
         <div style={{ marginTop: "60px" }}>
-          <ButtonContainer onClick={handleSubmit} width={"100%"}>
+          <ButtonContainer onClick={handleSubmit} width={"100%"} disabled={loading}>
             Save
           </ButtonContainer>
         </div>

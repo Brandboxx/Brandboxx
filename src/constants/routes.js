@@ -17,4 +17,5 @@ export const LOCKFUNDS = "/pocket_plans/withdraw_locked_funds/:id";
 export const TARGETPOCKET = "/pocket_plans/target_pocket";
 export const TARGETSAVE = "/pocket_plans/target_save";
 export const TARGETREVIEW = "/pocket_plans/target_review";
-export const TARGETWITHDRAW = "/pocket_plans/target_withdraw";
+export const TARGETWITHDRAW = "/pocket_plans/target_withdraw/:id";
+export const TARGETFUNDS = "/pocket_plans/withdraw_target_funds/:id";

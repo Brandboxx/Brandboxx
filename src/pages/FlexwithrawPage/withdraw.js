@@ -10,9 +10,10 @@ import { MainLayout } from "../layout";
 
 import { FLEXPOCKET } from "../../constants/routes";
 
-const WithDraw = ({ bg, cl, info, id }) => {
+const WithDraw = ({ bg, cl, info, id, fromFlex, title }) => {
   const [modal, setModal] = useState(false);
 
+  console.log({ info })
   return (
     <>
       {modal ? (
@@ -34,7 +35,7 @@ const WithDraw = ({ bg, cl, info, id }) => {
 
           <Card bg={bg} cl={cl}>
             <CardHeader>
-              <p>Laptop Lock</p>
+              <p>{fromFlex ? " Flex Pocket" : title || 'Laptop Lock'}</p>
               <img src={"/assets/svg/plan1.svg"} alt={""} />
             </CardHeader>
 
@@ -42,39 +43,51 @@ const WithDraw = ({ bg, cl, info, id }) => {
               <div>
                 <AltInfoHeader>Balance</AltInfoHeader>
                 <InfoBigText cl={cl}>
-                  {info?.amount > 0 ? `N${info?.amount}` : `NaN`}
+                  {info?.amount > 0 ? `N${info?.amount}` : `loading...`}
                 </InfoBigText>
               </div>
-              <div cl={cl}>
-                <InfoHeader cl={cl}>Duration</InfoHeader>
-                <InfoText>{info?.duration}</InfoText>
-              </div>
+
+              {
+                !fromFlex ?
+                  <div cl={cl}>
+                    <InfoHeader cl={cl}>Duration</InfoHeader>
+                    <InfoText>{info?.duration ?? "loading..."}</InfoText>
+                  </div>
+                  :
+                  <div />
+              }
             </Info>
 
-            <Button onClick={() => setModal(true)} cl={cl}>
-              Withdraw fund
-            </Button>
+            {
+              !fromFlex &&
+              <>
+                <Button onClick={() => setModal(true)} cl={cl}>
+                  Withdraw fund
+                </Button>
 
-            <Info cl={cl}>
-              <div>
-                <InfoHeader cl={cl}>Lock Date</InfoHeader>
-                <InfoText>{new Date(info?.createdAt).toDateString()}</InfoText>
-              </div>
-              <div>
-                <InfoHeader cl={cl}>Maturity Date</InfoHeader>
-                <InfoText>6th July 2021</InfoText>
-              </div>
-            </Info>
+                <Info cl={cl}>
+                  <div>
+                    <InfoHeader cl={cl}>Lock Date</InfoHeader>
+                    <InfoText>{new Date(info?.createdAt).toDateString()}</InfoText>
+                  </div>
+                  <div>
+                    <InfoHeader cl={cl}>Maturity Date</InfoHeader>
+                    <InfoText>6th July 2021</InfoText>
+                  </div>
+                </Info>
 
-            <Info cl={cl}>
-              <div>
-                <InfoHeader cl={cl}>Status </InfoHeader>
-                <InfoText>
-                  {info?.pocket_status === 0 ? "Ongoing" : "Completed"}
-                </InfoText>
-              </div>
-              <div></div>
-            </Info>
+                <Info cl={cl}>
+                  <div>
+                    <InfoHeader cl={cl}>Status </InfoHeader>
+                    <InfoText>
+                      {info?.pocket_status === 0 ? "Ongoing" : "Completed"}
+                    </InfoText>
+                  </div>
+                  <div></div>
+                </Info>
+              </>
+            }
+
           </Card>
         </Container>
       </MainLayout>

@@ -26,6 +26,7 @@ import {
   VerifyAccount,
   WithdrawPage,
   LockPageWithdraw,
+  TargetFunds,
 } from "./pages";
 import ProtectedRoute from "./components/router/protectedRoute";
 
@@ -38,16 +39,8 @@ const AppRouter = () => {
       <Route exact component={Components} path={ROUTES.COMPONENT} />
       <Route exact component={SignUp} path={ROUTES.REGISTER} />
       <Route exact component={Login} path={ROUTES.LOGIN} />
-      <ProtectedRoute
-        exact
-        component={VerifyAccount}
-        path={ROUTES.VERIFYACCOUNT}
-      />
-      <ProtectedRoute
-        exact
-        component={LockPageWithdraw}
-        path={ROUTES.LOCK_WITHDRAW}
-      />
+      <ProtectedRoute exact component={VerifyAccount} path={ROUTES.VERIFYACCOUNT} />
+      <ProtectedRoute exact component={LockPageWithdraw} path={ROUTES.LOCK_WITHDRAW} />
       <ProtectedRoute exact component={Dashboard} path={ROUTES.DASHBOARD} />
       <ProtectedRoute exact component={Account} path={ROUTES.ACCOUNT} />
       <ProtectedRoute exact component={PocketPlans} path={ROUTES.POCKETPLANS} />
@@ -58,22 +51,11 @@ const AppRouter = () => {
       <ProtectedRoute exact component={LockPreview} path={ROUTES.LOCKREVIEW} />
       <ProtectedRoute exact component={WithdrawPage} path={ROUTES.WITHDRAW} />
       <ProtectedRoute exact component={LockFunds} path={ROUTES.LOCKFUNDS} />
-      <ProtectedRoute
-        exact
-        component={TargetPocket}
-        path={ROUTES.TARGETPOCKET}
-      />
+      <ProtectedRoute exact component={TargetFunds} path={ROUTES.TARGETFUNDS} />
+      <ProtectedRoute exact component={TargetPocket} path={ROUTES.TARGETPOCKET} />
       <ProtectedRoute exact component={TargetSave} path={ROUTES.TARGETSAVE} />
-      <ProtectedRoute
-        exact
-        component={TargetReview}
-        path={ROUTES.TARGETREVIEW}
-      />
-      <ProtectedRoute
-        exact
-        component={TargetWithDraw}
-        path={ROUTES.TARGETWITHDRAW}
-      />
+      <ProtectedRoute exact component={TargetReview} path={ROUTES.TARGETREVIEW} />
+      <ProtectedRoute exact component={TargetWithDraw} path={ROUTES.TARGETWITHDRAW} />
     </Router>
   );
 };

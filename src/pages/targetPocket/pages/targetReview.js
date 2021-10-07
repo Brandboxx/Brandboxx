@@ -38,6 +38,8 @@ const TargetReview = () => {
 
   const [modal, setModal] = useState(false);
 
+  console.log({ state })
+
   const config = {
     public_key: FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: Date.now(),

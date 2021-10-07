@@ -45,9 +45,7 @@ const FlexPocket = () => {
               bg={"rgba(231, 245, 245, 1)"}
               cl={"rgba(20, 154, 155, 1)"}
               title={"Flex Pocket Balance"}
-              text={
-                "Flexible savings that alllows you to deposit and withdraw whenever you wish"
-              }
+              text={"Flexible savings that alllows you to deposit and withdraw whenever you wish"}
               img={"/assets/svg/bigLogo.svg"}
               amount={currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"}
               icon={"/assets/svg/withdraw.svg"}
@@ -56,7 +54,7 @@ const FlexPocket = () => {
               onClick={() => history.push(WITHDRAW)}
             />
           </div>
-          <div style={{ width: "35%", marginTop: "30px" }}>
+          <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding:20 }}>
             <h1>Pocket Plans</h1>
             <SmallCard
               routeTo={"/pocket_plans/lock_pocket"}

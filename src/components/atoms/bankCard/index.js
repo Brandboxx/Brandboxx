@@ -13,7 +13,7 @@ const BankCard = ({ bank, number, img }) => {
       </div>
       <div style={{ display: "flex", marginTop: "20px" }}>
         <div style={{ flex: 1 }} />
-        <p
+        {/* <p
           style={{
             fontSize: "14px",
             color: "rgba(20, 154, 155, 1)",
@@ -22,6 +22,7 @@ const BankCard = ({ bank, number, img }) => {
         >
           Change Bank
         </p>
+      */}
       </div>
     </Container>
   );

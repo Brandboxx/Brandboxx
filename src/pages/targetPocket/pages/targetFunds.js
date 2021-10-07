@@ -1,14 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components/macro";
 
-import { Container, TextInfo, InputBox } from "./style";
+import { Container, TextInfo, InputBox } from "../../lockPocket/pages/style";
 import { GoBack, BankCard, SuccessModal } from "../../../components";
 import { InputContainer, ButtonContainer } from "../../../containers";
 
 import { MainLayout } from "../../layout";
 
 import { WITHDRAW } from "../../../constants/routes";
-import { LockModal } from "../components";
+import { LockModal } from "../../lockPocket/components";
 import {
   useGetResquest,
   usePostRequest,
@@ -18,29 +18,28 @@ import { useHistory, useParams } from "react-router";
 import bankData from "../../account/bankData.json";
 import { currencyFormatter } from "../../../utils/numberFormater";
 
-const LockFunds = () => {
+const TargetFunds = () => {
   const { id } = useParams();
 
   const [modal, setModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
-  const { replace } = useHistory()
 
   const { data: funds } = useGetResquest(
-    `/lock-pocket/lock-pocket/${id}`,
+    `/target-pocket/target-pocket/${id}`,
     "funds"
   );
 
   const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
 
   const { mutate: withdraw } = usePostRequest(
-    "/lock-pocket/withdraw-funds",
+    "/target-pocket/withdraw-funds",
     "withdraw"
   );
 
   const handleBankSubmit = () => {
     const values = {
-      lock_id: id,
+      target_id: id,
       bank_id: banks?.data[0]?._id,
       password: password,
     };
@@ -65,9 +64,9 @@ const LockFunds = () => {
     <>
       {modal ? (
         <SuccessModal
+          routeTo={"/pocket_plans/target_pocket"}
           setSuccessModal={setModal}
-          data={`You have successfuly withdrawn N${funds?.data?.amount} from your lock pocket`}
-          routeTo={"/pocket_plans/lock_pocket"}
+          data={`You have successfuly withdrawn ${funds?.data?.amount - (funds?.data?.interest / 100) * funds?.data?.amount} from your lock pocket`}
         />
       ) : null}
       {paymentModal ? <LockModal setModal={setPaymentModal} /> : null}
@@ -89,12 +88,12 @@ const LockFunds = () => {
             </Balance>
             <Info>
               <p>Commision rate</p>
-              <p>{funds?.data?.interest}%</p>
+              <p>{funds?.data?.interest ?? "25"}%</p>
             </Info>
             <Info>
               <p>Total withdrawal</p>
               <p>
-                {currencyFormatter(funds?.data?.amount - (funds?.data?.interest / 100) * funds?.data?.amount)}
+                {currencyFormatter(funds?.data?.amount - (25 / 100) * funds?.data?.amount)}
               </p>
             </Info>
 
@@ -169,4 +168,4 @@ const Info = styled.div`
   }
 `;
 
-export { LockFunds };
+export { TargetFunds };

@@ -5,6 +5,7 @@ import { Container, Title } from "./styles";
 import bankData from "../bankData.json";
 
 const CardBank = ({ setModal }) => {
+  
   const [current, setCurrent] = useState(1);
 
   const getCurrentId = (id) => {

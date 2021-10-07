@@ -1,21 +1,33 @@
 import { useState } from "react";
-
 import styled from "styled-components/macro";
-
 import { GoBack } from "../../../components";
-
 import { WithdrawModal } from "../../lockPocket/components";
-
 import { MainLayout } from "../../layout";
-
 import { TARGETREVIEW, LOCKFUNDS } from "../../../constants/routes";
+import { useGetResquest } from "../../../api/useRequestProcessor";
+import { useParams } from "react-router";
+import { currencyFormatter } from "../../../utils/numberFormater";
+import { useEffect } from "react";
 
 const TargetWithDraw = () => {
+
+  const { id } = useParams();
+  // const [enable, setEnable] = useState(true);
+  // const [data, setFunds] = useState(null)
+
+  const { data: funds } = useGetResquest(
+    `/target-pocket/target-pocket/${id}`,
+    "funds",
+    true,
+  );
+  
+  console.log(funds)
+
   const [modal, setModal] = useState(false);
 
   return (
     <>
-      {modal ? <WithdrawModal setModal={setModal} route={LOCKFUNDS} /> : null}
+      {modal ? <WithdrawModal setModal={setModal} route={`/pocket_plans/withdraw_target_funds/${id}`} interest={25} amount={funds?.data?.amount} /> : null}
       <MainLayout>
         <Container>
           <GoBack title={"Go back"} route={TARGETREVIEW} />
@@ -27,24 +39,24 @@ const TargetWithDraw = () => {
 
           <Card>
             <CardHeader>
-              <p>Laptop Target</p>
+              <p>Investment Funds</p>
               <img src={"/assets/svg/plan2.svg"} alt={""} />
             </CardHeader>
 
             <Info>
               <div>
-                <AltInfoHeader>Balance</AltInfoHeader>
-                <InfoBigText>N100,000</InfoBigText>
+                <AltInfoHeader>Target Amount</AltInfoHeader>
+                <InfoBigText>{currencyFormatter(funds?.data?.amount ?? "loading...")}</InfoBigText>
               </div>
-              <div>
+              {/* <div>
                 <InfoHeader>Target Amount</InfoHeader>
                 <InfoText>200,000</InfoText>
-              </div>
+              </div> */}
             </Info>
 
             <Button onClick={() => setModal(true)}>Withdraw fund</Button>
 
-            <Info>
+            {/* <Info>
               <div>
                 <InfoHeader>Status</InfoHeader>
                 <InfoText>Ongoing</InfoText>
@@ -53,17 +65,23 @@ const TargetWithDraw = () => {
                 <InfoHeader>Method of payment</InfoHeader>
                 <InfoText>Weekly</InfoText>
               </div>
-            </Info>
+            </Info> */}
 
             <Info>
               <div>
                 <InfoHeader>Start Date </InfoHeader>
-                <InfoText>6th Feb, 2021</InfoText>
+                <InfoText>{funds?.data?.start ?? "loading..."}</InfoText>
               </div>
+              <div />
+            </Info>
+
+            <Info>
               <div>
                 <InfoHeader>End Date </InfoHeader>
-                <InfoText>6th April, 2021</InfoText>
+                <InfoText>{funds?.data?.end ?? "loading..."}</InfoText>
               </div>
+
+              <div />
             </Info>
           </Card>
         </Container>

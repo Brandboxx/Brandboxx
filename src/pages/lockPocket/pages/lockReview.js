@@ -108,6 +108,7 @@ const LockPreview = () => {
   return (
     <>
       {modal ? <SuccessModal setSuccessModal={setModal} data={data} /> : ""}
+
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={LOCKPAGE} />

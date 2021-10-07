@@ -66,7 +66,7 @@ export const useGetResquest = (url, queryName, enabled = true) => {
       onSettled: () => {
         dispatch({ type: IS_LOADING, payload: false });
       },
-      enabled,
+      enabled
     }
   );
 };

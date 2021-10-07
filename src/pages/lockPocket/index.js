@@ -71,13 +71,13 @@ const LockPocket = () => {
               btnText={"Lock Money"}
               amount={
                 "Last lock amount: " +
-                  currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
+                currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
                 "N/A"
               }
               onClick={() => history.push(LOCKPAGE)}
             />
           </div>
-          <div style={{ width: "35%", marginTop: "30px" }}>
+          <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding: 20 }}>
             <h1>Pocket Plans</h1>
             <SmallCard
               routeTo={"/pocket_plans/flex_pocket"}
@@ -98,7 +98,7 @@ const LockPocket = () => {
               routeTo={"/pocket_plans/target_pocket"}
               amount={
                 "Latest Target: " +
-                  currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                 "N/A"
               }
               content={
@@ -123,15 +123,18 @@ const LockPocket = () => {
             return (
               <Credit
                 onClick={() =>
-                  history.push(`/pocket_plans/lock_withdraw/${pocket._id}`)
+                  !selectedTab && history.push(`/pocket_plans/lock_withdraw/${pocket._id}`)
                 }
                 key={index}
+                lockPocket
               >
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <img src={"/assets/svg/circleLock.svg"} alt={""} />
                   <p style={{ marginLeft: "10px" }}>{pocket.title} Lock</p>
                 </span>
+
                 <p>Lock: {currencyFormatter(pocket.amount)}</p>
+
                 <p>
                   <span
                     style={{
@@ -140,7 +143,7 @@ const LockPocket = () => {
                       marginRight: 5,
                     }}
                   >
-                    Interest :
+                    Interest:
                   </span>
                   {currencyFormatter(pocket.interest) ?? "N/A"}
                 </p>
