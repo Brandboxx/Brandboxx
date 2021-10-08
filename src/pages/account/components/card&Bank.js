@@ -5,7 +5,7 @@ import { Container, Title } from "./styles";
 import bankData from "../bankData.json";
 
 const CardBank = ({ setModal }) => {
-  
+
   const [current, setCurrent] = useState(1);
 
   const getCurrentId = (id) => {
@@ -13,8 +13,9 @@ const CardBank = ({ setModal }) => {
   };
 
   const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
+  const { data: cards } = useGetResquest("/card-accounts/all-cards", "banks");
 
-  //console.log(banks, "banks");
+  console.log({ banks, cards });
 
   return (
     <Container>
@@ -42,7 +43,7 @@ const CardBank = ({ setModal }) => {
       <Title>Bank</Title>
       {banks?.data?.map((bank) => (
         <Bank key={bank._id}>
-          <img src={"/assets/svg/bankToken.svg"} alt={""} />
+          <img src={"/assets/svg/access.svg"} width={40} height={40} alt={""} />
           <p>{bank?.account_number}</p>
           <div style={{ flex: 1 }} />
           <p>
@@ -84,11 +85,9 @@ const Bank = styled.div`
   display: flex;
   align-items: center;
   width: 400px;
-  margin-top: 50px;
-  cursor: pointer;
+  margin-top: 30px;
   p {
     margin-left: 20px;
-    cursor: pointer;
   }
 `;
 

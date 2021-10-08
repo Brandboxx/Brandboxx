@@ -1,11 +1,28 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import styled from "styled-components";
+import { usePostRequest } from "../../../api/useRequestProcessor";
 import { ButtonContainer } from "../../../containers";
 import { Container, Title } from "./styles";
 
 const ContactUs = () => {
 
   const { userDetails } = useSelector(state => state.auth);
+  const { mutate: sendMessage } = usePostRequest("/messanger/send-message", "profile");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = () => {
+
+    sendMessage({ message }, {
+      onSuccess: (res) => {
+        console.log({ res })
+        toast("Message sent successfully!", { type: "success" });
+        setMessage("")
+      },
+    });
+  }
+
   return (
     <Container>
       <Title>Hello {userDetails.firstname}</Title>
@@ -71,9 +88,9 @@ const ContactUs = () => {
             Send us feedback on our application, we would do our best to serve
             you better
           </p>
-          <TextArea placeholder="Type message" rows={8} />
+          <TextArea placeholder="Type message" rows={8} value={message} onChange={(e) => setMessage(e.target.value)} />
           <div style={{ marginTop: "40px" }}>
-            <ButtonContainer width={"196px"}>Save Changes</ButtonContainer>
+            <ButtonContainer width={"196px"} type={"submit"} onClick={handleSubmit}>Save Changes</ButtonContainer>
           </div>
         </main>
         <aside>

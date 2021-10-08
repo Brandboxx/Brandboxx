@@ -1,30 +1,25 @@
 import styled from "styled-components/macro";
 
-const BankCard = ({ bank, number, img }) => {
+const BankCard = ({ img, banks, bankData, checked, setBank }) => {
+
   return (
     <Container>
-      <Header>Your fund would be sent to your {bank}</Header>
-      <div>
-        <img src={img} alt={""} width={26} height={26} />
-        <main>
-          <Number>{number}</Number>
-          <p>{bank}</p>
-        </main>
-      </div>
-      <div style={{ display: "flex", marginTop: "20px" }}>
-        <div style={{ flex: 1 }} />
-        {/* <p
-          style={{
-            fontSize: "14px",
-            color: "rgba(20, 154, 155, 1)",
-            cursor: "pointer",
-          }}
-        >
-          Change Bank
-        </p>
-      */}
-      </div>
-    </Container>
+      <Header>Your fund would be sent to your Bank</Header>
+
+      {banks?.map((item) =>
+        <div style={{ display: "flex", alignItems: "center", cursor: "pointer", marginTop: 10 }} onClick={(e) => setBank(item._id)}>
+          <input type={"checkbox"} checked={checked === item._id ? "checked" : false} style={{ marginRight: 20 }} />
+
+          <div>
+            <img src={img} alt={""} width={26} height={26} />
+            <main>
+              <Number>{item.account_number}</Number>
+              <p>{bankData.map((data) => data.code === item?.account_bank && data.name)}</p>
+            </main>
+          </div>
+        </div>
+      )}
+    </Container >
   );
 };
 

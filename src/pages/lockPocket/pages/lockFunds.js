@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Container, TextInfo, InputBox } from "./style";
@@ -24,6 +24,7 @@ const LockFunds = () => {
   const [modal, setModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
+  const [bank_id, setBank_id] = useState(null)
   const { replace } = useHistory()
 
   const { data: funds } = useGetResquest(
@@ -41,7 +42,7 @@ const LockFunds = () => {
   const handleBankSubmit = () => {
     const values = {
       lock_id: id,
-      bank_id: banks?.data[0]?._id,
+      bank_id,
       password: password,
     };
 
@@ -55,6 +56,9 @@ const LockFunds = () => {
       },
     });
   };
+  useEffect(() => {
+    setBank_id(banks?.data[0]._id);
+  }, [banks])
 
   //console.log(banks, "hell");
 
@@ -100,11 +104,10 @@ const LockFunds = () => {
 
             <div style={{ marginTop: "30px" }}>
               <BankCard
-                bank={bankData.map(
-                  (data) =>
-                    data.code === banks?.data[0]?.account_bank && data.name
-                )}
-                number={banks?.data[0]?.account_number}
+                checked={bank_id}
+                setBank={(val) => setBank_id(val)}
+                banks={banks?.data}
+                bankData={bankData}
                 img={"/assets/svg/access.svg"}
               />
             </div>

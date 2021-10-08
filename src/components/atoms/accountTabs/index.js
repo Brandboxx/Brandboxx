@@ -48,3 +48,4 @@ const AccountTabs = ({ setModal }) => {
 };
 
 export { AccountTabs };
+  

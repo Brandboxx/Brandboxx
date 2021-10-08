@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Container, TextInfo, InputBox } from "../../lockPocket/pages/style";
@@ -25,6 +25,7 @@ const TargetFunds = () => {
   const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState(null)
+  const [bank_id, setBank_id] = useState(null)
 
   const { data: funds } = useGetResquest(
     `/target-pocket/target-pocket/${id}`,
@@ -36,7 +37,11 @@ const TargetFunds = () => {
   const { mutate: withdraw } = usePostRequest(
     "/target-pocket/withdraw-funds",
     "withdraw"
-  );
+  )
+
+  useEffect(() => {
+    setBank_id(banks?.data[0]._id);
+  }, [banks])
 
   const handleBankSubmit = () => {
     const values = {
@@ -101,11 +106,10 @@ const TargetFunds = () => {
 
             <div style={{ marginTop: "30px" }}>
               <BankCard
-                bank={bankData.map(
-                  (data) =>
-                    data.code === banks?.data[0]?.account_bank && data.name
-                )}
-                number={banks?.data[0]?.account_number}
+                checked={bank_id}
+                setBank={(val) => setBank_id(val)}
+                banks={banks?.data}
+                bankData={bankData}
                 img={"/assets/svg/access.svg"}
               />
             </div>
