@@ -130,7 +130,7 @@ const TargetPocket = () => {
 									<div className={"customWidth"} style={{ display: "flex", alignItems: "center" }}>
 										<div style={{ display: "flex", alignItems: "center", width: "33.3%" }}>
 											<img src={"/assets/svg/circleTarget.svg"} alt={""} />
-											<p style={{ marginLeft: "10px" }}>{element.plan_type}</p>
+											<p style={{ marginLeft: "10px" }}>{element.title}</p>
 										</div>
 
 										<div style={{ width: "33.3%" }}>

@@ -13,7 +13,7 @@ import {
   useGetResquest,
   usePostRequest,
 } from "../../../api/useRequestProcessor";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import bankData from "../../account/bankData.json";
 import { currencyFormatter } from "../../../utils/numberFormater";
@@ -25,7 +25,6 @@ const LockFunds = () => {
   const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
   const [bank_id, setBank_id] = useState(null)
-  const { replace } = useHistory()
 
   const { data: funds } = useGetResquest(
     `/lock-pocket/lock-pocket/${id}`,

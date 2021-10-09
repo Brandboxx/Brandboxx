@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
-
 import { useHistory } from "react-router-dom";
-
 import {
   Container,
   TextInfo,
   InputBox,
   ToggleBadges,
   Badge,
-  Interest,
 } from "../../lockPocket/pages/style";
-
 import { LockModal } from "../../lockPocket/components";
-
 import { GoBack } from "../../../components";
-
 import { InputContainer, ButtonContainer } from "../../../containers";
 import { MainLayout } from "../../layout";
-
-import { LOCKPOCKET, TARGETPOCKET, TARGETREVIEW } from "../../../constants/routes";
-
+import { TARGETPOCKET, TARGETREVIEW } from "../../../constants/routes";
 import { useFormik } from "formik";
-
 import { targetPocketSchema } from "../validation";
+import { isToday } from "../../../utils/dateUtils";
+import { currencyFormatter } from "../../../utils/numberFormater";
 
 const TargetSave = () => {
 
@@ -68,18 +61,16 @@ const TargetSave = () => {
     },
   ];
   const history = useHistory();
-  // const [payload, setpayload] = useState(null)
 
   // FORMIK 
   const handleOnSubmit = (values) => {
     history.push({
       pathname: TARGETREVIEW,
-      state: values
+      state: { ...values, isToday: isToday(values.start) }
     })
   };
 
-
-  const { values, errors, handleChange, handleSubmit, setFieldValue, setValues } =
+  const { values, errors, handleChange, handleSubmit, setFieldValue } =
     useFormik({
       initialValues: {
         plan_type: "",
@@ -102,11 +93,7 @@ const TargetSave = () => {
 
   useEffect(() => {
     if (values?.start && values.duration) setFieldValue("end", (new Date(new Date(values?.start).getTime() + (Number(values.duration) * 2592000000))?.toISOString()));
-  }, [values.start, values.duration])
-
-  useEffect(() => {
-    //console.log({ values })
-  }, [values])
+  }, [values.start, values.duration, setFieldValue])
 
   const [modal, setModal] = useState(false);
 
@@ -275,12 +262,21 @@ const TargetSave = () => {
               />
               <InputContainer
                 value={values.payment_mtd}
+                errorText={errors.payment_mtd}
+                name="payment"
                 style={{ cursor: "pointer" }}
                 disabled
                 placeHolder={"Select payment method"}
                 label={"Choose payment method"}
                 onClick={() => setModal(true)}
               />
+
+              {
+                (values?.payment_mtd === "Flutterwave" && !isToday(values?.start)) ?
+                  <small style={{ marginTop: 20 }}>You will be charged {currencyFormatter(10)} to verify your card details is valid, pending the date to start saving</small>
+                  :
+                  <></>
+              }
             </div>
 
             <div style={{ marginTop: "50px" }}>
@@ -288,6 +284,7 @@ const TargetSave = () => {
                 onClick={handleSubmit}
                 width="100%"
                 type={"button"}
+              // disabled={!Object.values(values).every(Boolean)}
               >
                 See Preview
               </ButtonContainer>

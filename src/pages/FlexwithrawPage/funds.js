@@ -9,14 +9,14 @@ import { MainLayout } from "../layout";
 import { currencyFormatter } from "../../utils/numberFormater";
 import { useGetResquest, usePostRequest } from "../../api/useRequestProcessor";
 import { WITHDRAW } from "../../constants/routes";
-import { LockModal } from "../lockPocket/components";
+// import { LockModal } from "../lockPocket/components";
 
 import bankData from "../account/bankData.json";
 
 const FlexFunds = () => {
 
     const [modal, setModal] = useState(false);
-    const [paymentModal, setPaymentModal] = useState(false);
+    // const [paymentModal, setPaymentModal] = useState(false);
     const [password, setPassword] = useState("");
     const [amount, setAmount] = useState('0');
 
@@ -139,20 +139,20 @@ const Balance = styled.div`
                     }
                     `;
 
-const Info = styled.div`
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-top: 30px;
-                    p {
-                        font-size: 18px;
-                    &:first-of-type {
-                        color: rgba(20, 154, 155, 1);
-    }
-                    &:last-of-type {
-                        font-weight: 700;
-                    color: rgba(50, 52, 56, 1);
-    }
-  }
-                    `;
+// export const Info = styled.div`
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: space-between;
+//                     margin-top: 30px;
+//                     p {
+//                         font-size: 18px;
+//                     &:first-of-type {
+//                         color: rgba(20, 154, 155, 1);
+//     }
+//                     &:last-of-type {
+//                         font-weight: 700;
+//                     color: rgba(50, 52, 56, 1);
+//     }
+//   }
+//                     `;
 

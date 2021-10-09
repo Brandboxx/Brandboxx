@@ -1,13 +1,15 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 import { useGetResquest } from "../../../api/useRequestProcessor";
+import { ButtonContainer } from "../../../containers";
 // import { ButtonContainer } from "../../../containers";
 import { timeName } from "../../../utils/dateUtils";
 import { Container, Profile, ProfileContainer, Hand } from "./style";
 
 const Header = ({ setModal }) => {
 
+  const { push } = useHistory();
   const { userDetails } = useSelector(state => state.auth);
   const { data: profile } = useGetResquest(
     "/users/view-user-profile",
@@ -30,13 +32,13 @@ const Header = ({ setModal }) => {
       <div style={{ flex: "1", cursor: "pointer" }} />
       <img
         src="/assets/svg/header/notification.svg"
-        style={{ marginRight: "30px", cursor:"pointer" }}
+        style={{ marginRight: "30px", cursor: "pointer" }}
         alt={""}
         onClick={() => toast("No notification yet!", { delay: 1000 })}
       />
-      {/* <ButtonContainer onClick={() => setModal(true)} width={"196px"}>
+      <ButtonContainer onClick={() => push("/pocket_plans/add_money")} width={"196px"}>
         Fast Save
-      </ButtonContainer> */}
+      </ButtonContainer>
     </Container>
   );
 };

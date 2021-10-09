@@ -1,12 +1,9 @@
 import styled from "styled-components/macro";
 import { useHistory } from "react-router-dom";
-
-import { useParams } from "react-router";
-
 import { Modal } from "../../../components";
-
 import { ButtonContainer } from "../../../containers";
-import { useGetResquest } from "../../../api/useRequestProcessor";
+// import { useParams } from "react-router";
+// import { useGetResquest } from "../../../api/useRequestProcessor";
 import { currencyFormatter } from "../../../utils/numberFormater";
 
 const WithdrawModal = ({ setModal, route, amount, interest, fromFlex }) => {

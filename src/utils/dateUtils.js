@@ -39,7 +39,7 @@ export const getDate = (dateString) => {
 
 export const getDateTime = (dataString) => {
   const date = new Date(dataString);
-  return `${days[date.getDay()]} ${date.toLocaleDateString()}  ${formatAMPM(date) }`;
+  return `${days[date.getDay()]} ${date.toLocaleDateString()}  ${formatAMPM(date)}`;
 };
 
 export const timeName = (date = new Date()) => {
@@ -49,3 +49,11 @@ export const timeName = (date = new Date()) => {
   else if (hrs >= 17 && hrs <= 24) return "evening";
   else return 'day'
 };
+
+export const isToday = (someDate) => {
+  const today = new Date();
+  someDate = new Date(someDate)
+  return someDate.getDate() === today.getDate() &&
+    someDate.getMonth() === today.getMonth() &&
+    someDate.getFullYear() === today.getFullYear()
+}

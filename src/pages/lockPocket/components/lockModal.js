@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useGetResquest } from "../../../api/useRequestProcessor";
 import { SmallModal } from "../../../components";
 import { currencyFormatter } from "../../../utils/numberFormater";
@@ -14,7 +14,7 @@ const LockModal = ({ setModal, handleMethodName, name }) => {
     {
       id: 1,
       img: "/assets/svg/plan3.svg",
-      name: `Flex pocket (${currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+      name: `Flex pocket (${currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "fetching..."
         })`,
     },
     {

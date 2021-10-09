@@ -66,7 +66,7 @@ const ProfileSetting = () => {
     });
   };
 
-  const { values, errors, handleChange, handleSubmit, setFieldValue, touched, setValues } =
+  const { values, errors, handleChange, handleSubmit, touched, setValues } =
     useFormik({
       initialValues: {
         firstname: "",
@@ -102,7 +102,7 @@ const ProfileSetting = () => {
       "next_of_kin_gender": profile?.gottenUser?.next_of_kin?.gender ?? "",
       "next_of_kin_relationship": profile?.gottenUser?.next_of_kin?.relationship ?? "",
     }))
-  }, [profile]);
+  }, [profile, setValues]);
 
   useEffect(() => {
     //console.log({ values })

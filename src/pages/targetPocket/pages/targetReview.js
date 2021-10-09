@@ -16,7 +16,7 @@ import {
 import { MainLayout } from "../../layout";
 import { ButtonContainer } from "../../../containers";
 
-import { TARGETSAVE, TARGETWITHDRAW } from "../../../constants/routes";
+import { TARGETSAVE } from "../../../constants/routes";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { usePostRequest } from "../../../api/useRequestProcessor";
@@ -34,16 +34,20 @@ const TargetReview = () => {
   );
   const { userDetails } = useSelector((state) => state?.auth);
   const history = useHistory();
-  const { state, pathname } = useLocation()
+  const { state } = useLocation()
 
   const [modal, setModal] = useState(false);
 
-  //console.log({ state })
+  useEffect(() => {
+    if (!state) history.push("/pocket_plan/target_pocket");
+
+    //eslint-disable-next-line
+  }, [])
 
   const config = {
     public_key: FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: Date.now(),
-    amount: state?.amount,
+    amount: !state?.isToday ? "10" : state?.amount,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
@@ -126,7 +130,7 @@ const TargetReview = () => {
 
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} data={data} /> : ""}
+      {modal ? <SuccessModal setSuccessModal={setModal} data={data?.message} routeTo={"/pocket_plans/target_pocket"} /> : ""}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={TARGETSAVE} />
@@ -188,6 +192,7 @@ const TargetReview = () => {
               <p style={{ marginTop: "30px", fontSize: "10px" }}>
                 On maturity, funds go to your flex pocket
               </p>
+
             </ReviewContainer>
             <div style={{ display: "flex", marginTop: "30px" }}>
               <img
@@ -205,6 +210,10 @@ const TargetReview = () => {
                 Confirm
               </ButtonContainer>
             </div>
+            {
+              !state?.isToday &&
+              <p style={{ marginTop: 40, textAlign: "center", fontSize: 14 }}>You will be charged {currencyFormatter(10)} to verify your card details is valid, pending the date to start saving</p>
+            }
           </InputBox>
         </Container>
       </MainLayout>

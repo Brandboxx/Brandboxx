@@ -11,7 +11,7 @@ import {
 import { useGetResquest } from "../../api/useRequestProcessor";
 import { Container, TabContainer, Tab, ActiveTab } from "./style";
 
-import { POCKETPLANS, LOCKPAGE, LOCK_WITHDRAW } from "../../constants/routes";
+import { POCKETPLANS, LOCKPAGE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
 import { currencyFormatter } from "../../utils/numberFormater";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useGetResquest } from "../../api/useRequestProcessor";
 import { WithDraw } from "./withdraw";
 
@@ -8,8 +8,6 @@ export const WithdrawPage = () => {
     "/users/view-pocket-balance",
     ["users", "view-pocket-balance"]
   );
-
-  // //console.log({ viewPocketBalance: viewPocketBalance?.data?.flexPocket })
 
   return (
     <WithDraw bg={"rgba(231, 245, 245, 1)"} cl={"rgba(20, 154, 155, 1)"} fromFlex amount={viewPocketBalance?.data?.flexPocket} />

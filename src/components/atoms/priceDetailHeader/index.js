@@ -1,4 +1,4 @@
-import { HeaderCont, CircleContainer, LinkInfo } from "./style";
+import { HeaderCont, CircleContainer } from "./style";
 
 const PriceDetailHeader = ({ amount }) => {
   return (

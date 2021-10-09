@@ -3,11 +3,10 @@ import styled from "styled-components/macro";
 import { GoBack } from "../../../components";
 import { WithdrawModal } from "../../lockPocket/components";
 import { MainLayout } from "../../layout";
-import { TARGETREVIEW, LOCKFUNDS } from "../../../constants/routes";
+import { TARGETREVIEW } from "../../../constants/routes";
 import { useGetResquest } from "../../../api/useRequestProcessor";
 import { useParams } from "react-router";
 import { currencyFormatter } from "../../../utils/numberFormater";
-import { useEffect } from "react";
 
 const TargetWithDraw = () => {
 
@@ -39,7 +38,7 @@ const TargetWithDraw = () => {
 
           <Card>
             <CardHeader>
-              <p>Investment Funds</p>
+              <p>Target label: {funds?.data?.title}</p>
               <img src={"/assets/svg/plan2.svg"} alt={""} />
             </CardHeader>
 

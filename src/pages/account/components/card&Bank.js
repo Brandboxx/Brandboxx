@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import styled from "styled-components/macro";
 import { useGetResquest } from "../../../api/useRequestProcessor";
 import { Container, Title } from "./styles";
@@ -6,16 +6,13 @@ import bankData from "../bankData.json";
 
 const CardBank = ({ setModal }) => {
 
-  const [current, setCurrent] = useState(1);
+  // const [current, setCurrent] = useState(1);
 
-  const getCurrentId = (id) => {
-    setCurrent(id);
-  };
+  // const getCurrentId = (id) => {
+  //   setCurrent(id);
+  // };
 
   const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
-  const { data: cards } = useGetResquest("/card-accounts/all-cards", "banks");
-
-  console.log({ banks, cards });
 
   return (
     <Container>
@@ -66,20 +63,20 @@ const CardBank = ({ setModal }) => {
   );
 };
 
-const Card = styled.div`
-  display: flex;
-  align-items: center;
-  width: 400px;
-  margin-top: 50px;
-  cursor: pointer;
-`;
+// const Card = styled.div`
+//   display: flex;
+//   align-items: center;
+//   width: 400px;
+//   margin-top: 50px;
+//   cursor: pointer;
+// `;
 
-const Mark = styled.div`
-  width: 26px;
-  height: 26px;
-  border: 1px solid rgba(50, 52, 56, 0.2);
-  margin-right: 5px;
-`;
+// const Mark = styled.div`
+//   width: 26px;
+//   height: 26px;
+//   border: 1px solid rgba(50, 52, 56, 0.2);
+//   margin-right: 5px;
+// `;
 
 const Bank = styled.div`
   display: flex;

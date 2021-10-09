@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
-import { ChoosePayment } from "../../containers/pocketPlanModalContainer";
+// import { ChoosePayment } from "../../containers/pocketPlanModalContainer";
 import { GoBack, SuccessModal } from "../../components";
 import { InputContainer, ButtonContainer } from "../../containers";
 import { MainLayout } from "../layout";
@@ -15,14 +15,14 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router";
 
 const AddMoney = () => {
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
   const { push } = useHistory()
-  const [select, setSelect] = useState(true);
+  // const [select, setSelect] = useState(true);
   const [topUpAmount, setTopUpAmount] = useState("");
   const [successModal, setSuccessModal] = useState(false);
-  const [payMethod, setPayMethod] = useState("card");
-  const [amount, setAmount] = useState(false);
-  const [saveCard, setSaveCard] = useState(false);
+  // const [payMethod, setPayMethod] = useState("card");
+  // const [amount, setAmount] = useState(false);
+  // const [saveCard, setSaveCard] = useState(false);
 
   const { userDetails } = useSelector((state) => state.auth);
   const { mutate: depositFunds } = usePostRequest("/deposit/deposit-funds", [
@@ -74,10 +74,10 @@ const AddMoney = () => {
     });
   };
 
-  const handleCard = () => {
-    setPayMethod("Card");
-    setSelect(true);
-  };
+  // const handleCard = () => {
+  //   setPayMethod("Card");
+  //   setSelect(true);
+  // };
 
   return (
     <>

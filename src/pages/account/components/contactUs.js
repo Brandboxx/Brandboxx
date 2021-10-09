@@ -16,7 +16,6 @@ const ContactUs = () => {
 
     sendMessage({ message }, {
       onSuccess: (res) => {
-        console.log({ res })
         toast("Message sent successfully!", { type: "success" });
         setMessage("")
       },
