@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Container, TextInfo, InputBox } from "./style";
@@ -19,13 +19,19 @@ const FlexFunds = () => {
     // const [paymentModal, setPaymentModal] = useState(false);
     const [password, setPassword] = useState("");
     const [amount, setAmount] = useState('0');
+    const [bank_id, setBank_id] = useState(null)
 
     const { data: viewPocketBalance } = useGetResquest(
         "/users/view-pocket-balance",
         ["users", "view-pocket-balance"]
     );
 
+
     const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
+
+    useEffect(() => {
+        setBank_id(banks?.data[0]?._id)
+    }, [banks]);
 
     const { mutate: withdraw } = usePostRequest(
         "/withdrawal/withdraw-funds",
@@ -35,7 +41,7 @@ const FlexFunds = () => {
     const handleBankSubmit = () => {
         const values = {
             amount,
-            bank_id: banks?.data[0]?._id,
+            bank_id,
             password: password
         };
 
@@ -82,11 +88,10 @@ const FlexFunds = () => {
 
                         <div style={{ marginTop: "30px" }}>
                             <BankCard
-                                bank={bankData.map(
-                                    (data) =>
-                                        data.code === banks?.data[0]?.account_bank && data.name
-                                )}
-                                number={banks?.data[0]?.account_number}
+                                setBank={setBank_id}
+                                checked={bank_id}
+                                bankData={bankData}
+                                banks={banks?.data}
                                 img={"/assets/svg/access.svg"}
                             />
                         </div>

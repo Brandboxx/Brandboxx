@@ -88,7 +88,7 @@ const Dashboard = () => {
             <h3>Recent Transactions (Flex)</h3>
             {flexTransactions?.data.map((transaction, index) => {
               return (
-                <div>
+                <div key={index}>
                   <main>
                     {transaction.action === "deposit" ? (
                       <img src={"/assets/svg/dashCards/up.svg"} alt={""} />

@@ -5,8 +5,9 @@ import { ButtonContainer } from "../../../containers";
 // import { useParams } from "react-router";
 // import { useGetResquest } from "../../../api/useRequestProcessor";
 import { currencyFormatter } from "../../../utils/numberFormater";
+import { isToday } from "../../../utils/dateUtils";
 
-const WithdrawModal = ({ setModal, route, amount, interest, fromFlex }) => {
+const WithdrawModal = ({ setModal, route, amount, interest, fromFlex, endDate }) => {
   const history = useHistory();
 
   return (
@@ -30,11 +31,13 @@ const WithdrawModal = ({ setModal, route, amount, interest, fromFlex }) => {
 
           {
             !fromFlex &&
-            <p>
-              Note that withdrawing this fund before maturity date,
-              <br /> would warrant {interest}% off the balance
-              <br /> i.e {currencyFormatter(amount - (interest / 100) * amount)} instead {currencyFormatter(amount)}
-            </p>
+              (isToday(endDate) || (new Date().getTime() > new Date(endDate).getTime())) ?
+              <p>you are about to withdraw {currencyFormatter(amount)}.</p>
+              : < p >
+                Note that withdrawing this fund before maturity date,
+                <br /> would warrant {interest}% off the balance
+                <br /> i.e {currencyFormatter(amount - (interest / 100) * amount)} instead {currencyFormatter(amount)}
+              </p>
           }
 
           <div>
@@ -57,7 +60,7 @@ const WithdrawModal = ({ setModal, route, amount, interest, fromFlex }) => {
           </div>
         </InfoContainer>
       </Container>
-    </Modal>
+    </Modal >
   );
 };
 

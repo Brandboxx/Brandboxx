@@ -26,7 +26,7 @@ const TargetWithDraw = () => {
 
   return (
     <>
-      {modal ? <WithdrawModal setModal={setModal} route={`/pocket_plans/withdraw_target_funds/${id}`} interest={25} amount={funds?.data?.amount} /> : null}
+      {modal ? <WithdrawModal setModal={setModal} route={`/pocket_plans/withdraw_target_funds/${id}`} interest={25} amount={funds?.data?.amount} endDate={funds?.data?.end} /> : null}
       <MainLayout>
         <Container>
           <GoBack title={"Go back"} route={TARGETREVIEW} />

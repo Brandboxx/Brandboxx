@@ -7,8 +7,8 @@ const BankCard = ({ img, banks, bankData, checked, setBank }) => {
       <Header>Your fund would be sent to your Bank</Header>
 
       {banks?.map((item) =>
-        <div style={{ display: "flex", alignItems: "center", cursor: "pointer", marginTop: 10 }} onClick={(e) => setBank(item._id)}>
-          <input type={"checkbox"} checked={checked === item._id ? "checked" : false} style={{ marginRight: 20 }} />
+        <div style={{ display: "flex", alignItems: "center", cursor: "pointer", marginTop: 10 }} onClick={(e) => setBank(item._id)} key={item._id}>
+          <input type={"checkbox"} checked={checked === item._id ? "checked" : false} onChange={(e) => setBank(item._id)} style={{ marginRight: 20 }} />
 
           <div>
             <img src={img} alt={""} width={26} height={26} />

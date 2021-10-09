@@ -87,11 +87,12 @@ const ProfileSetting = () => {
     });
 
   useEffect(() => {
+
     setValues(prevState => ({
       ...prevState,
       "firstname": profile?.gottenUser?.firstname ?? "",
       "lastname": profile?.gottenUser?.lastname ?? "",
-      "date_of_birth": profile?.gottenUser?.date_of_birth ? new Date(profile?.gottenUser?.date_of_birth) : "",
+      "date_of_birth": profile?.gottenUser?.date_of_birth ? new Date(profile?.gottenUser?.date_of_birth).getFullYear() + "-0" + (new Date(profile?.gottenUser?.date_of_birth).getMonth() + 1) + "-0" + new Date(profile?.gottenUser?.date_of_birth).getDate() : "",
       "gender": profile?.gottenUser?.gender ?? "",
       "address": profile?.gottenUser?.address ?? "",
       "email": profile?.gottenUser?.email ?? "",

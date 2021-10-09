@@ -183,7 +183,7 @@ const TargetSave = () => {
                         ? "rgba(20, 154, 155, 1)"
                         : "rgba(50, 52, 56, 0.8)"
                     }
-                    key={values.number}
+                    key={badge.number}
                   >
                     {badge.number + " " + badge.unit}
                   </Badge>

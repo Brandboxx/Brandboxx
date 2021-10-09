@@ -7,7 +7,7 @@ import { FLEXPOCKET } from "../../constants/routes";
 import { currencyFormatter } from "../../utils/numberFormater";
 import { useHistory } from "react-router";
 
-const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount }) => {
+const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount, endDate }) => {
 
   const [modal, setModal] = useState(false);
   const { push } = useHistory();
@@ -20,6 +20,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount }) => {
           interest={info?.interest}
           setModal={setModal}
           fromFlex={fromFlex}
+          endDate={info?.maturity}
           route={`/pocket_plans/withdraw_locked_funds/${id}`}
         />
       ) : null}

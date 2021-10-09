@@ -17,6 +17,7 @@ import { useParams } from "react-router";
 
 import bankData from "../../account/bankData.json";
 import { currencyFormatter } from "../../../utils/numberFormater";
+import { isToday } from "../../../utils/dateUtils";
 
 const TargetFunds = () => {
   const { id } = useParams();
@@ -46,7 +47,7 @@ const TargetFunds = () => {
   const handleBankSubmit = () => {
     const values = {
       target_id: id,
-      bank_id: banks?.data[0]?._id,
+      bank_id,
       password: password,
     };
 
@@ -61,8 +62,6 @@ const TargetFunds = () => {
       },
     });
   };
-
-  //console.log(banks, "hell");
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -93,16 +92,24 @@ const TargetFunds = () => {
               <p>Total Balance</p>
               <h3>{currencyFormatter(funds?.data?.amount)}</h3>
             </Balance>
-            <Info>
-              <p>Commision rate</p>
-              <p>{funds?.data?.interest ?? "25"}%</p>
-            </Info>
-            <Info>
-              <p>Total withdrawal</p>
-              <p>
-                {currencyFormatter(funds?.data?.amount - (25 / 100) * funds?.data?.amount)}
-              </p>
-            </Info>
+
+            {
+              (isToday(funds?.data?.maturity) || (new Date().getTime() > new Date(funds).getTime())) ?
+                <></>
+                :
+                <>
+                  <Info>
+                    <p>Commision rate</p>
+                    <p>{funds?.data?.interest ?? "25"}%</p>
+                  </Info>
+                  <Info>
+                    <p>Total withdrawal</p>
+                    <p>
+                      {currencyFormatter(funds?.data?.amount - (25 / 100) * funds?.data?.amount)}
+                    </p>
+                  </Info>
+                </>
+            }
 
             <div style={{ marginTop: "30px" }}>
               <BankCard
