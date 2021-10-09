@@ -8,7 +8,6 @@ import { InputContainer, ButtonContainer } from "../../../containers";
 import { MainLayout } from "../../layout";
 
 import { WITHDRAW } from "../../../constants/routes";
-import { LockModal } from "../../lockPocket/components";
 import {
   useGetResquest,
   usePostRequest,
@@ -18,12 +17,12 @@ import { useParams } from "react-router";
 import bankData from "../../account/bankData.json";
 import { currencyFormatter } from "../../../utils/numberFormater";
 import { isToday } from "../../../utils/dateUtils";
+import { toast } from "react-toastify";
 
 const TargetFunds = () => {
   const { id } = useParams();
 
   const [modal, setModal] = useState(false);
-  const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState(null)
   const [bank_id, setBank_id] = useState(null)
@@ -48,18 +47,22 @@ const TargetFunds = () => {
     const values = {
       target_id: id,
       bank_id,
-      password: password,
+      password,
     };
 
     withdraw(values, {
       onSuccess: (res) => {
-        //console.log(res, "hi2");
-        setModal(true);
-        setResponse(res)
-        // setTimeout(() => {
-        //   replace("/pocket_plans/lock_pocket")
-        // }, 2000);
+        if (res.success) {
+          setModal(true);
+          setResponse(res)
+        } else {
+          toast(res.message, { type: "error" });
+        }
       },
+      onError: () => {
+        toast("Check your internet and try again", { type: "error" });
+      }
+
     });
   };
 
@@ -71,11 +74,10 @@ const TargetFunds = () => {
       {modal ? (
         <SuccessModal
           routeTo={"/pocket_plans/target_pocket"}
-          setSuccessModal={setModal}
+          // setSuccessModal={setModal}
           data={`You have successfuly withdrawn ${currencyFormatter(response?.data?.amountToWithdraw)} from your lock pocket`}
         />
       ) : null}
-      {paymentModal ? <LockModal setModal={setPaymentModal} /> : null}
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={WITHDRAW} />

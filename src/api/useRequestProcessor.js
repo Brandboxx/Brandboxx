@@ -76,6 +76,7 @@ export const useGetResquest = (url, queryName, enabled = true) => {
  * @param {string} url
  * @param {string|Array} queryNameToInvalidate
  */
+
 export const usePostRequest = (url, queryNameToInvalidate) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();

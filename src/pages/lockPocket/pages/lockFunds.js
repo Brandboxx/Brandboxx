@@ -18,6 +18,7 @@ import { useParams } from "react-router";
 import bankData from "../../account/bankData.json";
 import { currencyFormatter } from "../../../utils/numberFormater";
 import { isToday } from "../../../utils/dateUtils";
+import { toast } from "react-toastify";
 
 const LockFunds = () => {
   const { id } = useParams();
@@ -48,11 +49,11 @@ const LockFunds = () => {
 
     withdraw(values, {
       onSuccess: (res) => {
-        //console.log(res, "hi2");
-        setModal(true);
-        // setTimeout(() => {
-        //   replace("/pocket_plans/lock_pocket")
-        // }, 2000);
+        if (res.success) {
+          setModal(true);
+        } else {
+          toast(res.message, { type: "error" });
+        }
       },
     });
   };
@@ -69,7 +70,7 @@ const LockFunds = () => {
       {modal ? (
         <SuccessModal
           setSuccessModal={setModal}
-          data={`You have successfuly withdrawn N${funds?.data?.amount} from your lock pocket`}
+          data={`You have successfuly withdrawn ${currencyFormatter(funds?.data?.amount)} from your lock pocket`}
           routeTo={"/pocket_plans/lock_pocket"}
         />
       ) : null}
