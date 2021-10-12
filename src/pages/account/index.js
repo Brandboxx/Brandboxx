@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import styled from "styled-components/macro";
 
 import { AccountTabs, Toast } from "../../components";
@@ -15,24 +15,24 @@ const Account = () => {
 
   const [bank, setBank] = useState([]);
 
-  const fetchBanks = () => {
-    axios
-      .get("https://api.flutterwave.com/v3/banks/NG", {
-        headers: {
-          Authorization: `Bearer FLWSECK-8d392fa62955868e9d7f6d600d7b8f20-X`,
-        },
-      })
-      .then((res) => {
-        setBank(res);
-      });
-  };
+  // const fetchBanks = () => {
+  //   axios
+  //     .get("https://api.flutterwave.com/v3/banks/NG", {
+  //       headers: {
+  //         Authorization: `Bearer FLWSECK-8d392fa62955868e9d7f6d600d7b8f20-X`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setBank(res);
+  //     });
+  // };
 
   useEffect(() => {
-    if (window.location.hostname === "localhost") {
-      setBank(bankData);
-    } else {
-      fetchBanks();
-    }
+    // if (window.location.hostname === "localhost") {
+    setBank(bankData);
+    // } else {
+    //   fetchBanks();
+    // }
   }, []);
 
 

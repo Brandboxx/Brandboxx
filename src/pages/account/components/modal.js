@@ -58,7 +58,7 @@ const ModalContainer = ({ setModal, bank }) => {
             value={values.account_bank}
             name={"account_bank"}
             onChange={handleChange}
-            style={{ marginTop: 10, height: 50, padding: 10, borderRadius: 8 }}
+            style={{ marginTop: 10, height: 50, padding: 10, borderRadius: 8, width: "100%" }}
           >
             <option disabled value="">
               Select Bank
