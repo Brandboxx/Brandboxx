@@ -12,7 +12,7 @@ const CardBank = ({ setModal }) => {
   //   setCurrent(id);
   // };
 
-  const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
+  const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks", true);
 
   return (
     <Container>

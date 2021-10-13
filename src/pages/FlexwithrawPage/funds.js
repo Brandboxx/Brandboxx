@@ -64,7 +64,7 @@ const FlexFunds = () => {
             {modal ? (
                 <SuccessModal
                     setSuccessModal={setModal}
-                    data={`You have successfuly withdrawn  from your flex pocket`}
+                    data={`You have successfuly withdrawn from your flex pocket`}
                     routeTo={"/pocket_plans/flex_pocket"}
                 />
             ) : null}
@@ -87,13 +87,18 @@ const FlexFunds = () => {
                         </Balance>
 
                         <div style={{ marginTop: "30px" }}>
-                            <BankCard
-                                setBank={setBank_id}
-                                checked={bank_id}
-                                bankData={bankData}
-                                banks={banks?.data}
-                                img={"/assets/svg/access.svg"}
-                            />
+                            {
+                                banks?.data?.length ?
+                                    <BankCard
+                                        setBank={setBank_id}
+                                        checked={bank_id}
+                                        bankData={bankData}
+                                        banks={banks?.data}
+                                        img={"/assets/svg/access.svg"}
+                                    />
+                                    :
+                                    <p>Add a bank in your accounts to continue</p>
+                            }
                         </div>
 
                         <div style={{ marginTop: "50px" }}>
@@ -113,6 +118,7 @@ const FlexFunds = () => {
                                 label={"Enter Password"}
                                 placeHolder={"For security purpose, enter your password"}
                                 width={"100%"}
+                                type={"password"}
                                 onChange={handlePasswordChange}
                                 value={password}
                             />

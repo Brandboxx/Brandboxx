@@ -93,7 +93,7 @@ const AddMoney = () => {
       )} */}
 
       {successModal ? (
-        <SuccessModal setSuccessModal={setSuccessModal} />
+        <SuccessModal setSuccessModal={setSuccessModal}  />
       ) : (
         <></>
       )}

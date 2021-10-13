@@ -38,7 +38,7 @@ const TargetSave = () => {
     {
       id: 4,
       number: '12',
-      unit: "year",
+      unit: "months",
     },
   ];
 

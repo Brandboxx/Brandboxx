@@ -96,10 +96,13 @@ const LockPreview = () => {
 
       lockPocketDepositFunds(payload, {
         onSuccess: (data) => {
-          setModal(true);
-          setTimeout(() => {
-            history.replace("/pocket_plans/lock_pocket", "urlhistory");
-          }, 3000);
+          // console.log({ data });
+          if (data.success) {
+            setModal(true);
+            setTimeout(() => {
+              history.replace("/pocket_plans/lock_pocket", "urlhistory");
+            }, 3000);
+          }
         },
       });
     }
@@ -107,7 +110,7 @@ const LockPreview = () => {
 
   return (
     <>
-      {modal ? <SuccessModal setSuccessModal={setModal} data={data} /> : ""}
+      {modal ? <SuccessModal setSuccessModal={setModal} data={data?.message} /> : ""}
 
       <MainLayout>
         <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
