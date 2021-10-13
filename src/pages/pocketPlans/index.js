@@ -54,7 +54,7 @@ const PocketPlans = () => {
             }
             stat={"25%"}
             amount={
-              "Last lock amount: " + currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+              currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
             }
             bg={"#FFF1E6"}
             cl={"#FB7106"}

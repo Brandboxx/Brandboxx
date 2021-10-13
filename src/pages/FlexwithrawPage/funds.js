@@ -12,6 +12,7 @@ import { WITHDRAW } from "../../constants/routes";
 // import { LockModal } from "../lockPocket/components";
 
 import bankData from "../account/bankData.json";
+import { toast } from "react-toastify";
 
 const FlexFunds = () => {
 
@@ -26,7 +27,6 @@ const FlexFunds = () => {
         ["users", "view-pocket-balance"]
     );
 
-
     const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks");
 
     useEffect(() => {
@@ -39,6 +39,15 @@ const FlexFunds = () => {
     );
 
     const handleBankSubmit = () => {
+
+        if (!bank_id) {
+            toast("please go to accounts to add a bank!", { type: "error" });
+            return;
+        } else if (amount > viewPocketBalance?.data?.flexPocket) {
+            toast("Cannot withdraw more than you already have!", { type: "error" });
+            return;
+        }
+
         const values = {
             amount,
             bank_id,
@@ -97,7 +106,7 @@ const FlexFunds = () => {
                                         img={"/assets/svg/access.svg"}
                                     />
                                     :
-                                    <p>Add a bank in your accounts to continue</p>
+                                    <p style={{ color: "red" }}>Add a bank in your accounts to continue</p>
                             }
                         </div>
 
@@ -107,6 +116,7 @@ const FlexFunds = () => {
                                 placeHolder={"enter amount"}
                                 value={amount}
                                 type={"number"}
+                                max={viewPocketBalance?.data?.flexPocket}
                                 width={"100%"}
                                 onChange={(e) => setAmount(e.target.value)}
                             // onClick={() => (true)}

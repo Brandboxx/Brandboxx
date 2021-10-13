@@ -238,6 +238,7 @@ const ProfileSetting = () => {
               label={"Phone Number"}
               placeHolder={"Enter Phone Number"}
               value={values.phone_number}
+              disabled
               name={"phone_number"}
               onChange={handleChange}
               errorText={touched.phone_number && errors.phone_number}

@@ -40,10 +40,19 @@ const TargetFunds = () => {
   )
 
   useEffect(() => {
-    setBank_id(banks?.data[0]._id);
+    if (banks?.length) setBank_id(banks?.data[0]._id);
   }, [banks])
 
   const handleBankSubmit = () => {
+
+    if (!bank_id) {
+      toast("please go to accounts to add a bank!", { type: "error" });
+      return;
+    } else if (!password) {
+      toast("Password is required!", { type: "error" });
+      return;
+    }
+
     const values = {
       target_id: id,
       bank_id,
@@ -74,7 +83,7 @@ const TargetFunds = () => {
       {modal ? (
         <SuccessModal
           routeTo={"/pocket_plans/target_pocket"}
-          // setSuccessModal={setModal}
+          setSuccessModal={setModal}
           data={`You have successfuly withdrawn ${currencyFormatter(response?.data?.amountToWithdraw)} from your lock pocket`}
         />
       ) : null}

@@ -49,9 +49,9 @@ const FlexPocket = () => {
               img={"/assets/svg/bigLogo.svg"}
               amount={currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"}
               icon={"/assets/svg/withdraw.svg"}
-              btnText={"Withdraw"}
+              btnText={viewPocketBalance?.data?.flexPocket ? "Withdraw" : ""}
               handleClick={() => history.push(ADDMONEY)}
-              onClick={() => history.push(WITHDRAW)}
+              onClick={viewPocketBalance?.data?.flexPocket ? () => history.push(WITHDRAW) : ""}
             />
           </div>
           <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding: 20 }}>
@@ -59,7 +59,7 @@ const FlexPocket = () => {
             <SmallCard
               routeTo={"/pocket_plans/lock_pocket"}
               title={"Lock Pocket"}
-              amount={`Last lock: ₦${viewPocketBalance?.data?.lockPocket ?? "N/A"}`}
+              amount={`${currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"}`}
               content={
                 "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
@@ -70,7 +70,7 @@ const FlexPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={`Latest Target: ${currencyFormatter(viewPocketBalance?.data?.targetPocket) ?? "N/A"}`}
+              amount={`${currencyFormatter(viewPocketBalance?.data?.targetPocket) ?? "N/A"}`}
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }

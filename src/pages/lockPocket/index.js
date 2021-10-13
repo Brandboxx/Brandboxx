@@ -70,7 +70,6 @@ const LockPocket = () => {
               icon={"/assets/svg/lockpocket.svg"}
               btnText={"Lock Money"}
               amount={
-                "Last lock amount: " +
                 currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
                 "N/A"
               }
@@ -97,7 +96,6 @@ const LockPocket = () => {
               title={"Target Pocket"}
               routeTo={"/pocket_plans/target_pocket"}
               amount={
-                "Latest Target: " +
                 currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                 "N/A"
               }

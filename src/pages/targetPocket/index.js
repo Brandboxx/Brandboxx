@@ -74,7 +74,7 @@ const TargetPocket = () => {
 							icon={"/assets/svg/targetPocket.svg"}
 							btnText={"Set New Target"}
 							amount={
-								"Latest target: " + currencyFormatter(viewPocketBalance?.data?.targetPocket ?? 0)
+								currencyFormatter(viewPocketBalance?.data?.targetPocket ?? 0)
 							}
 							onClick={() => history.push(TARGETSAVE)}
 						/>
@@ -99,7 +99,7 @@ const TargetPocket = () => {
 							title={"Lock Pocket"}
 							routeTo={"/pocket_plans/lock_pocket"}
 							amount={
-								"Last lock: " + currencyFormatter(viewPocketBalance?.data?.lockPocket ?? 0)
+								currencyFormatter(viewPocketBalance?.data?.lockPocket ?? 0)
 							} content={
 								"keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
 							}
@@ -133,18 +133,18 @@ const TargetPocket = () => {
 											<p style={{ marginLeft: "10px" }}>{element.title}</p>
 										</div>
 
-										<div style={{ width: "33.3%" }}>
+										<div style={{ width: "66.6%", textAlign: "right", paddingRight: 20 }}>
 											<p>Target: {currencyFormatter(element.amount)}</p>
 										</div>
 
-										<div className="" style={{ width: "33.3%" }}>
+										{/* <div className="" style={{ width: "33.3%" }}>
 											<p>
 												<span style={{ fontSize: "12px", color: "rgba(88, 2, 115, 1)" }}>
 													Balance :
 												</span>{" "}
 												{currencyFormatter(element.balance)}
 											</p>
-										</div>
+										</div> */}
 									</div>
 								</Credit>
 							)

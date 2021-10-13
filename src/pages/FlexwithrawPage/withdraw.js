@@ -36,7 +36,7 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount, endDate }) => {
           <Card bg={bg} cl={cl}>
             <CardHeader>
               <p>{fromFlex ? " Flex Pocket" : title || info?.title || 'Laptop Lock'}</p>
-              <img src={"/assets/svg/plan1.svg"} alt={""} />
+              <img src={fromFlex ? "/assets/svg/bigLogo.svg" : "/assets/svg/plan1.svg"} alt={""} />
             </CardHeader>
 
             <Info cl={cl}>

@@ -6,21 +6,23 @@ import bankData from "../bankData.json";
 
 const CardBank = ({ setModal }) => {
 
+  const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks", true);
+  // const { data: cards } = useGetResquest("/cards/all-cards", "cards", true);
   // const [current, setCurrent] = useState(1);
 
   // const getCurrentId = (id) => {
   //   setCurrent(id);
   // };
 
-  const { data: banks } = useGetResquest("/bank-accounts/all-banks", "banks", true);
+  // console.log({ cards })
 
   return (
     <Container>
       {/* <Title>Card</Title>
-      {card.map((card) => (
+      {cards?.data?.map((card) => (
         <Card key={card.id} onClick={() => getCurrentId(card.id)}>
           <img src={card.img} alt={""} />
-          <p style={{ marginLeft: "20px" }}>{card.name}</p>
+          <p style={{ marginLeft: "20px" }}>{card.first_6digits + " ***** " + card.last_4digits}</p>
           <div style={{ flex: 1 }} />
           {current === card.id ? (
             <img src={"/assets/svg/mark.svg"} alt={""} />
@@ -32,11 +34,12 @@ const CardBank = ({ setModal }) => {
       <br />
       <br />
       <br />
-      <p style={{ color: "rgba(20, 154, 155, 1)", cursor: "pointer" }}>
-        + Add Another Card
-      </p>
+     <p style={{ color: "rgba(20, 154, 155, 1)", cursor: "pointer" }}>
+        Cards will be added on first use
+      </p> 
       <br />
       <br /> */}
+
       <Title>Bank</Title>
       {banks?.data?.map((bank) => (
         <Bank key={bank._id}>

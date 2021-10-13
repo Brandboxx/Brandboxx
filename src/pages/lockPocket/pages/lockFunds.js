@@ -41,10 +41,19 @@ const LockFunds = () => {
   );
 
   const handleBankSubmit = () => {
+
+    if (!bank_id) {
+      toast("please go to accounts to add a bank!", { type: "error" });
+      return;
+    } else if (!password) {
+      toast("Password is required!", { type: "error" });
+      return;
+    }
+
     const values = {
       lock_id: id,
       bank_id,
-      password: password,
+      password,
     };
 
     withdraw(values, {
@@ -59,7 +68,7 @@ const LockFunds = () => {
   };
 
   useEffect(() => {
-    setBank_id(banks?.data[0]._id);
+    if (banks?.length) setBank_id(banks?.data[0]._id);
   }, [banks])
 
   const handlePasswordChange = (e) => {

@@ -39,10 +39,12 @@ const BigCard = ({
           ""
         )}
 
-        <AltButton onClick={onClick} cl={cl}>
-          <img src={icon} alt={""} />
-          <p>{btnText}</p>
-        </AltButton>
+        {
+          btnText && <AltButton onClick={onClick} cl={cl}>
+            <img src={icon} alt={""} />
+            <p>{btnText}</p>
+          </AltButton>
+        }
       </div>
       <Content>{text}</Content>
     </Container>

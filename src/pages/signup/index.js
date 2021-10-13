@@ -49,7 +49,7 @@ const SignUp = () => {
       <div>
         {showModal ? (
           <VerificationComponent
-            header={"Verify emai"}
+            header={"Verify email"}
             data={data}
             text={"Enter otp sent to you email"}
           />
