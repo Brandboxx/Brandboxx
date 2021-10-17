@@ -43,9 +43,9 @@ const SignUp = () => {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   useEffect(() => {
     if (isAuth) history.push("/dashboard");
-  }, [isAuth,history]);
+  }, [isAuth, history]);
   return (
-    <AuthLayout text={"Sign Up"}>
+    <AuthLayout text={"Sign up"}>
       <div>
         {showModal ? (
           <VerificationComponent
@@ -84,7 +84,7 @@ const SignUp = () => {
           </div>
           <div>
             <InputContainer
-              label={"phone number"}
+              label={"Phone Number"}
               placeHolder={"phone number"}
               type={"text"}
               value={values.phone_number}
@@ -94,7 +94,7 @@ const SignUp = () => {
           <div>
             <InputContainer
               type="password"
-              label={"password"}
+              label={"Password"}
               onChange={handleChange("password")}
               value={values.password}
               placeHolder={"Enter your secret number"}

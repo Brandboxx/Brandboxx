@@ -64,7 +64,7 @@ const LockPocket = () => {
               cl={"rgba(251, 113, 6, 1)"}
               title={"Lock Pocket Balance"}
               text={
-                "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
+                "Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
               img={"/assets/svg/bigLock.svg"}
               icon={"/assets/svg/lockpocket.svg"}

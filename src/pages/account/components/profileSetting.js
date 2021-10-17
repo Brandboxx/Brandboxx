@@ -248,7 +248,7 @@ const ProfileSetting = () => {
         </div>
         <br />
         <br />
-        <h3 style={{ color: "rgba(20, 154, 155, 1)" }}>Pin & Password</h3>
+        {/* <h3 style={{ color: "rgba(20, 154, 155, 1)" }}>Pin & Password</h3> */}
         {/* <div
           style={{
             display: "flex",
