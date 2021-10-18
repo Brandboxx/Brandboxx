@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Container,
@@ -6,6 +6,7 @@ import {
   InputBox,
   ToggleBadges,
   Badge,
+  Interest,
 } from "../../lockPocket/pages/style";
 import { LockModal } from "../../lockPocket/components";
 import { GoBack } from "../../../components";
@@ -86,6 +87,13 @@ const TargetSave = () => {
       onSubmit: handleOnSubmit,
     });
   // FORMIK ENDS 
+
+  const maturityDate = useMemo(() => {
+    const date = new Date();
+    const months = Number(values.duration);
+    date.setMonth(date.getMonth() + months);
+    return date.toDateString();
+  }, [values.duration]);
 
   const handleMethodName = (name) => {
     setFieldValue("payment_mtd", name);
@@ -196,6 +204,9 @@ const TargetSave = () => {
                 value={values.duration}
                 onChange={handleChange}
               />
+              <Interest>
+                <p> Maturity Date: {`${maturityDate}`}</p>
+              </Interest>
             </div>
 
             <div style={{ marginTop: "50px" }}>
