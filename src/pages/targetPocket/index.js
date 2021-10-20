@@ -68,7 +68,7 @@ const TargetPocket = () => {
 							cl={"rgba(88, 2, 115, 1)"}
 							title={"Target Pocket Balance"}
 							text={
-								"keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
+								"Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
 							}
 							img={"/assets/svg/bigTarget.svg"}
 							icon={"/assets/svg/targetPocket.svg"}
@@ -101,7 +101,7 @@ const TargetPocket = () => {
 							amount={
 								currencyFormatter(viewPocketBalance?.data?.lockPocket ?? 0)
 							} content={
-								"keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
+								"Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest."
 							}
 							img={"/assets/svg/plan1.svg"}
 							bg={"rgba(251, 113, 6, 0.1)"}

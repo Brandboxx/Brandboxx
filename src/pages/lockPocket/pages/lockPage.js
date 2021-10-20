@@ -128,7 +128,7 @@ const LockPage = () => {
               Money
             </h1>
             <p style={{ lineHeight: "25px", color: "rgba(50, 52, 56, 0.6)" }}>
-              keep money aside out of arms reach for as long as you desire, and
+              Keep money aside out of arms reach for as long as you desire, and
               earn up to 5% interest
             </p>
           </TextInfo>

@@ -50,7 +50,7 @@ const PocketPlans = () => {
             img={"/assets/svg/plan1.svg"}
             title={"Lock Pocket "}
             text={
-              "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
+              "Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
             }
             stat={"25%"}
             amount={

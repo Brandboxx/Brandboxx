@@ -7,7 +7,7 @@ const Logo = ({ status = "normal" }) => {
     return (
       <img
         style={{ cursor: "pointer" }}
-        onClick={() => history.push("/")}
+        onClick={() => history.push("/dashboard")}
         src={"/assets/svg/alternateLogo.svg"}
         alt={""}
       />

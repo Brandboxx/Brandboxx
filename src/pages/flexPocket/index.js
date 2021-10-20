@@ -61,7 +61,7 @@ const FlexPocket = () => {
               title={"Lock Pocket"}
               amount={`${currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"}`}
               content={
-                "keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
+                "Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
               img={"/assets/svg/plan1.svg"}
               bg={"rgba(251, 113, 6, 0.2)"}

@@ -89,11 +89,11 @@ const TargetSave = () => {
   // FORMIK ENDS 
 
   const maturityDate = useMemo(() => {
-    const date = new Date();
+    const date = values?.start ? new Date(values?.start) : values?.start;
     const months = Number(values.duration);
     date.setMonth(date.getMonth() + months);
     return date.toDateString();
-  }, [values.duration]);
+  }, [values.start, values.duration]);
 
   const handleMethodName = (name) => {
     setFieldValue("payment_mtd", name);
@@ -132,7 +132,7 @@ const TargetSave = () => {
               <br /> Save for
             </h1>
             <p style={{ lineHeight: "25px", color: "rgba(50, 52, 56, 0.6)" }}>
-              keep money aside out of arms reach for as long as you desire, and
+              Keep money aside out of arms reach for as long as you desire, and
               earn up to 5% interest
             </p>
           </TextInfo>

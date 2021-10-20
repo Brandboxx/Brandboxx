@@ -78,7 +78,7 @@ const SignUp = () => {
               value={values.email}
               label={"Email"}
               type={"email"}
-              placeHolder={"First Name"}
+              placeHolder={"Email Addres"}
               onChange={handleChange("email")}
             />
           </div>
