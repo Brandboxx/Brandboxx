@@ -2,6 +2,10 @@ import styled from "styled-components/macro";
 
 export const Container = styled.section`
   padding: 35px 40px;
+
+  @media (max-width: 800px) {
+    padding: 30px 20px;
+  }
 `;
 
 export const TabContainer = styled.div`
@@ -22,7 +26,7 @@ export const Tab = styled.button`
   border: none;
 
   p {
-    color: #ADAEAF;
+    color: #adaeaf;
     font-size: 12px;
     text-align: center;
   }
@@ -31,7 +35,8 @@ export const Tab = styled.button`
 export const ActiveTab = styled.button`
   width: 100%;
   cursor: pointer;
-  background: #580273;  width: 94px;
+  background: #580273;
+  width: 94px;
   border: none;
   border-radius: 10px;
 
@@ -43,3 +48,14 @@ export const ActiveTab = styled.button`
   }
 `;
 
+export const BigCardContainer = styled.div`
+  @media (max-width: 800px) {
+    width: 100% !important;
+  }
+`;
+
+export const SmallCardContainer = styled.div`
+  @media (max-width: 800px) {
+    display: none;
+  }
+`;

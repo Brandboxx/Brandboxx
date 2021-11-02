@@ -12,6 +12,10 @@ export const FormContainer = styled.form`
     &:last-of-type {
       width: 100%;
     }
+
+    @media(max-width: 800px) {
+      width: 100%;
+    }
   }
 
   section {

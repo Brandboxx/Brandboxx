@@ -7,20 +7,24 @@ import { ButtonContainer } from "../../../containers";
 import { Container, Title } from "./styles";
 
 const ContactUs = () => {
-
-  const { userDetails } = useSelector(state => state.auth);
-  const { mutate: sendMessage } = usePostRequest("/messanger/send-message", "profile");
+  const { userDetails } = useSelector((state) => state.auth);
+  const { mutate: sendMessage } = usePostRequest(
+    "/messanger/send-message",
+    "profile"
+  );
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {
-
-    sendMessage({ message }, {
-      onSuccess: (res) => {
-        toast("Message sent successfully!", { type: "success" });
-        setMessage("")
-      },
-    });
-  }
+    sendMessage(
+      { message },
+      {
+        onSuccess: (res) => {
+          toast("Message sent successfully!", { type: "success" });
+          setMessage("");
+        },
+      }
+    );
+  };
 
   return (
     <Container>
@@ -87,9 +91,20 @@ const ContactUs = () => {
             Send us feedback on our application, we would do our best to serve
             you better
           </p>
-          <TextArea placeholder="Type message" rows={8} value={message} onChange={(e) => setMessage(e.target.value)} />
+          <TextArea
+            placeholder="Type message"
+            rows={8}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <div style={{ marginTop: "40px" }}>
-            <ButtonContainer width={"196px"} type={"submit"} onClick={handleSubmit}>Save Changes</ButtonContainer>
+            <ButtonContainer
+              width={"196px"}
+              type={"submit"}
+              onClick={handleSubmit}
+            >
+              Save Changes
+            </ButtonContainer>
           </div>
         </main>
         <aside>
@@ -104,11 +119,35 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
+  aside {
+    width: 50%;
+    height: 212px;
+    overflow: hidden;
+
+    @media (max-width: 800px) {
+      margin-top: 30px;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 800px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const Info = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 40px;
 
   p {
@@ -127,20 +166,10 @@ const Socials = styled.div`
       margin-left: 0px;
     }
   }
-
-  aside {
-    width: 50%;
-    height: 212px;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-    }
-  }
 `;
 
 const TextArea = styled.textarea`
-  width: 100%;
+  width: calc(100% - 40px);
   border: 1px solid rgba(50, 52, 56, 0.4);
   border-radius: 8px;
   padding: 20px;

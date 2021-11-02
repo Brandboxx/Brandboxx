@@ -19,6 +19,7 @@ import {
   RingImage,
   Footer,
   ReviewCards,
+  MobileImg
 } from "./style";
 
 const Landing = (props) => {
@@ -233,7 +234,7 @@ const Landing = (props) => {
       <Jumbotron>
         <div style={{ maxWidth: "1200px", margin: "0px auto" }}>
           <MobileOverview>
-            <img src={"/assets/svg/mobile.svg"} alt={""} />
+            <MobileImg src={"/assets/svg/mobile.svg"} alt={""} />
             <AbsoluteImg src={"/assets/svg/elispe1.svg"} alt={""} />
             <AbsoluteImg src={"/assets/svg/elispe2.svg"} alt={""} />
             <aside>

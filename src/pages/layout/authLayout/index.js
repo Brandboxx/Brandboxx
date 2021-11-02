@@ -1,12 +1,14 @@
 import { Logo } from "../../../components";
 
-import { Container } from "./style";
+import { Container, LogoCont } from "./style";
 
 const AuthLayout = ({ text, children }) => {
   return (
     <Container>
       <main>
-        <Logo status={"alternate"} />
+        <LogoCont>
+          <Logo status={"alternate"} />
+        </LogoCont>
         <div>
           <h1>
             {text} to <br />

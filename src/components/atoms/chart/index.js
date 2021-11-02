@@ -34,7 +34,7 @@ let options = {
 
 const Chart = () => {
   return (
-    <div>
+    <div style={{ marginTop: "30px" }}>
       <Line options={options} data={data} />
     </div>
   );

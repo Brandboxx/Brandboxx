@@ -7,9 +7,17 @@ import {
   CardsContainer,
   TransactionContainer,
   Credit,
+  GoBackContainer,
 } from "../flexPocket/style";
 import { useGetResquest } from "../../api/useRequestProcessor";
-import { Container, TabContainer, Tab, ActiveTab } from "./style";
+import {
+  Container,
+  TabContainer,
+  Tab,
+  ActiveTab,
+  BigCardContainer,
+  SmallCardContainer,
+} from "./style";
 
 import { POCKETPLANS, LOCKPAGE } from "../../constants/routes";
 import { useHistory } from "react-router-dom";
@@ -48,7 +56,9 @@ const LockPocket = () => {
   return (
     <MainLayout>
       <Container>
-        <GoBack title={"Go Back"} route={POCKETPLANS} />
+        <GoBackContainer>
+          <GoBack title={"Go Back"} route={POCKETPLANS} />
+        </GoBackContainer>
         <br />
         <Header>
           <main>
@@ -58,7 +68,7 @@ const LockPocket = () => {
           <img src={"/assets/svg/header/notification.svg"} alt={""} />
         </Header>
         <CardsContainer>
-          <div style={{ width: "55%" }}>
+          <BigCardContainer style={{ width: "55%" }}>
             <BigCard
               bg={"rgba(255, 241, 230, 1)"}
               cl={"rgba(251, 113, 6, 1)"}
@@ -70,13 +80,19 @@ const LockPocket = () => {
               icon={"/assets/svg/lockpocket.svg"}
               btnText={"Lock Money"}
               amount={
-                currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
-                "N/A"
+                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
               }
               onClick={() => history.push(LOCKPAGE)}
             />
-          </div>
-          <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding: 20 }}>
+          </BigCardContainer>
+          <SmallCardContainer
+            style={{
+              width: "32%",
+              marginTop: "30px",
+              backgroundColor: "#FAFAFA",
+              padding: 20,
+            }}
+          >
             <h1>Pocket Plans</h1>
             <SmallCard
               routeTo={"/pocket_plans/flex_pocket"}
@@ -106,7 +122,7 @@ const LockPocket = () => {
               bg={"rgba(88, 2, 115, 0.2)"}
               cl={"rgba(88, 2, 115, 1)"}
             />
-          </div>
+          </SmallCardContainer>
         </CardsContainer>
         <TransactionContainer>
           <TabContainer>
@@ -121,7 +137,8 @@ const LockPocket = () => {
             return (
               <Credit
                 onClick={() =>
-                  !selectedTab && history.push(`/pocket_plans/lock_withdraw/${pocket._id}`)
+                  !selectedTab &&
+                  history.push(`/pocket_plans/lock_withdraw/${pocket._id}`)
                 }
                 key={index}
                 lockPocket

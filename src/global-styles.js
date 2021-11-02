@@ -10,4 +10,9 @@ export const GlobalStyles = createGlobalStyle`
     p, h1, h2, h3, h4, h5, h6 {
         margin: 0px;
     }
+
+    @media(max-width: 800px) {
+        h1 {font-size: 24px!important;}
+        p {font-size: 12px!important;}
+    }
 `;

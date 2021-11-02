@@ -2,6 +2,10 @@ import styled from "styled-components/macro";
 
 export const Wrapper = styled.section`
   padding: 30px 40px;
+
+  @media (max-width: 800px) {
+    padding: 30px 20px;
+  }
 `;
 
 export const Header = styled.div`
@@ -20,6 +24,9 @@ export const Header = styled.div`
 
   img {
     cursor: pointer;
+    @media(max-width: 500px) {
+      width: 20px;
+    }
   }
 `;
 
@@ -32,4 +39,12 @@ export const CardContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+`;
+
+export const Card = styled.div`
+  width: 45%;
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;

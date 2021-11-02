@@ -79,7 +79,7 @@ const FlexFunds = () => {
             ) : null}
             {/* {paymentModal ? <LockModal setModal={setPaymentModal} /> : null} */}
             <MainLayout>
-                <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
+                <div style={{ padding: "40px 0px", paddingBottom: "10px" }}>
                     <GoBack title={"Go Back"} route={WITHDRAW} />
                 </div>
                 <Container>

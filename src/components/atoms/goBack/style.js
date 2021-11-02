@@ -8,6 +8,12 @@ export const Button = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+  position: absolute;
+  left: 24px;
+
+  @media(max-width: 800px) {
+    left: 5px;
+  }
 
   p {
     color: #323438;

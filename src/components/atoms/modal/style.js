@@ -24,4 +24,13 @@ export const ModalContainer = styled.div`
   box-shadow: 0px 16px 20px rgba(50, 50, 71, 0.05),
     0px 24px 50px rgba(50, 50, 71, 0.05);
   border: 1px solid rgba(228, 228, 228, 0.6);
+
+  @media (max-width: 800px) {
+    width: calc(90% - 80px);
+
+    button {
+      font-size: 12px;
+      width: 100px;
+    }
+  }
 `;

@@ -7,6 +7,11 @@ export const Container = styled.div`
   padding: 40px 40px;
   padding-bottom: 100px;
   margin-top: 30px;
+
+  @media(max-width: 800px) {
+    width: calc(100% - 40px);
+    padding: 20px;
+  }
 `;
 
 export const CardHeader = styled.div`

@@ -13,6 +13,7 @@ import { FLUTTERWAVE_PUBLIC_KEY } from "../../api/config";
 import { usePostRequest } from "../../api/useRequestProcessor";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
+import { GoBackContainer } from "../flexPocket/style";
 
 const AddMoney = () => {
   // const [modal, setModal] = useState(false);
@@ -98,9 +99,9 @@ const AddMoney = () => {
         <></>
       )}
       <MainLayout>
-        <div style={{ padding: "40px 30px", paddingBottom: "10px" }}>
+        <GoBackContainer style={{ padding: "40px 30px", paddingBottom: "10px" }}>
           <GoBack title={"Go Back"} route={FLEXPOCKET} />
-        </div>
+        </GoBackContainer>
         <Container>
           <TextInfo>
             <h1 style={{ paddingBottom: "20px" }}>

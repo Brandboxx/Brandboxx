@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 
   main {
@@ -12,9 +13,19 @@ export const Container = styled.section`
     background-position: center;
     background-repeat: no-repeat;
     padding: 50px 50px;
+    position: relative;
 
     @media (max-width: 800px) {
-      display: none;
+      width: 100%;
+      height: 200px;
+
+      h1 {
+        font-size: 28px !important;
+        margin-top: 20px;
+      }
+      p {
+        font-size: 14px !important;
+      }
     }
 
     div {
@@ -44,8 +55,17 @@ export const Container = styled.section`
     align-items: center;
 
     @media (max-width: 1000px) {
-      padding: 0px 50px;
-      width: calc(100% - 100px);
+      padding: 0px 30px;
+      width: calc(100% - 60px);
+      padding-bottom: 20px;
     }
+  }
+`;
+
+export const LogoCont = styled.div`
+  position: absolute;
+  top: 30px!important;
+  @media (max-width: 800px) {
+    display: none;
   }
 `;

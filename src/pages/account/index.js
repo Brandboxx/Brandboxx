@@ -116,6 +116,13 @@ const Account = () => {
 
 const Container = styled.div`
   padding: 35px 40px;
+
+  @media(max-width){
+    padding: 30px 20px;
+    @media(max-width: 800px) {
+      padding: 30px 0px;
+    }
+  }
 `;
 
 export { Account };

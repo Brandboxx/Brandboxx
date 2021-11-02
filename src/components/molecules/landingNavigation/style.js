@@ -24,8 +24,22 @@ export const Container = styled.nav`
     margin-top: 5px;
     cursor: pointer;
   }
+
+  @media (max-width: 800px) {
+    p,
+    button {
+      display: none;
+    }
+  }
 `;
 
 export const Spacer = styled.div`
   flex: 1;
+`;
+
+export const Menu = styled.img`
+  display: none;
+  @media (max-width: 800px) {
+    display: block;
+  }
 `;

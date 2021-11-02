@@ -101,6 +101,14 @@ const WithDraw = ({ bg, cl, info, id, fromFlex, title, amount, endDate }) => {
 
 const Container = styled.div`
   padding: 35px 40px;
+
+  @media(max-width: 800px) {
+    padding: 30px 20px;
+  }
+
+  @media(max-width: 800px) {
+    padding: 30px 20px;
+  }
 `;
 
 const Header = styled.h1`
@@ -114,6 +122,10 @@ const Card = styled.div`
   border: 5px;
   padding: 50px 60px;
   padding-right: 140px;
+
+  @media(max-width: 800px) {
+    padding: 30px 20px;
+  }
 `;
 
 const CardHeader = styled.div`

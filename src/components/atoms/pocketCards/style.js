@@ -1,15 +1,15 @@
 import styled from "styled-components/macro";
 
 export const Container = styled.div`
-  width: 45%;
+  width: 100%;
   border-radius: 5px;
   padding: 20px;
   background-color: ${(props) => props.bg};
   margin-top: 30px;
   cursor: pointer;
 
-  @media (max-width: 700px) {
-    width: 100%;
+  @media (max-width: 800px) {
+    width: calc(100% - 40px);
   }
 
   header {

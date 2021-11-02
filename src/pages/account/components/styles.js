@@ -1,6 +1,8 @@
 import styled from "styled-components/macro";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  
+`;
 
 export const Title = styled.h1`
   color: rgba(50, 52, 56, 1);
@@ -37,5 +39,22 @@ export const Profile = styled.div`
     position: absolute;
     z-index: 1;
     opacity: 0;
+  }
+
+  @media(max-width: 800px) {
+    margin: 30px auto;
+  }
+`;
+
+export const FormContainer = styled.div`
+  @media(max-width: 800px) {
+    width: 100%!important;
+    flex-wrap: wrap!important;
+    margin-top: 10px!important;
+
+    div {
+      width: 100%!important;
+      margin-top:20px;
+    }
   }
 `;

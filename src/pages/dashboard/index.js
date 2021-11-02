@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import { MainLayout } from "../../pages";
 import { DashModalContainer } from "../../containers";
-import { Info, CardContainer, CardInfo } from "./style";
+import { Info, CardContainer, CardInfo, DashCardContainers } from "./style";
 import { useGetResquest } from "../../api/useRequestProcessor";
 import { currencyFormatter } from "../../utils/numberFormater";
 
@@ -47,37 +47,47 @@ const Dashboard = () => {
             amount={currencyFormatter(viewPocketBalance?.data?.total) ?? "N/A"}
           />
           <CardContainer>
-            <DashCard
-              title={"Flex Balance"}
-              amount={
-                currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
-              }
-              img={"/assets/svg/dashCards/dash1.svg"}
-              bg={"#E7F5F5"}
-              cl={"#149A9B"}
-              routeTo={"/pocket_plans/flex_pocket"}
-            />
-            <DashCard
-              title={"Pocket Lock Balance"}
-              amount={
-                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
-              }
-              img={"/assets/svg/dashCards/dash2.svg"}
-              bg={"#fb70063a"}
-              cl={"#FB7106"}
-              routeTo={"/pocket_plans/lock_pocket"}
-            />
-            <DashCard
-              title={"Pocket Target Balance"}
-              amount={
-                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
-                "N/A"
-              }
-              img={"/assets/svg/dashCards/dash3.svg"}
-              bg={"#59027331"}
-              cl={"#580273"}
-              routeTo={"/pocket_plans/target_pocket"}
-            />
+            <DashCardContainers>
+              <DashCard
+                title={"Flex Balance"}
+                amount={
+                  currencyFormatter(viewPocketBalance?.data?.flexPocket) ??
+                  "N/A"
+                }
+                img={"/assets/svg/dashCards/dash1.svg"}
+                bg={"#E7F5F5"}
+                cl={"#149A9B"}
+                routeTo={"/pocket_plans/flex_pocket"}
+              />
+            </DashCardContainers>
+
+            <DashCardContainers>
+              <DashCard
+                title={"Pocket Lock Balance"}
+                amount={
+                  currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
+                  "N/A"
+                }
+                img={"/assets/svg/dashCards/dash2.svg"}
+                bg={"#fb70063a"}
+                cl={"#FB7106"}
+                routeTo={"/pocket_plans/lock_pocket"}
+              />
+            </DashCardContainers>
+
+            <DashCardContainers>
+              <DashCard
+                title={"Pocket Target Balance"}
+                amount={
+                  currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                  "N/A"
+                }
+                img={"/assets/svg/dashCards/dash3.svg"}
+                bg={"#59027331"}
+                cl={"#580273"}
+                routeTo={"/pocket_plans/target_pocket"}
+              />
+            </DashCardContainers>
           </CardContainer>
 
           <Tab toggle={toggle} setToggle={setToggle} />
@@ -97,7 +107,7 @@ const Dashboard = () => {
                     )}
 
                     <p>
-                      {transaction.plan_type +" "}
+                      {transaction.plan_type + " "}
                       {transaction.action === "deposit"
                         ? " credited "
                         : " debited "}

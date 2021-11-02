@@ -8,6 +8,10 @@ export const Label = styled.label`
   font-size: 16px;
   color: #111111;
   /* text-transform: capitalize; */
+
+  @media (max-width: 800px) {
+    font-size: 14px;
+  }
 `;
 
 export const TextField = styled.input`
@@ -21,8 +25,19 @@ export const TextField = styled.input`
   padding: 0px 20px;
   outline: none;
 
+  @media (max-width: 800px) {
+    font-size: 14px;
+  }
+
   &::placeholder {
     color: #32343875;
     text-transform: capitalize;
+    @media (max-width: 800px) {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    height: 45px;
   }
 `;

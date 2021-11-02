@@ -8,6 +8,9 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   z-index: 2;
+  @media (max-width: 800px) {
+    height: 100vh;
+  }
 `;
 
 export const Tint = styled.div`
@@ -27,6 +30,10 @@ export const HeaderContainer = styled.header`
   align-items: center;
   padding: 50px 100px;
 
+  @media (max-width: 800px) {
+    padding: 30px 30px;
+  }
+
   img {
     cursor: pointer;
   }
@@ -35,7 +42,12 @@ export const HeaderContainer = styled.header`
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 50px 200px;
+
+  @media (max-width: 800px) {
+    padding: 30px 30px;
+  }
 
   main {
     width: 30%;
@@ -51,6 +63,17 @@ export const Content = styled.div`
       margin-top: 20px;
       line-height: 25px;
     }
+
+    @media (max-width: 800px) {
+      width: 100%;
+
+      h1 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
   }
   div {
     width: 50%;
@@ -62,6 +85,10 @@ export const Content = styled.div`
         cursor: pointer;
         color: #149a9b;
       }
+    }
+    @media (max-width: 800px) {
+      width: 100%;
+      margin-top: 30px;
     }
   }
 `;

@@ -9,14 +9,13 @@ import {
 
 import { profileValidator } from "./profileValidation";
 import { ButtonContainer, InputContainer } from "../../../containers";
-import { Container, Title, Profile } from "./styles";
+import { Container, Title, Profile, FormContainer } from "./styles";
 import { Input } from "../../../components";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
 
 const ProfileSetting = () => {
-
-  const { go } = useHistory()
+  const { go } = useHistory();
   const { mutate: editDp } = usePostRequest("/users/edit-dp", "editDp");
   const { mutate: profileDp } = usePatchRequest(
     "/users/edit-account",
@@ -35,7 +34,7 @@ const ProfileSetting = () => {
 
     editDp(data, {
       onSuccess: (res) => {
-        go(0)
+        go(0);
         toast("Profile photo updated successfully!", { type: "success" });
       },
     });
@@ -61,7 +60,7 @@ const ProfileSetting = () => {
 
     profileDp(payload, {
       onSuccess: (res) => {
-        toast("Profile updated successfully!", { type: "success" })
+        toast("Profile updated successfully!", { type: "success" });
       },
     });
   };
@@ -87,27 +86,34 @@ const ProfileSetting = () => {
     });
 
   useEffect(() => {
-
-    setValues(prevState => ({
+    setValues((prevState) => ({
       ...prevState,
-      "firstname": profile?.gottenUser?.firstname ?? "",
-      "lastname": profile?.gottenUser?.lastname ?? "",
-      "date_of_birth": profile?.gottenUser?.date_of_birth ? new Date(profile?.gottenUser?.date_of_birth).getFullYear() + "-0" + (new Date(profile?.gottenUser?.date_of_birth).getMonth() + 1) + "-0" + new Date(profile?.gottenUser?.date_of_birth).getDate() : "",
-      "gender": profile?.gottenUser?.gender ?? "",
-      "address": profile?.gottenUser?.address ?? "",
-      "email": profile?.gottenUser?.email ?? "",
-      "phone_number": profile?.gottenUser?.phone_number ?? "",
-      "next_of_kin_fullname": profile?.gottenUser?.next_of_kin?.fullname ?? "",
-      "next_of_kin_phone_number": profile?.gottenUser?.next_of_kin?.phone_number ?? "",
-      "next_of_kin_email": profile?.gottenUser?.next_of_kin?.email ?? "",
-      "next_of_kin_gender": profile?.gottenUser?.next_of_kin?.gender ?? "",
-      "next_of_kin_relationship": profile?.gottenUser?.next_of_kin?.relationship ?? "",
-    }))
+      firstname: profile?.gottenUser?.firstname ?? "",
+      lastname: profile?.gottenUser?.lastname ?? "",
+      date_of_birth: profile?.gottenUser?.date_of_birth
+        ? new Date(profile?.gottenUser?.date_of_birth).getFullYear() +
+          "-0" +
+          (new Date(profile?.gottenUser?.date_of_birth).getMonth() + 1) +
+          "-0" +
+          new Date(profile?.gottenUser?.date_of_birth).getDate()
+        : "",
+      gender: profile?.gottenUser?.gender ?? "",
+      address: profile?.gottenUser?.address ?? "",
+      email: profile?.gottenUser?.email ?? "",
+      phone_number: profile?.gottenUser?.phone_number ?? "",
+      next_of_kin_fullname: profile?.gottenUser?.next_of_kin?.fullname ?? "",
+      next_of_kin_phone_number:
+        profile?.gottenUser?.next_of_kin?.phone_number ?? "",
+      next_of_kin_email: profile?.gottenUser?.next_of_kin?.email ?? "",
+      next_of_kin_gender: profile?.gottenUser?.next_of_kin?.gender ?? "",
+      next_of_kin_relationship:
+        profile?.gottenUser?.next_of_kin?.relationship ?? "",
+    }));
   }, [profile, setValues]);
 
   useEffect(() => {
     //console.log({ values })
-  }, [values])
+  }, [values]);
 
   return (
     <>
@@ -128,7 +134,7 @@ const ProfileSetting = () => {
           <EditButton />
         </Profile>
 
-        <div
+        <FormContainer
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -159,8 +165,8 @@ const ProfileSetting = () => {
               error={touched.lastname && errors.lastname}
             />
           </div>
-        </div>
-        <div
+        </FormContainer>
+        <FormContainer
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -180,17 +186,32 @@ const ProfileSetting = () => {
               error={touched.date_of_birth && errors.date_of_birth}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", flexDirection: "column" }}>
+          <div
+            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+          >
             <Input.Label>Gender</Input.Label>
-            <select required value={values.gender} name={"gender"} onChange={handleChange} style={{ marginTop: 10, height: 50, padding: 10, borderRadius: 8 }}>
-              <option disabled value="">Select Gender</option>
+            <select
+              required
+              value={values.gender}
+              name={"gender"}
+              onChange={handleChange}
+              style={{
+                marginTop: 10,
+                height: 50,
+                padding: 10,
+                borderRadius: 8,
+              }}
+            >
+              <option disabled value="">
+                Select Gender
+              </option>
               <option value={"male"}>Male</option>
               <option value={"female"}>Female</option>
               <option value={"others"}>Rather not say</option>
             </select>
           </div>
-        </div>
-        <div
+        </FormContainer>
+        <FormContainer
           style={{
             width: "70%",
             marginTop: "40px",
@@ -208,11 +229,11 @@ const ProfileSetting = () => {
               error={touched.address && errors.address}
             />
           </div>
-        </div>
+        </FormContainer>
         <br />
         <br />
         <Title>Security</Title>
-        <div
+        <FormContainer
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -245,7 +266,7 @@ const ProfileSetting = () => {
               error={touched.phone_number && errors.phone_number}
             />
           </div>
-        </div>
+        </FormContainer>
         <br />
         <br />
         {/* <h3 style={{ color: "rgba(20, 154, 155, 1)" }}>Pin & Password</h3> */}
@@ -289,7 +310,7 @@ const ProfileSetting = () => {
           <img src={"/assets/svg/toggle.svg"} alt={""} />
         </div> */}
         <Title>Next of Kin</Title>
-        <div
+        <FormContainer
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -316,8 +337,8 @@ const ProfileSetting = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
-        <div
+        </FormContainer>
+        <FormContainer
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -344,8 +365,8 @@ const ProfileSetting = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
-        <div
+        </FormContainer>
+        <FormContainer
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -362,7 +383,7 @@ const ProfileSetting = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </FormContainer>
         <br />
       </Container>
 

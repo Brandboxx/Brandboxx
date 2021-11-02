@@ -24,6 +24,10 @@ export const Options = styled.div`
     margin-left: 0;
   }
 
+  @media(max-width: 800px){
+    font-size: 12px;
+  }
+
   &::after {
     content: "";
     display: block;

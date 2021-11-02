@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const Info = styled.section`
   padding: 40px;
+  @media (max-width: 800px) {
+    padding: 20px;
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -9,6 +12,10 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   padding-top: 60px;
   flex-wrap: wrap;
+
+  @media (max-width: 800px) {
+    padding-top: 20px;
+  }
 `;
 
 export const CardInfo = styled.div`
@@ -36,6 +43,22 @@ export const CardInfo = styled.div`
     }
     p {
       color: #323438;
+    }
+  }
+
+  @media(max-width: 800px) {
+    width: 100%;
+  }
+`;
+
+export const DashCardContainers = styled.div`
+  width: 31.33%;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-top: 20px;
+    &:first-of-type {
+      margin-top: 0px;
     }
   }
 `;

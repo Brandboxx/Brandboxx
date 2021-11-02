@@ -5,12 +5,18 @@ import { useGetResquest } from "../../../api/useRequestProcessor";
 import { ButtonContainer } from "../../../containers";
 // import { ButtonContainer } from "../../../containers";
 import { timeName } from "../../../utils/dateUtils";
-import { Container, Profile, ProfileContainer, Hand } from "./style";
+import {
+  Container,
+  Profile,
+  ProfileContainer,
+  Hand,
+  Spacer,
+  Bell,
+} from "./style";
 
 const Header = ({ setModal }) => {
-
   const { push } = useHistory();
-  const { userDetails } = useSelector(state => state.auth);
+  const { userDetails } = useSelector((state) => state.auth);
   const { data: profile } = useGetResquest(
     "/users/view-user-profile",
     "profile"
@@ -21,7 +27,11 @@ const Header = ({ setModal }) => {
       <ProfileContainer>
         <Hand src={"/assets/svg/header/profile.svg"} alt={""} />
         <Profile>
-          <img src={profile?.gottenUser?.profile_picture?.url} alt={""} style={{ objectFit: "cover" }} />
+          <img
+            src={profile?.gottenUser?.profile_picture?.url}
+            alt={""}
+            style={{ objectFit: "cover" }}
+          />
         </Profile>
         <main>
           <h3>{`Good ${timeName()} ${userDetails.firstname}`}</h3>
@@ -29,14 +39,18 @@ const Header = ({ setModal }) => {
         </main>
       </ProfileContainer>
 
-      <div style={{ flex: "1", cursor: "pointer" }} />
-      <img
+      <Spacer />
+
+      <Bell
         src="/assets/svg/header/notification.svg"
-        style={{ marginRight: "30px", cursor: "pointer" }}
+        style={{ cursor: "pointer" }}
         alt={""}
         onClick={() => toast("No notification yet!", { delay: 1000 })}
       />
-      <ButtonContainer onClick={() => push("/pocket_plans/add_money")} width={"196px"}>
+      <ButtonContainer
+        onClick={() => push("/pocket_plans/add_money")}
+        width={"196px"}
+      >
         Fast Save
       </ButtonContainer>
     </Container>

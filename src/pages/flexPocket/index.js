@@ -3,6 +3,9 @@ import {
   CardsContainer,
   TransactionContainer,
   Credit,
+  BigCardContainer,
+  SmallCardContainer,
+  GoBackContainer
 } from "./style";
 import { useGetResquest } from "../../api/useRequestProcessor";
 import { GoBack, BigCard, SmallCard } from "../../components";
@@ -28,9 +31,9 @@ const FlexPocket = () => {
   );
   return (
     <MainLayout>
-      <div style={{ marginTop: "35px", marginLeft: "30px" }}>
+      <GoBackContainer style={{ marginTop: "35px", marginLeft: "30px" }}>
         <GoBack title={"Go Back"} route={POCKETPLANS} />
-      </div>
+      </GoBackContainer>
       <Container>
         <Header>
           <main>
@@ -40,26 +43,43 @@ const FlexPocket = () => {
           <img src={"/assets/svg/header/notification.svg"} alt={""} />
         </Header>
         <CardsContainer>
-          <div style={{ width: "55%" }}>
+          <BigCardContainer style={{ width: "55%" }}>
             <BigCard
               bg={"rgba(231, 245, 245, 1)"}
               cl={"rgba(20, 154, 155, 1)"}
               title={"Flex Pocket Balance"}
-              text={"Flexible savings that alllows you to deposit and withdraw whenever you wish"}
+              text={
+                "Flexible savings that alllows you to deposit and withdraw whenever you wish"
+              }
               img={"/assets/svg/bigLogo.svg"}
-              amount={currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"}
+              amount={
+                currencyFormatter(viewPocketBalance?.data?.flexPocket) ?? "N/A"
+              }
               icon={"/assets/svg/withdraw.svg"}
               btnText={viewPocketBalance?.data?.flexPocket ? "Withdraw" : ""}
               handleClick={() => history.push(ADDMONEY)}
-              onClick={viewPocketBalance?.data?.flexPocket ? () => history.push(WITHDRAW) : ""}
+              onClick={
+                viewPocketBalance?.data?.flexPocket
+                  ? () => history.push(WITHDRAW)
+                  : ""
+              }
             />
-          </div>
-          <div style={{ width: "32%", marginTop: "30px", backgroundColor: "#FAFAFA", padding: 20 }}>
+          </BigCardContainer>
+          <SmallCardContainer
+            style={{
+              width: "32%",
+              marginTop: "30px",
+              backgroundColor: "#FAFAFA",
+              padding: 20,
+            }}
+          >
             <h1>Pocket Plans</h1>
             <SmallCard
               routeTo={"/pocket_plans/lock_pocket"}
               title={"Lock Pocket"}
-              amount={`${currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"}`}
+              amount={`${
+                currencyFormatter(viewPocketBalance?.data?.lockPocket) ?? "N/A"
+              }`}
               content={
                 "Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
               }
@@ -70,7 +90,10 @@ const FlexPocket = () => {
 
             <SmallCard
               title={"Target Pocket"}
-              amount={`${currencyFormatter(viewPocketBalance?.data?.targetPocket) ?? "N/A"}`}
+              amount={`${
+                currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
+                "N/A"
+              }`}
               content={
                 "Reach your desired savings goal, with consistent periodic savings."
               }
@@ -79,10 +102,12 @@ const FlexPocket = () => {
               cl={"rgba(88, 2, 115, 1)"}
               routeTo={"/pocket_plans/target_pocket"}
             />
-          </div>
+          </SmallCardContainer>
         </CardsContainer>
         <TransactionContainer>
-          <h4 style={{ fontSize: "18px", paddingBottom: 20 }}>Recent Transaction</h4>
+          <h4 style={{ fontSize: "18px", paddingBottom: 20 }}>
+            Recent Transaction
+          </h4>
           {flexTransactions?.data.map((transaction, index) => {
             return (
               <Credit key={index}>

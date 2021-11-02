@@ -2,6 +2,10 @@ import styled from "styled-components/macro";
 
 export const Container = styled.section`
   padding: 35px 40px;
+
+  @media(max-width: 800px) {
+    padding: 30px 20px;
+  }
 `;
 
 export const TabContainer = styled.div`
@@ -40,5 +44,17 @@ export const ActiveTab = styled.button`
     color: #fff;
     font-size: 12px;
     text-align: center;
+  }
+`;
+
+export const BigCardContainer = styled.div`
+  @media (max-width: 800px) {
+    width: 100%!important;
+  }
+`;
+
+export const SmallCardContainer = styled.div`
+  @media (max-width: 800px) {
+    display: none;
   }
 `;

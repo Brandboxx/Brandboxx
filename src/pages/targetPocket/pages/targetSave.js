@@ -19,26 +19,25 @@ import { isToday } from "../../../utils/dateUtils";
 import { currencyFormatter } from "../../../utils/numberFormater";
 
 const TargetSave = () => {
-
   const badges = [
     {
       id: 1,
-      number: '3',
+      number: "3",
       unit: "months",
     },
     {
       id: 2,
-      number: '6',
+      number: "6",
       unit: "months",
     },
     {
       id: 3,
-      number: '9',
+      number: "9",
       unit: "months",
     },
     {
       id: 4,
-      number: '12',
+      number: "12",
       unit: "months",
     },
   ];
@@ -63,12 +62,12 @@ const TargetSave = () => {
   ];
   const history = useHistory();
 
-  // FORMIK 
+  // FORMIK
   const handleOnSubmit = (values) => {
     history.push({
       pathname: TARGETREVIEW,
-      state: { ...values, isToday: isToday(values.start) }
-    })
+      state: { ...values, isToday: isToday(values.start) },
+    });
   };
 
   const { values, errors, handleChange, handleSubmit, setFieldValue } =
@@ -86,13 +85,13 @@ const TargetSave = () => {
       validationSchema: targetPocketSchema,
       onSubmit: handleOnSubmit,
     });
-  // FORMIK ENDS 
+  // FORMIK ENDS
 
   const maturityDate = useMemo(() => {
     const date = values?.start ? new Date(values?.start) : values?.start;
-    const months = Number(values.duration);
-    date.setMonth(date.getMonth() + months);
-    return date.toDateString();
+    const months = Number(values?.duration);
+    date?.setMonth(date?.getMonth() + months);
+    return date?.toDateString();
   }, [values.start, values.duration]);
 
   const handleMethodName = (name) => {
@@ -100,13 +99,22 @@ const TargetSave = () => {
   };
 
   useEffect(() => {
-    if (values?.start && values.duration) setFieldValue("end", (new Date(new Date(values?.start).getTime() + (Number(values.duration) * 2592000000))?.toISOString()));
-  }, [values.start, values.duration, setFieldValue])
+    if (values?.start && values.duration)
+      setFieldValue(
+        "end",
+        new Date(
+          new Date(values?.start).getTime() +
+            Number(values.duration) * 2592000000
+        )?.toISOString()
+      );
+  }, [values.start, values.duration, setFieldValue]);
+
+  console.log(values, "values");
 
   const [modal, setModal] = useState(false);
 
   const getCurrentId = (number) => {
-    setFieldValue("duration", number)
+    setFieldValue("duration", number);
   };
 
   return (
@@ -164,7 +172,6 @@ const TargetSave = () => {
                 cursor: "pointer",
               }}
             >
-
               <InputContainer
                 label={"What date would you start saving?"}
                 name="start"
@@ -282,12 +289,15 @@ const TargetSave = () => {
                 onClick={() => setModal(true)}
               />
 
-              {
-                (values?.payment_mtd === "Flutterwave" && !isToday(values?.start)) ?
-                  <small style={{ marginTop: 20 }}>You will be charged {currencyFormatter(10)} to verify your card details is valid, pending the date to start saving</small>
-                  :
-                  <></>
-              }
+              {values?.payment_mtd === "Flutterwave" &&
+              !isToday(values?.start) ? (
+                <small style={{ marginTop: 20 }}>
+                  You will be charged {currencyFormatter(10)} to verify your
+                  card details is valid, pending the date to start saving
+                </small>
+              ) : (
+                <></>
+              )}
             </div>
 
             <div style={{ marginTop: "50px" }}>
@@ -295,12 +305,11 @@ const TargetSave = () => {
                 onClick={handleSubmit}
                 width="100%"
                 type={"button"}
-              // disabled={!Object.values(values).every(Boolean)}
+                // disabled={!Object.values(values).every(Boolean)}
               >
                 See Preview
               </ButtonContainer>
             </div>
-
           </InputBox>
         </Container>
       </MainLayout>
