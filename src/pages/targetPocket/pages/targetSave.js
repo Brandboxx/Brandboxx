@@ -88,10 +88,13 @@ const TargetSave = () => {
   // FORMIK ENDS
 
   const maturityDate = useMemo(() => {
-    const date = values?.start ? new Date(values?.start) : values?.start;
-    const months = Number(values?.duration);
-    date?.setMonth(date?.getMonth() + months);
-    return date?.toDateString();
+
+    if (values?.start) {
+      const date = values?.start ? new Date(values?.start) : values?.start;
+      const months = Number(values?.duration);
+      date?.setMonth(date?.getMonth() + months);
+      return date?.toDateString();
+    }
   }, [values.start, values.duration]);
 
   const handleMethodName = (name) => {
@@ -104,7 +107,7 @@ const TargetSave = () => {
         "end",
         new Date(
           new Date(values?.start).getTime() +
-            Number(values.duration) * 2592000000
+          Number(values.duration) * 2592000000
         )?.toISOString()
       );
   }, [values.start, values.duration, setFieldValue]);
@@ -290,7 +293,7 @@ const TargetSave = () => {
               />
 
               {values?.payment_mtd === "Flutterwave" &&
-              !isToday(values?.start) ? (
+                !isToday(values?.start) ? (
                 <small style={{ marginTop: 20 }}>
                   You will be charged {currencyFormatter(10)} to verify your
                   card details is valid, pending the date to start saving
@@ -305,7 +308,7 @@ const TargetSave = () => {
                 onClick={handleSubmit}
                 width="100%"
                 type={"button"}
-                // disabled={!Object.values(values).every(Boolean)}
+              // disabled={!Object.values(values).every(Boolean)}
               >
                 See Preview
               </ButtonContainer>
