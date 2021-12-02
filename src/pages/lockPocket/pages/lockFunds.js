@@ -26,7 +26,8 @@ const LockFunds = () => {
   const [modal, setModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
   const [password, setPassword] = useState("");
-  const [bank_id, setBank_id] = useState(null)
+  const [bank_id, setBank_id] = useState(null);
+  const [showPassword, setShowPassword] = useState(false)
 
   const { data: funds } = useGetResquest(
     `/lock-pocket/lock-pocket/${id}`,
@@ -74,6 +75,11 @@ const LockFunds = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  const togglePassword = () => {
+    setShowPassword(prev => !prev)
+  };
+
   return (
     <>
       {modal ? (
@@ -132,11 +138,13 @@ const LockFunds = () => {
             <div style={{ marginTop: "50px" }}>
               <InputContainer
                 label={"Enter Password"}
-                type={"password"}
                 placeHolder={"For security purpose, enter your password"}
                 width={"100%"}
                 onChange={handlePasswordChange}
                 value={password}
+                type={showPassword ? "text" : "password"}
+                kind={'password'}
+                onToggle={(e) => togglePassword(e)}
               />
             </div>
 

@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { usePostRequest } from "../../../../api/useRequestProcessor";
 import { AuthModal, Logo } from "../../../../components";
@@ -10,6 +11,13 @@ export const CreatePassword = ({ setShow, data }) => {
     "/users/reset-password",
     "reset-password"
   );
+
+  const [showPassword, setShowPassword] = useState({ confirm: false, password: false });
+
+  const togglePassword = (key) => {
+    setShowPassword(prev => ({ ...prev, [key]: !prev[key] }))
+  };
+
   const handleOnSubmit = (values, actions) => {
     const payload = {
       ...values,
@@ -70,6 +78,9 @@ export const CreatePassword = ({ setShow, data }) => {
               value={values.new_password}
               onChange={handleChange("new_password")}
               errorText={errors.new_password}
+              type={showPassword?.password ? "text" : "password"}
+              kind={'password'}
+              onToggle={(e) => togglePassword("password")}
             />
             <br />
             <br />
@@ -79,6 +90,9 @@ export const CreatePassword = ({ setShow, data }) => {
               onChange={handleChange("confirm_new_password")}
               errorText={errors.confirm_new_password}
               placeHolder={"Confirm your new password"}
+              type={showPassword?.confirm ? "text" : "password"}
+              kind={'password'}
+              onToggle={(e) => togglePassword("confirm")}
             />
           </section>
           <br />

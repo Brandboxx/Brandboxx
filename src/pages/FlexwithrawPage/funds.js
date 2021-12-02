@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 const FlexFunds = () => {
 
     const [modal, setModal] = useState(false);
-    // const [paymentModal, setPaymentModal] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
     const [password, setPassword] = useState("");
     const [amount, setAmount] = useState('0');
     const [bank_id, setBank_id] = useState(null)
@@ -66,6 +66,10 @@ const FlexFunds = () => {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
+    };
+
+    const togglePassword = () => {
+        setShowPassword(prev => !prev)
     };
 
     return (
@@ -128,8 +132,9 @@ const FlexFunds = () => {
                                 label={"Enter Password"}
                                 placeHolder={"For security purpose, enter your password"}
                                 width={"100%"}
-                                type={"password"}
-                                onChange={handlePasswordChange}
+                                type={showPassword ? "text" : "password"}
+                                kind={'password'}
+                                onToggle={(e) => togglePassword(e)} onChange={handlePasswordChange}
                                 value={password}
                             />
                         </div>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation } from "react-router";
 import { ButtonContainer, InputContainer } from ".";
 import { AuthModal, Logo, CodeInput } from "../components";
@@ -16,6 +17,11 @@ const AuthModalContainer = ({
   number,
 }) => {
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState({ confirm: false, password: false });
+
+  const togglePassword = (key) => {
+    setShowPassword(prev => ({ ...prev, [key]: !prev[key] }))
+  };
 
   return (
     <AuthModal>
@@ -44,12 +50,19 @@ const AuthModalContainer = ({
                 <InputContainer
                   label={"New Password"}
                   placeHolder={"Enter your new password"}
+                  type={showPassword?.password ? "text" : "password"}
+                  kind={'password'}
+                  onToggle={(e) => togglePassword("password")}
+
                 />
                 <br />
                 <br />
                 <InputContainer
-                  label={"Confirm New Password"}
+                  label={"Confirm Password"}
                   placeHolder={"Confirm your new password"}
+                  type={showPassword?.confirm ? "text" : "password"}
+                  kind={'password'}
+                  onToggle={(e) => togglePassword("confirm")}
                 />
               </>
             ) : (
@@ -62,11 +75,11 @@ const AuthModalContainer = ({
             {switchTo === "email" || switchTo === "phoneNumber"
               ? "Reset password"
               : switchTo === "verified"
-              ? "Send"
-              : switchTo === "verification" &&
-                location.pathname === "/verify_account"
-              ? "Verify Account"
-              : "Reset password"}
+                ? "Send"
+                : switchTo === "verification" &&
+                  location.pathname === "/verify_account"
+                  ? "Verify Account"
+                  : "Reset password"}
           </ButtonContainer>
 
           {switchTo === "email" ? (

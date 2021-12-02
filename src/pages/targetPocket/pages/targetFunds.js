@@ -26,6 +26,7 @@ const TargetFunds = () => {
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState(null)
   const [bank_id, setBank_id] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
 
   const { data: funds } = useGetResquest(
     `/target-pocket/target-pocket/${id}`,
@@ -78,6 +79,11 @@ const TargetFunds = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  const togglePassword = () => {
+    setShowPassword(prev => !prev)
+  };
+
   return (
     <>
       {modal ? (
@@ -135,11 +141,13 @@ const TargetFunds = () => {
             <div style={{ marginTop: "50px" }}>
               <InputContainer
                 label={"Enter Password"}
-                type={"password"}
                 placeHolder={"For security purpose, enter your password"}
                 width={"100%"}
                 onChange={handlePasswordChange}
                 value={password}
+                type={showPassword ? "text" : "password"}
+                kind={'password'}
+                onToggle={(e) => togglePassword(e)}
               />
             </div>
 

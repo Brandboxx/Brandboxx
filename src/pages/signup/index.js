@@ -18,6 +18,7 @@ const SignUp = () => {
     "/users/register",
     "register"
   );
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleOnSubmit = (values, action) => {
     register(values, {
@@ -44,6 +45,11 @@ const SignUp = () => {
   useEffect(() => {
     if (isAuth) history.push("/dashboard");
   }, [isAuth, history]);
+
+  const togglePassword = () => {
+    setShowPassword(prev => !prev)
+  };
+
   return (
     <AuthLayout text={"Sign up"}>
       <div>
@@ -93,10 +99,12 @@ const SignUp = () => {
           </div>
           <div>
             <InputContainer
-              type="password"
               label={"Password"}
               onChange={handleChange("password")}
               value={values.password}
+              type={showPassword ? "text" : "password"}
+              kind={'password'}
+              onToggle={(e) => togglePassword(e)}
               placeHolder={"Enter your secret number"}
             />
           </div>
