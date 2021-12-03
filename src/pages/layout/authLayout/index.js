@@ -15,8 +15,7 @@ const AuthLayout = ({ text, children }) => {
             start saving
           </h1>
           <p>
-            Lectus tortor faucibus arcu ipsum nascetur enim
-            <br /> nulla. Adipiscing congue enim id mattis velit.
+            {(text.toLowerCase()).includes("sign") ? <>Hi there, come with us on this journey to an easy, <br />secure and safe saving experience.</> : <>Welcome back! Enter your password and <br />email address to continue saving.</>}
           </p>
         </div>
       </main>

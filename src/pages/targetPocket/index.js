@@ -65,7 +65,7 @@ const TargetPocket = () => {
         <Header>
           <main>
             <h1 style={{ color: "rgba(88, 2, 115, 1)" }}>Target Pocket</h1>
-            <p>Here is an overview of how much you have locked</p>
+            <p>Keep going, you’re doing great! <br />Here is an overview of your progress so far.</p>
           </main>
           <img src={"/assets/svg/header/notification.svg"} alt={""} />
         </Header>
@@ -76,7 +76,7 @@ const TargetPocket = () => {
               cl={"rgba(88, 2, 115, 1)"}
               title={"Target Pocket Balance"}
               text={
-                "Keep money aside out of arms reach for as long as you desire, and earn up to 5% interest"
+                "Reach your desired savings goal, with consistent periodic savings."
               }
               img={"/assets/svg/bigTarget.svg"}
               icon={"/assets/svg/targetPocket.svg"}

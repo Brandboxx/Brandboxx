@@ -142,7 +142,7 @@ const TargetReview = () => {
               Review
             </h1>
             <p style={{ lineHeight: "25px", color: "rgba(50, 52, 56, 0.6)" }}>
-              Yipee, you are almost done !
+              Yippee…you are almost done!
             </p>
           </TextInfo>
           <InputBox>

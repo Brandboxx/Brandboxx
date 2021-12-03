@@ -57,7 +57,7 @@ export const Credit = styled.div`
   }
 
   @media (max-width: 800px) {
-    width: 100%;
+    width: 100% !important;
     padding-left: 0px;
 
     img {

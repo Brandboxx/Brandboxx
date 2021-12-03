@@ -40,8 +40,7 @@ const Landing = (props) => {
                 Save for a<br /> better tomorrow
               </h1>
               <p>
-                Safe keep your earnings from
-                <br /> impulsive expenses and earn interests
+                Keep your money safe from impulsive <br />expenses and earn interests while at it.
               </p>
               <div style={{ height: "30px" }} />
               <ButtonContainer
@@ -59,9 +58,9 @@ const Landing = (props) => {
       <Jumbotron bg={"#fff"}>
         <div style={{ maxWidth: "1200px", margin: "0px auto" }}>
           <JumbotronHeaders>
-            <h1>We got you covered, fear not!</h1>
+            <h1>We’ve got you covered, fear not!</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum
+              We are with you on your journey to financial freedom.
             </p>
           </JumbotronHeaders>
           <JumbotronInner>
@@ -69,24 +68,21 @@ const Landing = (props) => {
               <img src={"/assets/svg/service1.svg"} alt={""} />
               <p>Safe</p>
               <p>
-                Lorem ipsum dolor sit amet,
-                <br /> consectetur adipiscing elit ut aliquam
+                Growing your savings<br /> steadily one naira at a time.
               </p>
             </ServiceCards>
             <ServiceCards>
               <img src={"/assets/svg/service2.svg"} alt={""} />
               <p>Secure</p>
               <p>
-                Lorem ipsum dolor sit amet,
-                <br /> consectetur adipiscing elit ut aliquam
+                Your funds <br />are secure with us
               </p>
             </ServiceCards>
             <ServiceCards>
               <img src={"/assets/svg/service3.svg"} alt={""} />
               <p>Easy</p>
               <p>
-                Lorem ipsum dolor sit amet,
-                <br /> consectetur adipiscing elit ut aliquam
+                Access financial <br />security with simplicity and ease
               </p>
             </ServiceCards>
           </JumbotronInner>
@@ -98,9 +94,7 @@ const Landing = (props) => {
           <JumbotronHeaders>
             <h1>Our Saving Plans</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur
-              <br /> adipiscing Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit ut aliquam
+              Our simple and efficient plans to help you manage <br />your finances and channel your income in the right direction.
             </p>
           </JumbotronHeaders>
           <JumbotronInner>
@@ -111,9 +105,7 @@ const Landing = (props) => {
                 <aside>
                   <h3>Flex Pocket</h3>
                   <p>
-                    Flexible savings that allows you to deposit and withdraw
-                    whenever
-                    <br /> you wish.
+                    Flexible saving that allows you to deposit <br />and withdraw whenever <br />you wish.
                   </p>
                 </aside>
               </main>
@@ -125,9 +117,7 @@ const Landing = (props) => {
                 <aside>
                   <h3>Target Pocket</h3>
                   <p>
-                    Flexible savings that allows you to deposit and withdraw
-                    whenever
-                    <br /> you wish.
+                    Saving towards a goal just got easier. Target pocket allows you to deposit money at intervals of your choosing towards a target goal.
                   </p>
                 </aside>
               </main>
@@ -139,9 +129,7 @@ const Landing = (props) => {
                 <aside>
                   <h3>Lock Pocket</h3>
                   <p>
-                    Flexible savings that allows you to deposit and withdraw
-                    whenever
-                    <br /> you wish.
+                    Lock pocket allows you to keep funds you don’t want to spend safe from your reach until the agreed upon time and earn a 5% interest while you are at it.
                   </p>
                 </aside>
               </main>
@@ -162,33 +150,29 @@ const Landing = (props) => {
             <ReviewCards>
               <img src={"/assets/svg/Title.svg"} alt={""} />
               <p>
-                From pixel-perfect icons and scalable vector graphics, to full
-                user flows and interactive prototypes, Sketch is the perfect
-                place to design, create and test.
+                As a small-scale business owner, the centerpocket app has really helped me keep track of my income and ensure that I have money saved as my income comes in trickles and is quite hard to avoid miscellaneous spending.
               </p>
               <div>
                 <main>
                   <img src={"/assets/svg/pic1.svg"} alt={""} />
                 </main>
                 <aside>
-                  <h3>Marie Wells</h3>
-                  <p>Product Designer</p>
+                  <h3>Sharon Egbu </h3>
+                  {/* <p>Product Designer</p> */}
                 </aside>
               </div>
             </ReviewCards>
             <ReviewCards>
               <img src={"/assets/svg/Title.svg"} alt={""} />
               <p>
-                From pixel-perfect icons and scalable vector graphics, to full
-                user flows and interactive prototypes, Sketch is the perfect
-                place to design, create and test.
+                The centerpocket app has helped me develop a saving culture as I’ve come to see that every single naira counts to building the savings portfolio of my dreams
               </p>
               <div>
                 <main>
                   <img src={"/assets/svg/pic2.svg"} alt={""} />
                 </main>
                 <aside>
-                  <h3>Marie Wells</h3>
+                  <h3>Tobi</h3>
                   <p>Product Designer</p>
                 </aside>
               </div>
@@ -196,16 +180,14 @@ const Landing = (props) => {
             <ReviewCards>
               <img src={"/assets/svg/Title.svg"} alt={""} />
               <p>
-                From pixel-perfect icons and scalable vector graphics, to full
-                user flows and interactive prototypes, Sketch is the perfect
-                place to design, create and test.
+                It’s the simplicity and uncomplicatedness of the centerpocket app for me honestly. I’m definitely sold
               </p>
               <div>
                 <main>
                   <img src={"/assets/svg/pic3.svg"} alt={""} />
                 </main>
                 <aside>
-                  <h3>Marie Wells</h3>
+                  <h3>Hassan Audu</h3>
                   <p>Product Designer</p>
                 </aside>
               </div>
@@ -213,16 +195,15 @@ const Landing = (props) => {
             <ReviewCards>
               <img src={"/assets/svg/Title.svg"} alt={""} />
               <p>
-                From pixel-perfect icons and scalable vector graphics, to full
-                user flows and interactive prototypes, Sketch is the perfect
-                place to design, create and test.
+                I’ve always been very skeptical about fin tech platforms as a struggling Nigerian. I just decided to give centerpocket a try as it was recommended to me by a very trusted friend.  I haven’t been disappointed since. Very commendable.
               </p>
               <div>
                 <main>
                   <img src={"/assets/svg/pic4.svg"} alt={""} />
                 </main>
                 <aside>
-                  <h3>Marie Wells</h3>
+                  <h3>Micheal Odunsi
+                  </h3>
                   <p>Product Designer</p>
                 </aside>
               </div>

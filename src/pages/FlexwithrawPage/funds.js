@@ -77,7 +77,7 @@ const FlexFunds = () => {
             {modal ? (
                 <SuccessModal
                     setSuccessModal={setModal}
-                    data={`You have successfuly withdrawn from your flex pocket`}
+                    data={`Your flex pocket has been successfully debited`}
                     routeTo={"/pocket_plans/flex_pocket"}
                 />
             ) : null}

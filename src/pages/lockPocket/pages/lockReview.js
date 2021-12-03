@@ -166,7 +166,7 @@ const LockPreview = () => {
                 </div>
               </Review>
               <p style={{ marginTop: "30px", fontSize: "10px" }}>
-                On maturity, funds go to your flex pocket
+                On maturation, funds are moved to your flex pocket
               </p>
             </ReviewContainer>
             <div style={{ display: "flex", marginTop: "30px" }}>
