@@ -94,7 +94,7 @@ const AddMoney = () => {
       )} */}
 
       {successModal ? (
-        <SuccessModal setSuccessModal={setSuccessModal}  />
+        <SuccessModal setSuccessModal={setSuccessModal} />
       ) : (
         <></>
       )}
@@ -109,9 +109,7 @@ const AddMoney = () => {
               <br /> Pocket
             </h1>
             <p style={{ lineHeight: "25px", color: "rgba(50, 52, 56, 0.6)" }}>
-              Lorem ipsum dolor sit amet, consectetuer
-              <br /> adipiscing elit. Aenean commodo ligula eget
-              <br /> dolor.{" "}
+              Flexible savings<br />that alllows you to<br /> deposit and withdraw whenever you wish
             </p>
           </TextInfo>
           <InputBox>
