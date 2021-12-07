@@ -12,7 +12,17 @@ const Logo = ({ status = "normal" }) => {
         alt={""}
       />
     );
-  } else {
+  } else if (status === "auth") {
+    return (
+      <img
+        style={{ cursor: "pointer" }}
+        onClick={() => history.push("/")}
+        src={"/assets/svg/alternateLogo.svg"}
+        alt={""}
+      />
+    );
+  }
+  else {
     return (
       <img
         style={{ cursor: "pointer" }}

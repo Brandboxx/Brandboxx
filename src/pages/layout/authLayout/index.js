@@ -7,7 +7,7 @@ const AuthLayout = ({ text, children }) => {
     <Container>
       <main>
         <LogoCont>
-          <Logo status={"alternate"} />
+          <Logo status={"auth"} />
         </LogoCont>
         <div>
           <h1>
