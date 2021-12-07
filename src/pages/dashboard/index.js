@@ -63,7 +63,7 @@ const Dashboard = () => {
 
             <DashCardContainers>
               <DashCard
-                title={"Pocket Lock Balance"}
+                title={"Lock Pocket Balance"}
                 amount={
                   currencyFormatter(viewPocketBalance?.data?.lockPocket) ??
                   "N/A"
@@ -77,7 +77,7 @@ const Dashboard = () => {
 
             <DashCardContainers>
               <DashCard
-                title={"Pocket Target Balance"}
+                title={"Target Pocket Balance"}
                 amount={
                   currencyFormatter(viewPocketBalance?.data?.targetPocket) ??
                   "N/A"
