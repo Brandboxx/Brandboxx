@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 
 export const Banner = styled.div`
-  height: 730px;
+  max-height: 730px;
   padding: 0px 100px;
 
   background-color: #edfefe;
@@ -202,6 +202,7 @@ export const ReviewCards = styled.div`
   div {
     display: flex;
     margin-top: 30px;
+    align-items: center;
 
     main {
       width: 41px;

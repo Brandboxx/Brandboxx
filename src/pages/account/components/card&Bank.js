@@ -84,7 +84,7 @@ const CardBank = ({ setModal }) => {
 const Bank = styled.div`
   display: flex;
   align-items: center;
-  /* width: 400px; */
+  max-width: 400px;
   margin-top: 30px;
   p {
     margin-left: 20px;

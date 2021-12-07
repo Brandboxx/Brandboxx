@@ -141,10 +141,10 @@ const Landing = (props) => {
       <Jumbotron>
         <div style={{ maxWidth: "1200px", margin: "0px auto" }}>
           <JumbotronHeaders>
+            <h1 style={{ paddingBottom: "30px" }}>What our clients say</h1>
             <h4 style={{ textAlign: "center", color: "#149A9B" }}>
               You are my favorite customer!
             </h4>
-            <h1 style={{ paddingBottom: "30px" }}>What our clients say</h1>
           </JumbotronHeaders>
           <JumbotronInner>
             <ReviewCards>
@@ -158,7 +158,6 @@ const Landing = (props) => {
                 </main>
                 <aside>
                   <h3>Sharon Egbu </h3>
-                  {/* <p>Product Designer</p> */}
                 </aside>
               </div>
             </ReviewCards>
@@ -173,7 +172,6 @@ const Landing = (props) => {
                 </main>
                 <aside>
                   <h3>Tobi</h3>
-                  <p>Product Designer</p>
                 </aside>
               </div>
             </ReviewCards>
@@ -188,7 +186,6 @@ const Landing = (props) => {
                 </main>
                 <aside>
                   <h3>Hassan Audu</h3>
-                  <p>Product Designer</p>
                 </aside>
               </div>
             </ReviewCards>
@@ -204,7 +201,6 @@ const Landing = (props) => {
                 <aside>
                   <h3>Micheal Odunsi
                   </h3>
-                  <p>Product Designer</p>
                 </aside>
               </div>
             </ReviewCards>
@@ -220,9 +216,9 @@ const Landing = (props) => {
             <AbsoluteImg src={"/assets/svg/elispe2.svg"} alt={""} />
             <aside>
               <h2>
-                Save for in a bit
+                Save in bits
                 <br />
-                and reap great harvest
+                and reap a great harvest!
               </h2>
               <div style={{ height: "30px" }} />
               <ButtonContainer
