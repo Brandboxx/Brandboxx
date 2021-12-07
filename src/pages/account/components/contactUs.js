@@ -103,7 +103,7 @@ const ContactUs = () => {
               type={"submit"}
               onClick={handleSubmit}
             >
-              Save Changes
+              Send Message
             </ButtonContainer>
           </div>
         </main>

@@ -109,7 +109,7 @@ const AddMoney = () => {
               <br /> Pocket
             </h1>
             <p style={{ lineHeight: "25px", color: "rgba(50, 52, 56, 0.6)" }}>
-              Flexible savings<br />that alllows you to<br /> deposit and withdraw whenever you wish
+              Flexible savings that alllows you to<br /> deposit and withdraw whenever you wish
             </p>
           </TextInfo>
           <InputBox>
