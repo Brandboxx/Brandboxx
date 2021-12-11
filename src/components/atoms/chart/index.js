@@ -42,8 +42,6 @@ const Chart = ({ duration }) => {
     "chart-data"
   );
 
-  console.log({ chartData, duration })
-
   return (
     <div style={{ marginTop: "30px" }}>
       <Line options={options} data={data(chartData?.data, duration)} />
