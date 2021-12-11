@@ -1,18 +1,21 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import { useGetResquest } from "../../../api/useRequestProcessor";
 
-const data = {
-  labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+const weeklyLabel = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const monthlyLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+const data = (data, duration) => ({
+  labels: duration ? weeklyLabel : monthlyLabel,
   datasets: [
     {
-      label: "First dataset",
-      data: [33, 53, 85, 41, 44, 65, 50],
+      label: duration ? "Weekly Transaction" : "Monthly Transaction",
+      data,
       fill: true,
       backgroundColor: "rgba(75,192,192,0.2)",
       borderColor: "rgba(75,192,192,1)",
     },
   ],
-};
+});
 
 let options = {
   legend: {
@@ -27,15 +30,23 @@ let options = {
       },
     ],
     y: {
-      display: false,
+      display: true,
     },
   },
 };
 
-const Chart = () => {
+const Chart = ({ duration }) => {
+
+  const { data: chartData } = useGetResquest(
+    `/users/chart${duration ? "" : '?interval=monthly'}`,
+    "chart-data"
+  );
+
+  console.log({ chartData, duration })
+
   return (
     <div style={{ marginTop: "30px" }}>
-      <Line options={options} data={data} />
+      <Line options={options} data={data(chartData?.data, duration)} />
     </div>
   );
 };

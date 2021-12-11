@@ -92,7 +92,7 @@ const Dashboard = () => {
 
           <Tab toggle={toggle} setToggle={setToggle} />
 
-          <Chart />
+          <Chart duration={toggle}/>
 
           <CardInfo>
             <h3>Recent Transactions (Flex)</h3>
