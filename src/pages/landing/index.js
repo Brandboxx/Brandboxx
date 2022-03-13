@@ -267,7 +267,7 @@ const Landing = (props) => {
             </aside>
           </main>
           <footer>
-            <p>© 2020 Landify UI Kit. All rights reserved</p>
+            <p>© 2020 Brandboxx studios. All rights reserved</p>
             <div>
               <img src={"/assets/svg/Instagram.svg"} alt={""} />
               <img src={"/assets/svg/Dribbble.svg"} alt={""} />
